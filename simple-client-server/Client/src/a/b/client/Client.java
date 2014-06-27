@@ -15,8 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import dalvik.system.UserFlowPolicy;
-import dalvik.system.UserMgmtModule;
+import dalvik.agate.PolicyManagementModule;
+import dalvik.agate.UserManagementModule;
 
 public class Client extends Activity {
 
@@ -63,7 +63,7 @@ public class Client extends Activity {
 			String response = "";
 
 			MyClientTask(String username, String password){
-				UserMgmtModule.login(username, password);
+				UserManagementModule.login(username, password);
 			}
 
 			@Override
@@ -93,7 +93,7 @@ public class Client extends Activity {
 					byte[] a = byteArrayOutputStream.toByteArray();
 
 					System.out.println("Client got response: " + response);
-					UserFlowPolicy.log("Policy on response: " + UserFlowPolicy.getPolicyString(response));
+					PolicyManagementModule.log("Policy on response: " + PolicyManagementModule.getPolicyString(response));
 
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block

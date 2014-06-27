@@ -15,7 +15,7 @@ import android.provider.Settings.Secure;
 import android.app.Activity;
 import android.widget.TextView;
 
-import dalvik.system.UserFlowPolicy;
+import dalvik.agate.PolicyManagementModule;
 
 
 
@@ -117,7 +117,8 @@ public class Server extends Activity {
 			String msgReply = "My deviceId is: " + deviceId;
 
 			// Set policy on the device Id
-			UserFlowPolicy.addPolicyString(msgReply, UserFlowPolicy.POLICY_3);
+			String[] readers = {"u1", "u2"};
+			PolicyManagementModule.addPolicyString(msgReply, readers, null);
 
 			try {
 				outputStream = hostThreadSocket.getOutputStream();
