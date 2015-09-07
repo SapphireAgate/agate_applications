@@ -1,0 +1,216 @@
+2015.03.11 14:57:24 org.jivesoftware.util.log.util.CommonsLogFactory - Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+2015.03.11 14:57:24 org.jivesoftware.util.log.util.CommonsLogFactory - Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+2015.03.11 15:00:50 org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED SelectChannelConnector@0.0.0.0:9090 FAILED: java.net.BindException: Address already in use
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:124)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:59)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:172)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:300)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:249)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:272)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.jivesoftware.openfire.container.AdminConsolePlugin.startup(AdminConsolePlugin.java:181)
+	at org.jivesoftware.openfire.container.AdminConsolePlugin.initializePlugin(AdminConsolePlugin.java:216)
+	at org.jivesoftware.openfire.container.PluginManager.loadPlugin(PluginManager.java:483)
+	at org.jivesoftware.openfire.container.PluginManager.access$300(PluginManager.java:80)
+	at org.jivesoftware.openfire.container.PluginManager$PluginMonitor.run(PluginManager.java:1074)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+2015.03.11 15:00:51 org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED org.eclipse.jetty.server.Server@24553763: java.net.BindException: Address already in use
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:124)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:59)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:172)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:300)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:249)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:272)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.jivesoftware.openfire.container.AdminConsolePlugin.startup(AdminConsolePlugin.java:181)
+	at org.jivesoftware.openfire.container.AdminConsolePlugin.initializePlugin(AdminConsolePlugin.java:216)
+	at org.jivesoftware.openfire.container.PluginManager.loadPlugin(PluginManager.java:483)
+	at org.jivesoftware.openfire.container.PluginManager.access$300(PluginManager.java:80)
+	at org.jivesoftware.openfire.container.PluginManager$PluginMonitor.run(PluginManager.java:1074)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+2015.03.11 15:00:51 org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED SelectChannelConnector@0.0.0.0:7070 FAILED: java.net.BindException: Address already in use
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:124)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:59)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:172)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:300)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:249)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:272)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.jivesoftware.openfire.http.HttpBindManager.start(HttpBindManager.java:166)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startHTTPBindListeners(ConnectionManagerImpl.java:564)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startListeners(ConnectionManagerImpl.java:180)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.access$000(ConnectionManagerImpl.java:97)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl$1.pluginsMonitored(ConnectionManagerImpl.java:152)
+	at org.jivesoftware.openfire.container.PluginManager.firePluginsMonitored(PluginManager.java:568)
+	at org.jivesoftware.openfire.container.PluginManager.access$800(PluginManager.java:80)
+	at org.jivesoftware.openfire.container.PluginManager$PluginMonitor.run(PluginManager.java:1084)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+2015.03.11 15:00:51 org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED SslSelectChannelConnector@0.0.0.0:7443 FAILED: java.net.BindException: Address already in use
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:124)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:59)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:172)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:300)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:249)
+	at org.eclipse.jetty.server.ssl.SslSelectChannelConnector.doStart(SslSelectChannelConnector.java:612)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:272)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.jivesoftware.openfire.http.HttpBindManager.start(HttpBindManager.java:166)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startHTTPBindListeners(ConnectionManagerImpl.java:564)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startListeners(ConnectionManagerImpl.java:180)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.access$000(ConnectionManagerImpl.java:97)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl$1.pluginsMonitored(ConnectionManagerImpl.java:152)
+	at org.jivesoftware.openfire.container.PluginManager.firePluginsMonitored(PluginManager.java:568)
+	at org.jivesoftware.openfire.container.PluginManager.access$800(PluginManager.java:80)
+	at org.jivesoftware.openfire.container.PluginManager$PluginMonitor.run(PluginManager.java:1084)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+2015.03.11 15:00:51 org.eclipse.jetty.util.component.AbstractLifeCycle - FAILED org.eclipse.jetty.server.Server@76e44d85: MultiException[java.net.BindException: Address already in use, java.net.BindException: Address already in use]
+MultiException[java.net.BindException: Address already in use, java.net.BindException: Address already in use]
+	at org.eclipse.jetty.server.Server.doStart(Server.java:254)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.jivesoftware.openfire.http.HttpBindManager.start(HttpBindManager.java:166)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startHTTPBindListeners(ConnectionManagerImpl.java:564)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startListeners(ConnectionManagerImpl.java:180)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.access$000(ConnectionManagerImpl.java:97)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl$1.pluginsMonitored(ConnectionManagerImpl.java:152)
+	at org.jivesoftware.openfire.container.PluginManager.firePluginsMonitored(PluginManager.java:568)
+	at org.jivesoftware.openfire.container.PluginManager.access$800(PluginManager.java:80)
+	at org.jivesoftware.openfire.container.PluginManager$PluginMonitor.run(PluginManager.java:1084)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:124)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:59)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:172)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:300)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:249)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:272)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.jivesoftware.openfire.http.HttpBindManager.start(HttpBindManager.java:166)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startHTTPBindListeners(ConnectionManagerImpl.java:564)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startListeners(ConnectionManagerImpl.java:180)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.access$000(ConnectionManagerImpl.java:97)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl$1.pluginsMonitored(ConnectionManagerImpl.java:152)
+	at org.jivesoftware.openfire.container.PluginManager.firePluginsMonitored(PluginManager.java:568)
+	at org.jivesoftware.openfire.container.PluginManager.access$800(PluginManager.java:80)
+	at org.jivesoftware.openfire.container.PluginManager$PluginMonitor.run(PluginManager.java:1084)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+java.net.BindException: Address already in use
+	at sun.nio.ch.Net.bind(Native Method)
+	at sun.nio.ch.ServerSocketChannelImpl.bind(ServerSocketChannelImpl.java:124)
+	at sun.nio.ch.ServerSocketAdaptor.bind(ServerSocketAdaptor.java:59)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.open(SelectChannelConnector.java:172)
+	at org.eclipse.jetty.server.AbstractConnector.doStart(AbstractConnector.java:300)
+	at org.eclipse.jetty.server.nio.SelectChannelConnector.doStart(SelectChannelConnector.java:249)
+	at org.eclipse.jetty.server.ssl.SslSelectChannelConnector.doStart(SslSelectChannelConnector.java:612)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:272)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:59)
+	at org.jivesoftware.openfire.http.HttpBindManager.start(HttpBindManager.java:166)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startHTTPBindListeners(ConnectionManagerImpl.java:564)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.startListeners(ConnectionManagerImpl.java:180)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl.access$000(ConnectionManagerImpl.java:97)
+	at org.jivesoftware.openfire.spi.ConnectionManagerImpl$1.pluginsMonitored(ConnectionManagerImpl.java:152)
+	at org.jivesoftware.openfire.container.PluginManager.firePluginsMonitored(PluginManager.java:568)
+	at org.jivesoftware.openfire.container.PluginManager.access$800(PluginManager.java:80)
+	at org.jivesoftware.openfire.container.PluginManager$PluginMonitor.run(PluginManager.java:1084)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:439)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:204)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+2015.03.11 15:34:13 org.jivesoftware.admin.LoginLimitManager - Failed admin console login attempt by root from 127.0.0.1
+2015.03.11 16:30:25 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.11 16:30:26 org.jivesoftware.openfire.http.HttpBindManager - HTTP binding: Using RSA certificates but they are not valid for the hosted domain
+2015.03.11 16:30:42 org.jivesoftware.admin.LoginLimitManager - Failed admin console login attempt by admin from 127.0.0.1
+2015.03.11 16:30:46 org.jivesoftware.admin.LoginLimitManager - Failed admin console login attempt by admin from 127.0.0.1
+2015.03.11 18:28:10 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.11 18:28:11 org.jivesoftware.openfire.http.HttpBindManager - HTTP binding: Using RSA certificates but they are not valid for the hosted domain
+2015.03.11 18:28:38 org.jivesoftware.admin.LoginLimitManager - Failed admin console login attempt by admin from 127.0.0.1
+2015.03.11 18:29:01 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.11 18:29:02 org.jivesoftware.openfire.http.HttpBindManager - HTTP binding: Using RSA certificates but they are not valid for the hosted domain
+2015.03.11 18:29:28 org.jivesoftware.admin.LoginLimitManager - Failed admin console login attempt by admin from 127.0.0.1
+2015.03.11 18:29:30 org.jivesoftware.admin.LoginLimitManager - Failed admin console login attempt by admin from 127.0.0.1
+2015.03.11 18:29:36 org.jivesoftware.util.log.util.CommonsLogFactory - Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+2015.03.11 18:29:36 org.jivesoftware.util.log.util.CommonsLogFactory - Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+2015.03.12 22:30:52 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.13 15:05:51 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.13 16:01:57 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.13 16:07:01 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.13 16:14:51 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.13 16:15:48 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.13 16:17:11 org.jivesoftware.database.SequenceManager - Autocreating jiveID row for type '25'
+2015.03.13 16:17:17 org.jivesoftware.util.log.util.CommonsLogFactory - Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+2015.03.13 16:17:18 org.jivesoftware.util.log.util.CommonsLogFactory - Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+2015.03.14 20:13:48 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.14 20:13:48 org.jivesoftware.openfire.http.HttpBindManager - HTTP binding: Using RSA certificates but they are not valid for the hosted domain
+2015.03.14 20:14:34 org.jivesoftware.openfire.container.AdminConsolePlugin - Admin console: Using RSA certificates but they are not valid for the hosted domain
+2015.03.14 20:22:07 org.jivesoftware.util.log.util.CommonsLogFactory - Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+2015.03.14 20:22:07 org.jivesoftware.util.log.util.CommonsLogFactory - Going to buffer response body of large or unknown size. Using getResponseBodyAsStream instead is recommended.
+2015.03.14 20:23:11 org.jivesoftware.util.cache.CacheFactory - CacheFactory - Unable to find a Plugin that provides clustering support.
+2015.03.14 20:23:11 org.jivesoftware.util.cache.CacheFactory - Clustered cache factory strategy com.jivesoftware.util.cache.ClusteredCacheFactory not found
+2015.03.14 20:25:32 org.jivesoftware.database.SequenceManager - Autocreating jiveID row for type '25'
