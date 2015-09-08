@@ -35,9 +35,9 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
-import javax.security.sasl.Sasl;
-import javax.security.sasl.SaslException;
-import javax.security.sasl.SaslServer;
+import org.apache.harmony.javax.security.sasl.Sasl;
+import org.apache.harmony.javax.security.sasl.SaslException;
+import org.apache.harmony.javax.security.sasl.SaslServer;
 
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
@@ -273,7 +273,7 @@ public class SASLAuthentication {
                     }
                     // Store the requested SASL mechanism by the client
                     session.setSessionData("SaslMechanism", mechanism);
-                    //Log.debug("SASLAuthentication.doHandshake() AUTH entered: "+mechanism);
+                    Log.debug("SASLAuthentication.doHandshake() AUTH entered: " + mechanism);
                     if (mechanism.equalsIgnoreCase("ANONYMOUS") &&
                             mechanisms.contains("ANONYMOUS")) {
                         status = doAnonymousAuthentication(session);
@@ -284,6 +284,7 @@ public class SASLAuthentication {
                     else if (mechanisms.contains(mechanism)) {
                         // The selected SASL mechanism requires the server to send a challenge
                         // to the client
+                        Log.debug("We need to send challenge to the client.");
                         try {
                             Map<String, String> props = new TreeMap<String, String>();
                             props.put(Sasl.QOP, "auth");
@@ -295,6 +296,7 @@ public class SASLAuthentication {
                                     new XMPPCallbackHandler());
 
                             if (ss == null) {
+                                Log.debug("Auth failed, could not create SaslServer.");
                                 authenticationFailed(session, Failure.INVALID_MECHANISM);
                                 return Status.failed;
                             }
@@ -309,6 +311,7 @@ public class SASLAuthentication {
                                 }
                             }
                             if (mechanism.equals("DIGEST-MD5")) {
+                                Log.debug("Mechanism is DIGEST-MD5");
                                 // RFC2831 (DIGEST-MD5) says the client MAY provide an initial response on subsequent
                                 // authentication. Java SASL does not (currently) support this and thows an exception
                                 // if we try.  This violates the RFC, so we just strip any initial token.

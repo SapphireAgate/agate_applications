@@ -309,11 +309,11 @@ public class MINAStatCollector {
                     tmpBytesRead += (readBytes - sessStat.lastByteRead);
                     tmpScheduledWrites += session.getScheduledWriteRequests();
 
-                    ExecutorFilter executorFilter =
-                            (ExecutorFilter) session.getFilterChain().get(ExecutorThreadModel.class.getName());
-                    if (executorFilter != null) {
-                        tmpQueuevedEvents += executorFilter.getEventQueueSize(session);
-                    }
+                    //ExecutorFilter executorFilter =
+                    //        (ExecutorFilter) session.getFilterChain().get(ExecutorThreadModel.class.getName());
+                    //if (executorFilter != null) {
+                    //    tmpQueuevedEvents += executorFilter.getEventQueueSize(session);
+                    //}
 
                     sessStat.lastByteRead = readBytes;
                     sessStat.lastByteWrite = writtenBytes;

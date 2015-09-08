@@ -13,8 +13,8 @@ package net.sf.kraken.protocols.xmpp.packet;
 import org.jivesoftware.smack.packet.IQ;
 import org.jivesoftware.smack.packet.PacketExtension;
 import org.jivesoftware.smack.provider.IQProvider;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v2.XmlPullParser;
+import org.xmlpull.v2.XmlPullParserException;
 import org.apache.log4j.Logger;
 
 import java.util.Vector;

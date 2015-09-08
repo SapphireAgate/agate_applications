@@ -34,8 +34,8 @@ import org.jivesoftware.openfire.net.ServerTrafficCounter;
 import org.jivesoftware.openfire.net.StanzaHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v2.XmlPullParserException;
+import org.xmlpull.v2.XmlPullParserFactory;
 import org.xmpp.packet.StreamError;
 
 /**
@@ -161,6 +161,9 @@ public abstract class ConnectionHandler extends IoHandlerAdapter {
     @Override
 	public void messageReceived(IoSession session, Object message) throws Exception {
         // Get the stanza handler for this session
+        Log.debug("RCVD: " + message);
+        
+
         StanzaHandler handler = (StanzaHandler) session.getAttribute(HANDLER);
         // Get the parser to use to process stanza. For optimization there is going
         // to be a parser for each running thread. Each Filter will be executed

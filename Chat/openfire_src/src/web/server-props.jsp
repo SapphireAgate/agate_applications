@@ -21,7 +21,6 @@
                  org.jivesoftware.util.ParamUtils,
                  org.jivesoftware.openfire.ConnectionManager,
                  org.jivesoftware.openfire.XMPPServer,
-                 org.jivesoftware.openfire.JMXManager,
                  java.net.InetAddress,
                  java.util.HashMap"
 %>
@@ -69,7 +68,7 @@
         sslEnabled = true;
         jmxEnabled = false;
         jmxSecure = true;
-        jmxPort = JMXManager.DEFAULT_PORT;
+        jmxPort = 0;
         save = true;
     }
 
@@ -135,9 +134,9 @@
                 JiveGlobals.setXMLProperty("adminConsole.securePort", String.valueOf(embeddedSecurePort));
                 needRestart = true;
             }
-            JMXManager.setEnabled(jmxEnabled);
-            JMXManager.setSecure(jmxSecure);
-            JMXManager.setPort(jmxPort);
+            //JMXManager.setEnabled(jmxEnabled);
+            //JMXManager.setSecure(jmxSecure);
+            //JMXManager.setPort(jmxPort);
 
             // Log the event
             webManager.logEvent("edit server properties", "serverName = "+serverName+"\nport = "+port+"\nsslPort = "+sslPort+"\ncomponentPort = "+componentPort+"\nserverPort = "+serverPort+"\nembeddedPort = "+embeddedPort+"\nembeddedSecurePort = "+embeddedSecurePort);
@@ -163,9 +162,9 @@
             embeddedSecurePort = Integer.parseInt(JiveGlobals.getXMLProperty("adminConsole.securePort"));
         } catch (Exception ignored) {
         }
-        jmxEnabled = JMXManager.isEnabled();
-        jmxSecure = JMXManager.isSecure();
-        jmxPort = JMXManager.getPort();
+        //jmxEnabled = JMXManager.isEnabled();
+        //jmxSecure = JMXManager.isSecure();
+        //jmxPort = JMXManager.getPort();
     }
 %>
 

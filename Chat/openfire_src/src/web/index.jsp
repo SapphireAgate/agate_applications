@@ -612,21 +612,6 @@
         <td><fmt:message key="ports.flash_cross_domain" /></td>
         <td><fmt:message key="ports.flash_cross_domain.desc" /></td>
     </tr>
-    <%
-        if (JMXManager.isEnabled()) {
-    %>
-    <tr>
-        <td><%= interfaceName == null ? LocaleUtils.getLocalizedString("ports.all_ports") : interfaceName %></td>
-        <td><%= JMXManager.getPort() %></td>
-        <td><% if (JMXManager.isSecure()) {
-            %><img src="images/user.gif" width="16" height="16" border="0" alt="<fmt:message key="ports.jmx_console.alt" />" title="<fmt:message key="ports.jmx_console.alt" />"/><%
-        } else {
-            %><img src="images/blank.gif" width="1" height="1" alt=""><% }
-        %></td>
-        <td><fmt:message key="ports.jmx_console" /></td>
-        <td><fmt:message key="ports.jmx_console.desc" /></td>
-    </tr>
-    <% } %>
 </tbody>
 </table>
 </div>

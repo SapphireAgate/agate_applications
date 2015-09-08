@@ -12,7 +12,7 @@ package net.sf.kraken.protocols.xmpp.packet;
 
 import org.jivesoftware.smack.packet.PacketExtension;
 import org.jivesoftware.smack.provider.PacketExtensionProvider;
-import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v2.XmlPullParser;
 
 /**
  * See: http://code.google.com/apis/talk/jep_extensions/gmail.html

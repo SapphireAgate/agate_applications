@@ -363,7 +363,7 @@ public class UpdateManager extends BasicModule {
      * @return true if the check for updates service is enabled.
      */
     public boolean isServiceEnabled() {
-        return JiveGlobals.getBooleanProperty("update.service-enabled", true);
+        return JiveGlobals.getBooleanProperty("update.service-enabled", false);
     }
 
     /**

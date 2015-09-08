@@ -40,13 +40,13 @@ import java.util.Set;
 
 import javax.security.auth.x500.X500Principal;
 
-import org.bouncycastle.ocsp.BasicOCSPResp;
-import org.bouncycastle.ocsp.CertificateID;
-import org.bouncycastle.ocsp.CertificateStatus;
-import org.bouncycastle.ocsp.OCSPReq;
-import org.bouncycastle.ocsp.OCSPReqGenerator;
-import org.bouncycastle.ocsp.OCSPResp;
-import org.bouncycastle.ocsp.SingleResp;
+import org.bouncycastle2.ocsp.BasicOCSPResp;
+import org.bouncycastle2.ocsp.CertificateID;
+import org.bouncycastle2.ocsp.CertificateStatus;
+import org.bouncycastle2.ocsp.OCSPReq;
+import org.bouncycastle2.ocsp.OCSPReqGenerator;
+import org.bouncycastle2.ocsp.OCSPResp;
+import org.bouncycastle2.ocsp.SingleResp;
 import org.jivesoftware.util.JiveGlobals;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -278,11 +278,11 @@ public class OCSPChecker extends PKIXCertPathChecker {
                                 serialNumber.toString() + ") is: good");
                         foundResponse = true;
                         break;
-                    } else if (status instanceof org.bouncycastle.ocsp.RevokedStatus) {
+                    } else if (status instanceof org.bouncycastle2.ocsp.RevokedStatus) {
                         Log.debug("OCSPChecker: Status of certificate (with serial number " +
                                 serialNumber.toString() + ") is: revoked");
                         throw new CertPathValidatorException("Certificate has been revoked", null, cp, certIndex);
-                    } else if (status instanceof org.bouncycastle.ocsp.UnknownStatus) {
+                    } else if (status instanceof org.bouncycastle2.ocsp.UnknownStatus) {
                         Log.debug("OCSPChecker: Status of certificate (with serial number " +
                                 serialNumber.toString() + ") is: unknown");
                         throw new CertPathValidatorException("Certificate's revocation status is unknown", null, cp, certIndex);

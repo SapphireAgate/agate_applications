@@ -11,7 +11,7 @@ import java.io.*;
 import org.dom4j.*;
 import org.dom4j.io.*;
 import org.jivesoftware.smack.provider.*;
-import org.xmlpull.v1.*;
+import org.xmlpull.v2.*;
 import org.xmpp.packet.*;
 
 /**

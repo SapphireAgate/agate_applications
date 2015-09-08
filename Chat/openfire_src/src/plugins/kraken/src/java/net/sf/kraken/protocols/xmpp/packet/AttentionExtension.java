@@ -11,7 +11,7 @@ package net.sf.kraken.protocols.xmpp.packet;
 
 import org.jivesoftware.smack.packet.PacketExtension;
 import org.jivesoftware.smack.provider.PacketExtensionProvider;
-import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v2.XmlPullParser;
 
 /**
  * A PacketExtension that implements XEP-0224: Attention
@@ -80,7 +80,7 @@ s     */
          * 
          * @see
          * org.jivesoftware.smack.provider.PacketExtensionProvider#parseExtension
-         * (org.xmlpull.v1.XmlPullParser)
+         * (org.xmlpull.v2.XmlPullParser)
          */
         public PacketExtension parseExtension(XmlPullParser arg0)
                 throws Exception {

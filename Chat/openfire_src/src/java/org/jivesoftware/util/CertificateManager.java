@@ -55,30 +55,28 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.bouncycastle.asn1.ASN1Encodable;
-import org.bouncycastle.asn1.ASN1InputStream;
-import org.bouncycastle.asn1.ASN1TaggedObject;
-import org.bouncycastle.asn1.ASN1Encodable;
-import org.bouncycastle.asn1.DERSequence;
-import org.bouncycastle.asn1.DERObjectIdentifier;
-import org.bouncycastle.asn1.DEROutputStream;
-import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.DERTaggedObject;
-import org.bouncycastle.asn1.DERUTF8String;
-import org.bouncycastle.asn1.x509.GeneralName;
-import org.bouncycastle.asn1.x509.GeneralNames;
-import org.bouncycastle.asn1.x509.X509Extensions;
-import org.bouncycastle.asn1.x509.X509Name;
-import org.bouncycastle.jce.PKCS10CertificationRequest;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.PEMParser;
-import org.bouncycastle.openssl.PEMDecryptorProvider;
-import org.bouncycastle.openssl.PEMEncryptedKeyPair;
-import org.bouncycastle.openssl.PasswordFinder;
-import org.bouncycastle.openssl.PEMKeyPair;
-import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
-import org.bouncycastle.openssl.jcajce.JcePEMDecryptorProviderBuilder;
-import org.bouncycastle.x509.X509V3CertificateGenerator;
+import org.bouncycastle2.asn1.ASN1Encodable;
+import org.bouncycastle2.asn1.ASN1InputStream;
+import org.bouncycastle2.asn1.ASN1TaggedObject;
+import org.bouncycastle2.asn1.DERSequence;
+import org.bouncycastle2.asn1.DERObjectIdentifier;
+import org.bouncycastle2.asn1.DEROutputStream;
+import org.bouncycastle2.asn1.ASN1Sequence;
+import org.bouncycastle2.asn1.DERTaggedObject;
+import org.bouncycastle2.asn1.DERUTF8String;
+import org.bouncycastle2.asn1.x509.GeneralName;
+import org.bouncycastle2.asn1.x509.GeneralNames;
+import org.bouncycastle2.asn1.x509.X509Extensions;
+import org.bouncycastle2.asn1.x509.X509Name;
+import org.bouncycastle2.jce.PKCS10CertificationRequest;
+import org.bouncycastle2.jce.provider.BouncyCastleProvider;
+import org.bouncycastle2.openssl.PEMParser;
+import org.bouncycastle2.openssl.PEMDecryptorProvider;
+import org.bouncycastle2.openssl.PEMEncryptedKeyPair;
+import org.bouncycastle2.openssl.PEMKeyPair;
+import org.bouncycastle2.openssl.jcajce.JcaPEMKeyConverter;
+import org.bouncycastle2.openssl.jcajce.JcePEMDecryptorProviderBuilder;
+import org.bouncycastle2.x509.X509V3CertificateGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -257,25 +255,29 @@ public class CertificateManager {
                     try {
                         // Value is encoded using ASN.1 so decode it to get the server's identity
                         ASN1InputStream decoder = new ASN1InputStream((byte[]) item.get(1));
-                        ASN1Sequence otherNameSeq = (ASN1Sequence) decoder.readObject();
+                        //ASN1Sequence otherNameSeq=(ASN1Sequence)decoder.readObject();
+                        ASN1Encodable o = (ASN1Encodable)decoder.readObject();
 
+                        
                         // Check the object identifier
-                        DERObjectIdentifier objectId = (DERObjectIdentifier) otherNameSeq.getObjectAt(0);
-                    	Log.debug("Parsing otherName for subject alternative names: " + objectId.toString() );
+                        //DERObjectIdentifier objectId = (DERObjectIdentifier) otherNameSeq.getObjectAt(0);
+                    	//Log.debug("Parsing otherName for subject alternative names: " + objectId.toString() );
+                        Log.info("Parsing otherName for subject alternative names: " + o.toString() );
 
-                        if ( !OTHERNAME_XMPP_OID.equals(objectId.getId())) {
-                            // Not a XMPP otherName
-                            Log.debug("Ignoring non-XMPP otherName, " + objectId.getId());
-                            continue;
-                        }
+                        
+                        //if ( !OTHERNAME_XMPP_OID.equals(otherName.getId())) {
+                        //    // Not a XMPP otherName
+                        //    Log.debug("Ignoring non-XMPP otherName, " + objectId.getId());
+                        //    continue;
+                        //}
 
                         // Get identity string
                         try {
                         	final String identity;
-	                        ASN1Encodable o = otherNameSeq.getObjectAt(1);
+	                        //ASN1Encodable o = otherNameSeq.getObjectAt(1);
 	                        if (o instanceof DERTaggedObject) {
 	                        	ASN1TaggedObject ato = DERTaggedObject.getInstance(o);
-	                        	Log.debug("... processing DERTaggedObject: " + ato.toString());
+	                        	Log.info("... processing DERTaggedObject: " + ato.toString());
 	                        	// TODO: there's bound to be a better way...
 	                        	identity = ato.toString().substring(ato.toString().lastIndexOf(']')+1).trim();
 	                        } else {
@@ -288,7 +290,7 @@ public class CertificateManager {
 	                        }
                         } catch (IllegalArgumentException ex) {
                         	// OF-517: othername formats are extensible. If we don't recognize the format, skip it.
-                        	Log.debug("Cannot parse altName, likely because of unknown record format.", ex);
+                        	Log.info("Cannot parse altName, likely because of unknown record format.", ex);
                         }
                     }
                     catch (UnsupportedEncodingException e) {
@@ -462,7 +464,7 @@ public class CertificateManager {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         DEROutputStream deros = new DEROutputStream(baos);
         deros.writeObject(csr.toASN1Primitive());
-        String sTmp = new String(org.bouncycastle.util.encoders.Base64.encode(baos.toByteArray()));
+        String sTmp = new String(org.bouncycastle2.util.encoders.Base64.encode(baos.toByteArray()));
 
         // Header
         sb.append("-----BEGIN NEW CERTIFICATE REQUEST-----\n");

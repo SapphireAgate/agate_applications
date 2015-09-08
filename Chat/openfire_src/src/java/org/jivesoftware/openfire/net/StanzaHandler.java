@@ -33,8 +33,8 @@ import org.jivesoftware.util.LocaleUtils;
 import org.jivesoftware.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v2.XmlPullParser;
+import org.xmlpull.v2.XmlPullParserException;
 import org.xmpp.packet.*;
 
 import java.io.IOException;
@@ -101,6 +101,8 @@ public abstract class StanzaHandler {
     }
 
     public void process(String stanza, XMPPPacketReader reader) throws Exception {
+
+        Log.debug("Processing stanza = " + stanza);
 
         boolean initialStream = stanza.startsWith("<stream:stream") || stanza.startsWith("<flash:stream");
         if (!sessionCreated || initialStream) {
@@ -709,7 +711,7 @@ public abstract class StanzaHandler {
      *
      * @param namespace the namespace sent in the stream element. eg. jabber:client.
      * @return the created session or null.
-     * @throws org.xmlpull.v1.XmlPullParserException
+     * @throws org.xmlpull.v2.XmlPullParserException
      *
      */
     abstract boolean createSession(String namespace, String serverName, XmlPullParser xpp, Connection connection)

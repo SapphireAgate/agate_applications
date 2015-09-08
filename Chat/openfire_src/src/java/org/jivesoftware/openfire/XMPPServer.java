@@ -357,6 +357,7 @@ public class XMPPServer {
         loader = Thread.currentThread().getContextClassLoader();
 
         try {
+        	Log.info("Initializing cache factory");
             CacheFactory.initialize();
         } catch (InitializationException e) {
             e.printStackTrace();
@@ -366,7 +367,8 @@ public class XMPPServer {
         JiveGlobals.migrateProperty("xmpp.domain");
         name = JiveGlobals.getProperty("xmpp.domain", host).toLowerCase();
 
-        org.jivesoftware.util.Log.setDebugEnabled(JiveGlobals.getXMLProperty("log.debug.enabled", false));
+        //org.jivesoftware.util.Log.setDebugEnabled(JiveGlobals.getXMLProperty("log.debug.enabled", false));
+        org.jivesoftware.util.Log.setDebugEnabled(JiveGlobals.getXMLProperty("log.debug.enabled", true));
         
         // Update server info
         xmppServerInfo = new XMPPServerInfoImpl(name, host, version, startDate);
@@ -623,6 +625,7 @@ public class XMPPServer {
                 Log.error(LocaleUtils.getLocalizedString("admin.error"), e);
             }
         }
+        Log.info("Started all modules");
     }
 
     /**

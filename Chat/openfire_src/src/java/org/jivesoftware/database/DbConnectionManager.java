@@ -93,6 +93,7 @@ public class DbConnectionManager {
                     // Attempt to load the connection provider classname as
                     // a Jive property.
                     String className = JiveGlobals.getXMLProperty("connectionProvider.className");
+                    Log.info("Got connectionProvider.className = " + className);
                     if (className != null) {
                         // Attempt to load the class.
                         try {

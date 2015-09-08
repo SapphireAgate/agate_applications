@@ -7,7 +7,7 @@ import org.jdom.filter.ContentFilter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v2.XmlPullParserException;
 import org.xmpp.packet.Message;
 import org.xmpp.packet.Presence;
 
