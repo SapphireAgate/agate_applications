@@ -1,0 +1,20 @@
+Port of Openfire to dalvik.
+
+To run:
+ - compilation of android has to be at the paths indicated in openfire_bin/dalvik
+ - run openfire_bin/run.sh
+ - currently (openfire_bin/target/openfire/conf/openfire.xml) uses the embedded hsqldb
+   the folder embedded-db contains the scripts used by the embedded hsqldb database;
+   users aaasz and usera are in the database. Information about the room is temporary,
+   it's kept in server memory and discarded once the last user disconnected (I think
+   this is specified by the xmpp specification)
+
+- admin console has been disabled 
+
+- ported/replaced libraries:
+    - bouncycastle2.jar (replaces bcpg-jdk15on.jar, bcpkix-jdk15on and bcprov-jdk15on.jar)
+    - xmpp.jar
+    - removed all mina dependencies
+    - replaced xpp3 (I think with bouncycastle2.jar)
+    - ported digestmd5 server
+    
