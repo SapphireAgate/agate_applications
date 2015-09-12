@@ -28,7 +28,7 @@ import org.jivesoftware.openfire.disco.ServerFeaturesProvider;
 import org.jivesoftware.util.XMPPDateTimeFormat;
 import org.xmpp.packet.IQ;
 
-import javax.xml.bind.DatatypeConverter;
+//import javax.xml.bind.DatatypeConverter;
 import java.util.*;
 
 /**
@@ -88,6 +88,6 @@ public final class IQEntityTimeHandler extends IQHandler implements ServerFeatur
         Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
         calendar.setTime(date);
         // This makes sure the date is formatted as the xs:dateTime type.
-        return DatatypeConverter.printDateTime(calendar);
+        return XMPPDateTimeFormat.printDateTime(calendar);
     }
 }

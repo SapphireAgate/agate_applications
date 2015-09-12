@@ -22,6 +22,7 @@ package org.jivesoftware.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
@@ -174,5 +175,11 @@ public class XMPPDateTimeFormat {
      */
     public static String formatOld(Date date) {
         return FAST_FORMAT_OLD.format(date);
+    }
+    
+    public static String printDateTime(Calendar cal) {
+    	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z");
+        df.setTimeZone(TimeZone.getTimeZone("GMT-07:00"));
+        return df.format(cal.getTime());
     }
 }

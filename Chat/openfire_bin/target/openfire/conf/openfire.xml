@@ -33,21 +33,7 @@
     </network>
     -->  
   <connectionProvider> 
-    <className>org.jivesoftware.database.MysqlConnectionProvider</className> 
+    <className>org.jivesoftware.database.EmbeddedConnectionProvider</className> 
   </connectionProvider>  
-  <setup>true</setup>  
-  <database> 
-    <defaultProvider> 
-      <driver>com.mysql.jdbc.Driver</driver>  
-      <serverURL>jdbc:mysql://127.0.0.1:3306/Openfire?rewriteBatchedStatements=true</serverURL>  
-      <username encrypted="true">1717e38a0f29820bdf206ef7f1b59310c267b7aea6cd7440</username>  
-      <password encrypted="true">3b0e7f1ab9ba3463c5b926a620dda2abd503166316abcc50</password>  
-      <testSQL>select 1</testSQL>  
-      <testBeforeUse>false</testBeforeUse>  
-      <testAfterUse>false</testAfterUse>  
-      <minConnections>5</minConnections>  
-      <maxConnections>25</maxConnections>  
-      <connectionTimeout>1.0</connectionTimeout> 
-    </defaultProvider> 
-  </database> 
+  <setup>true</setup> 
 </jive>

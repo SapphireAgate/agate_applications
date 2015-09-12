@@ -17,7 +17,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.jivesoftware.openfire.sasl;
 
 import java.util.Map;
@@ -36,12 +35,14 @@ import org.jivesoftware.openfire.clearspace.ClearspaceSaslServer;
 
 public class SaslServerFactoryImpl implements SaslServerFactory {
 
-    private static final String myMechs[] = { "PLAIN", "CLEARSPACE" };
+    private static final String myMechs[] = { "PLAIN", "CLEARSPACE", "DIGEST-MD5" };
     private static final int mechPolicies[] = { PolicyUtils.NOANONYMOUS, PolicyUtils.NOANONYMOUS };
     private static final int PLAIN = 0;
     private static final int CLEARSPACE = 1;
+    private static final int DIGESTMD5 = 2;
 
     public SaslServerFactoryImpl() {
+        System.out.println("Creating SaslServerFactory.");
     }
 
     /**
@@ -57,6 +58,7 @@ public class SaslServerFactoryImpl implements SaslServerFactory {
      */
 
     public SaslServer createSaslServer(String mechanism, String protocol, String serverName, Map<String, ?> props, CallbackHandler cbh) throws SaslException {
+        System.out.println("Creating server for mechanism: " + mechanism);
         if (mechanism.equals(myMechs[PLAIN]) && PolicyUtils.checkPolicy(mechPolicies[PLAIN], props)) {
             if (cbh == null) {
                 throw new SaslException("CallbackHandler with support for Password, Name, and AuthorizeCallback required");
@@ -69,6 +71,13 @@ public class SaslServerFactoryImpl implements SaslServerFactory {
             }
             return new ClearspaceSaslServer();
         }
+        else if (mechanism.equals(myMechs[DIGESTMD5])) {
+            if (cbh == null) {
+                throw new SaslException("CallbackHandler with support for AuthorizeCallback required");
+            }
+            return new DigestMD5Server(protocol, serverName, props, cbh);
+        }
+        System.out.println("Could not create server for mechanism: " + mechanism);
         return null;
     }
 
@@ -79,6 +88,7 @@ public class SaslServerFactoryImpl implements SaslServerFactory {
      */
 
     public String[] getMechanismNames(Map<String, ?> props) {
+        System.out.println(PolicyUtils.filterMechs(myMechs, mechPolicies, props));
         return PolicyUtils.filterMechs(myMechs, mechPolicies, props);
     }
 }

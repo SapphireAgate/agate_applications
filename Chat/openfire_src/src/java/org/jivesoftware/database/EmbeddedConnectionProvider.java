@@ -44,8 +44,8 @@ public class EmbeddedConnectionProvider implements ConnectionProvider {
 
     private Properties settings;
     private String serverURL;
-    private String driver = "org.hsqldb.jdbcDriver";
-    private String proxoolURL;
+    //private String driver = "org.hsqldb.jdbcDriver";
+    //private String proxoolURL;
 
     public EmbeddedConnectionProvider() {
         System.setProperty("org.apache.commons.logging.LogFactory", "org.jivesoftware.util.log.util.CommonsLogFactory");
@@ -57,8 +57,10 @@ public class EmbeddedConnectionProvider implements ConnectionProvider {
 
     public Connection getConnection() throws SQLException {
         try {
-            Class.forName("org.logicalcobwebs.proxool.ProxoolDriver");
-            return DriverManager.getConnection(proxoolURL, settings);
+            //Class.forName("org.logicalcobwebs.proxool.ProxoolDriver");
+            //return DriverManager.getConnection(proxoolURL, settings);
+        	Class.forName("org.hsqldb.jdbcDriver");
+        	return DriverManager.getConnection(serverURL, settings);
         }
         catch (ClassNotFoundException e) {
             throw new SQLException("EmbeddedConnectionProvider: Unable to find driver: "+e);
@@ -78,11 +80,11 @@ public class EmbeddedConnectionProvider implements ConnectionProvider {
         catch (IOException ioe) {
             Log.error("EmbeddedConnectionProvider: Error starting connection pool: ", ioe);
         }
-        proxoolURL = "proxool.openfire:"+driver+":"+serverURL;
+        //proxoolURL = "proxool.openfire:"+driver+":"+serverURL;
         settings = new Properties();
-        settings.setProperty("proxool.maximum-connection-count", "25");
-        settings.setProperty("proxool.minimum-connection-count", "3");
-        settings.setProperty("proxool.maximum-connection-lifetime", Integer.toString((int)(86400000 * 0.5)));
+        //settings.setProperty("proxool.maximum-connection-count", "25");
+        //settings.setProperty("proxool.minimum-connection-count", "3");
+        //settings.setProperty("proxool.maximum-connection-lifetime", Integer.toString((int)(86400000 * 0.5)));
         settings.setProperty("user", "sa");
         settings.setProperty("password", "");
     }
