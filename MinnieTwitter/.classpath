@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="lib" path="/scratch/aaasz/agate/agate_code/agate-4.3_r1/out/target/common/obj/JAVA_LIBRARIES/core_intermediates/classes.jar"/>
+	<classpathentry kind="lib" path="/scratch/aaasz/agate/agate_code/agate-4.3_r1/out/target/common/obj/JAVA_LIBRARIES/framework_intermediates/classes.jar"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

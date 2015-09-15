@@ -1,0 +1,7 @@
+{
+   "client" : {"port": "12346"},
+
+   "oms": {"hostname": "128.208.6.124", "port": "22347"},
+
+   "storage": {"hostname": "dunbar.cs.washington.edu", "port": "6666", "store": "sapphire"}
+}
