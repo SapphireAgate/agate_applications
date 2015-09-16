@@ -776,32 +776,37 @@ public class XMPPConnection extends Connection {
      * @param required true when the server indicates that TLS is required.
      */
     void startTLSReceived(boolean required) {
-        if (required && config.getSecurityMode() ==
-                ConnectionConfiguration.SecurityMode.disabled) {
-            packetReader.notifyConnectionError(new IllegalStateException(
-                    "TLS required by server but not allowed by connection configuration"));
-            return;
-        }
 
-        if (required && usingSSL) {
-            packetReader.notifyConnectionError(new IllegalStateException(
-                    "TLS required by server but legacy SSL already enabled"));
-            return;
-        }
+        // TODO: SSL uses native libraries that have not been ported to TaintDroid or Agate
+        // so skip TLS for now
+        return;
 
-        if ((config.getSecurityMode() == ConnectionConfiguration.SecurityMode.disabled) ||
-            (config.getSecurityMode() == ConnectionConfiguration.SecurityMode.legacy)) {
-            // Do not secure the connection using TLS since TLS was disabled or we are using SSL.
-            return;
-        }
-
-        try {
-            writer.write("<starttls xmlns=\"urn:ietf:params:xml:ns:xmpp-tls\"/>");
-            writer.flush();
-        }
-        catch (IOException e) {
-            packetReader.notifyConnectionError(e);
-        }
+//        if (required && config.getSecurityMode() ==
+//                ConnectionConfiguration.SecurityMode.disabled) {
+//            packetReader.notifyConnectionError(new IllegalStateException(
+//                    "TLS required by server but not allowed by connection configuration"));
+//            return;
+//        }
+//
+//        if (required && usingSSL) {
+//            packetReader.notifyConnectionError(new IllegalStateException(
+//                    "TLS required by server but legacy SSL already enabled"));
+//            return;
+//        }
+//
+//        if ((config.getSecurityMode() == ConnectionConfiguration.SecurityMode.disabled) ||
+//            (config.getSecurityMode() == ConnectionConfiguration.SecurityMode.legacy)) {
+//            // Do not secure the connection using TLS since TLS was disabled or we are using SSL.
+//            return;
+//        }
+//
+//        try {
+//            writer.write("<starttls xmlns=\"urn:ietf:params:xml:ns:xmpp-tls\"/>");
+//            writer.flush();
+//        }
+//        catch (IOException e) {
+//            packetReader.notifyConnectionError(e);
+//        }
     }
 
     private void enableEncryption(boolean tls) throws Exception {
