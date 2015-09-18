@@ -75,6 +75,8 @@ import com.xabber.android.ui.widget.PageSwitcher;
 import com.xabber.android.ui.widget.PageSwitcher.OnSelectListener;
 import com.xabber.androiddev.R;
 
+import dalvik.agate.PolicyManagementModule;
+
 /**
  * Chat activity.
  * 
@@ -645,6 +647,14 @@ public class ChatViewer extends ManagedActivity implements
 		EditText editView = (EditText) actionWithView
 				.findViewById(R.id.chat_input);
 		String text = editView.getText().toString();
+
+		// begin WITH_SAPPHIRE_AGATE
+		// TODO: set policy
+		System.out.println("Sending message: " + text + " to: " + actionWithUser.split("@")[0]);
+		String[] readers = {actionWithUser.split("@")[0]};
+		PolicyManagementModule.addPolicyString(text, readers, null);
+		// end WITH_SAPPHIRE_AGATE
+
 		int start = 0;
 		int end = text.length();
 		while (start < end

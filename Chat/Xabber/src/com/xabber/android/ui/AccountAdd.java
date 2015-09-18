@@ -39,6 +39,8 @@ import com.xabber.android.ui.helper.ManagedActivity;
 import com.xabber.android.ui.helper.OrbotHelper;
 import com.xabber.androiddev.R;
 
+import dalvik.agate.UserManagementModule;
+
 public class AccountAdd extends ManagedActivity implements
 		View.OnClickListener, OnItemSelectedListener {
 
@@ -150,6 +152,12 @@ public class AccountAdd extends ManagedActivity implements
 			} else {
 				EditText userView = (EditText) findViewById(R.id.account_user_name);
 				EditText passwordView = (EditText) findViewById(R.id.account_password);
+
+				// begin WITH_SAPPHIRE_AGATE
+				// login into Agate first
+				UserManagementModule.login(userView.getText().toString().split("@")[0], passwordView.getText().toString());
+				// end WITH_SAPPHIRE_AGATE
+
 				String account;
 				try {
 					account = AccountManager.getInstance().addAccount(
