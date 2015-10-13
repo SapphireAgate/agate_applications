@@ -1,7 +1,7 @@
 home_dir=/scratch/aaasz/agate/agate_code/agate_applications/Chat/openfire_bin/target/openfire
 home_dir_libs=${home_dir}/lib/dex_jars
 
-./dalvik_android -Xmx512m -Xms256m \
+./dalvik_agate -Xmx512m -Xms256m \
 	-DopenfireHome=${home_dir} \
 	-Dlog4j.configuration=file:///scratch/aaasz/agate/agate_code/agate-4.3_r1/example_apps/Chat/openfire_bin/target/openfire/lib/log4j.properties \
 	-Dopenfire.lib.dir=${home_dir_libs} \
