@@ -1,0 +1,3 @@
+- run mvn install in core-api
+
+mvn -Dmaven.test.skip=true install
