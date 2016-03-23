@@ -545,6 +545,17 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.0.0.v20130308</version>
+				<configuration>
+					<war>${basedir}/cosmo-webapp/target/cosmo.war</war>
+					<webApp>
+						<contextPath>/cosmo</contextPath>
+					</webApp>
+				</configuration>
+			 </plugin>
+			<plugin>
 				<artifactId>maven-license-plugin</artifactId>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<executions>

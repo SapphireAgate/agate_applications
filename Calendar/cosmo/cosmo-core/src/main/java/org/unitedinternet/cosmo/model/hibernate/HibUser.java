@@ -44,7 +44,7 @@ import org.unitedinternet.cosmo.model.User;
  * Hibernate persistent User.
  */
 @Entity
-@Table(name="users",indexes={@Index(name = "idx_activationid",columnList = "activationId" )})
+@Table(name="users")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class HibUser extends HibAuditableObject implements User {
 

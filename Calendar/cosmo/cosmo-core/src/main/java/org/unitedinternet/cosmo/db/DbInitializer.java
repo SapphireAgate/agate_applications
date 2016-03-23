@@ -24,12 +24,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.dbcp.BasicDataSource;
 import org.hibernate.HibernateException;
 import org.hibernate.tool.hbm2ddl.SchemaValidator;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -59,7 +61,7 @@ public class DbInitializer {
         // Create DB schema if not present
         if (!isSchemaInitialized()) {
             this.executeStatements(PATH_SCHEMA);
-            LOG.info("[DB-startup] Cosmo database structure created successfully.");
+            LOG.warn("[DB-startup] Cosmo database structure created successfully.");
             for (DatabaseInitializationCallback callback : callbacks) {
                 callback.execute();
             }
@@ -71,8 +73,12 @@ public class DbInitializer {
     public void executeStatements(String resource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(this.datasource);
         for (String statement : this.readStatements(resource)) {
-            LOG.info("\n" + statement);
-            jdbcTemplate.update(statement);
+            LOG.warn("\n" + statement);
+            try {
+                int rows = jdbcTemplate.update(statement);
+            } catch(Exception e) {
+                LOG.warn(e.toString());
+            }
         }
     }
 
