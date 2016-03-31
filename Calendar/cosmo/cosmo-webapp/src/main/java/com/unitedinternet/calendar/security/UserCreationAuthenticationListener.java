@@ -43,10 +43,10 @@ public class UserCreationAuthenticationListener implements SuccessfulAuthenticat
 		LOGGER.info("=== No user found for principal [{}]. Creating one with an empty calendar.===", userName);
 		user = entityFactory.createUser();
         user.setUsername(userName);
-        user.setEmail(userName);
+        user.setEmail(userName + "@server.com");
         user.setFirstName(userName);
         user.setLastName(userName);
-        user.setPassword("NOT_NULL");
+        user.setPassword(userName);
         
         user = userService.createUser(user);
         
