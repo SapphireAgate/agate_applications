@@ -118,10 +118,15 @@ public class EventStampInterceptor extends EmptyInterceptor {
         if (eventStamp.isRecurring()) {
             isRecurring = true;
             RecurrenceExpander expander = new RecurrenceExpander();
-            Date[] range = expander
-                    .calculateRecurrenceRange(eventStamp.getEventCalendar());
-            startDate = range[0];
-            endDate = range[1];
+            Date[] range;
+			try {
+				range = expander.calculateRecurrenceRange(eventStamp.getEventCalendar());
+	            startDate = range[0];
+	            endDate = range[1];
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } else {
             // If there is no end date, then its a point-in-time event
             if (endDate == null) {

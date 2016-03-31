@@ -101,10 +101,12 @@ public class EventValidator implements ConstraintValidator<Event, Calendar> {
         } catch(ParserException e) {
             LOG.warn("parse error", e);
             LOG.warn("error parsing event: " + calendar.toString() );
-        } catch (IOException | RuntimeException e) {
+        } catch (IOException e) {
             LOG.warn("Exception occured while parsing calendar", e);
+        } catch (RuntimeException e) {
+        	LOG.warn("Exception occured while parsing calendar", e);
         }
-        
+       
         return false;
     }
 
@@ -131,7 +133,7 @@ public class EventValidator implements ConstraintValidator<Event, Calendar> {
         
         private static final String PROPERTIES_FILE = "/etc/application.properties";
         
-        private Set<String> allowedRecurrenceFrequencies = new HashSet<>(5);
+        private Set<String> allowedRecurrenceFrequencies = new HashSet<String>(5);
         
         private int summaryMinLength;
         private int summaryMaxLength;

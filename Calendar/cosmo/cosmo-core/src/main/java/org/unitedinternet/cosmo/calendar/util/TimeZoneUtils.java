@@ -103,8 +103,10 @@ public class TimeZoneUtils {
             VTimeZone vtz = (VTimeZone) CalendarUtils.parseComponent(sw.toString()); 
             fixIcuVTimeZone(vtz);
             return vtz;
-        } catch (ParserException | IOException e) {
+        } catch (ParserException e) {
             throw new CosmoException(e);
+        } catch (IOException e) {
+        	throw new CosmoException(e);
         }
     }
     

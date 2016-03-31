@@ -68,13 +68,13 @@ public class SpringExternalComponentFactory  implements  ExternalComponentFactor
 			return;
 		}
 		
-		unwrappedSpringBeans = new HashMap<>();
+		unwrappedSpringBeans = new HashMap<Class<?>, Object>();
 		ConfigurableListableBeanFactory beanFactory = (ConfigurableListableBeanFactory)ctx.getAutowireCapableBeanFactory();
 		
 		Iterator<String> beanNamesIterator = beanFactory.getBeanNamesIterator();
 		
-		Set<String> beanNames = new HashSet<>();
-		Set<String> beanNamesToSkip = new HashSet<>();
+		Set<String> beanNames = new HashSet<String>();
+		Set<String> beanNamesToSkip = new HashSet<String>();
 		while(beanNamesIterator.hasNext()){
 			String beanName = beanNamesIterator.next();
 	
@@ -85,7 +85,7 @@ public class SpringExternalComponentFactory  implements  ExternalComponentFactor
 		}
 		beanNames.removeAll(beanNamesToSkip);
 		
-		unwrappedSpringBeans = new HashMap<>();
+		unwrappedSpringBeans = new HashMap<Class<?>, Object>();
 		
 		for(String bn : beanNames){
 			Object bean = beanFactory.getBean(bn);

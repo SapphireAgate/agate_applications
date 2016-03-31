@@ -115,9 +115,11 @@ public class BufferedContentTypeDescriptor extends AbstractTypeDescriptor<Buffer
         if(Blob.class.isInstance(value)){
             try {
                 return new BufferedContent(((Blob)value).getBinaryStream());
-            } catch (IOException |SQLException e) {
+            } catch (IOException e) {
                 throw new CosmoIOException(e);
-            } 
+            } catch (SQLException e) {
+            	throw new CosmoIOException(e);
+            }
         }
         throw unknownWrap( value.getClass() );
     }

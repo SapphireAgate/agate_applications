@@ -102,8 +102,12 @@ public class UrlContentReader {
                 close(contentStream);
                 close(baos);
             }
-        } catch (IOException | ValidationException | ParserException e) {
+        } catch (IOException e) {
             throw new ExternalContentInvalidException(e);
+        } catch (ValidationException e) {
+        	throw new ExternalContentInvalidException(e);
+        } catch (ParserException e) {
+        	throw new ExternalContentInvalidException(e);
         }
     }
 

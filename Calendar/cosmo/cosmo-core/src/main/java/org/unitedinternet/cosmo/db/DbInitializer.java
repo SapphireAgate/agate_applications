@@ -15,7 +15,6 @@
  */
 package org.unitedinternet.cosmo.db;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,7 +72,7 @@ public class DbInitializer {
     public void executeStatements(String resource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(this.datasource);
         for (String statement : this.readStatements(resource)) {
-            LOG.warn("\n" + statement);
+            LOG.info("\n" + statement);
             try {
                 int rows = jdbcTemplate.update(statement);
             } catch(Exception e) {
@@ -83,10 +82,10 @@ public class DbInitializer {
     }
 
     private List<String> readStatements(String resource) {
-        List<String> statements = new ArrayList<>();
+        List<String> statements = new ArrayList<String>();
         Scanner scanner = null;
         try {
-            scanner = new Scanner(this.getClass().getResourceAsStream(resource), StandardCharsets.UTF_8.name());
+            scanner = new Scanner(this.getClass().getResourceAsStream(resource), "UTF-8");
             scanner.useDelimiter(";");
             while (scanner.hasNext()) {
                 String statement = scanner.next().replace("\n", " ").trim();

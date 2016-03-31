@@ -80,8 +80,9 @@ public class RecurrenceExpander {
      * @param calendar Calendar containing master and modification components
      * @return array containing start (located at index 0) and end (index 1) of
      *         recurring component.
+     * @throws Exception 
      */
-    public Date[] calculateRecurrenceRange(Calendar calendar) {
+    public Date[] calculateRecurrenceRange(Calendar calendar) throws Exception {
         try{
             ComponentList vevents = calendar.getComponents().getComponents(
                     Component.VEVENT);

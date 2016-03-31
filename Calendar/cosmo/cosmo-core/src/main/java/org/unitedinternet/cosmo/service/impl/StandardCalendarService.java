@@ -52,13 +52,13 @@ public class StandardCalendarService implements CalendarService {
 
     @Override
     public Map<String, List<NoteItem>> findNoteItemsByIcalUid(Item collection, List<String> uid) {
-        Map<String, List<NoteItem>> itemsMap = new HashMap<>();
+        Map<String, List<NoteItem>> itemsMap = new HashMap<String, List<NoteItem>>();
         
         if(! (collection instanceof CollectionItem) ){
             return itemsMap;
         }
         CollectionItem collectionItem = (CollectionItem) collection;
-        List<NoteItem> items = new ArrayList<>();
+        List<NoteItem> items = new ArrayList<NoteItem>();
         for (String id : uid) {
             ContentItem item = calendarDao.findEventByIcalUid(id, collectionItem);
             if (item != null) {

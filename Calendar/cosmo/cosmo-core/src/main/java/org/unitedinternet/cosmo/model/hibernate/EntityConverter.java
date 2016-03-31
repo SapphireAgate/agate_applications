@@ -305,7 +305,7 @@ public class EntityConverter {
         // different tz definitions for a tzid, *shrug* last one wins
         // for this same reason, we use a single calendar builder/time
         // zone registry.
-        Map<String, CalendarComponent> tzIdx = new HashMap<>();
+        Map<String, CalendarComponent> tzIdx = new HashMap<String, CalendarComponent>();
         
         for (Item item: collection.getChildren()) {
            if (!(item instanceof ContentItem)) {

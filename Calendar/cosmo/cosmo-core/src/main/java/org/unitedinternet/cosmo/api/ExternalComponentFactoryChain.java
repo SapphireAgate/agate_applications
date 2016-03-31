@@ -17,7 +17,7 @@ import java.util.Set;
  */
 public class ExternalComponentFactoryChain implements ExternalComponentFactory{
     
-    private Set<ExternalComponentFactory> factories = new LinkedHashSet<>();
+    private Set<ExternalComponentFactory> factories = new LinkedHashSet<ExternalComponentFactory>();
     
     @Override
     public <T, R extends T> R instanceForDescriptor(ExternalComponentDescriptor<R> desc) {

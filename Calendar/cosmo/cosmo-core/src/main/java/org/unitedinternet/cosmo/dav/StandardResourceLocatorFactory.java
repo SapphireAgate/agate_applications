@@ -95,8 +95,10 @@ public class StandardResourceLocatorFactory implements DavResourceLocatorFactory
             path = path.replaceAll("/{2,}", "/");
 
             return new StandardResourceLocator(context, path, this);
-        } catch (URISyntaxException | MalformedURLException e) {
+        } catch (URISyntaxException e) {
             throw new BadRequestException("Invalid URL: " + e.getMessage());
+        } catch (MalformedURLException e) {
+        	throw new BadRequestException("Invalid URL: " + e.getMessage());
         }
     }
 

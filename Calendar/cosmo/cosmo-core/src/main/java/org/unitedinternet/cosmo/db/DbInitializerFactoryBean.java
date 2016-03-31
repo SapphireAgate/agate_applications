@@ -31,13 +31,15 @@ public class DbInitializerFactoryBean implements FactoryBean<DbInitializer> {
 
         Set<? extends DatabaseInitializationCallback> callbacks = externalComponentInstanceProvider
                 .getImplInstancesAnnotatedWith(Callback.class, DatabaseInitializationCallback.class);
-        List<? extends DatabaseInitializationCallback> callbacksList = new ArrayList<>(callbacks);
+        List<? extends DatabaseInitializationCallback> callbacksList = new ArrayList(callbacks);
         Collections.sort(callbacksList, new Comparator<DatabaseInitializationCallback>() {
             @Override
             public int compare(DatabaseInitializationCallback o1, DatabaseInitializationCallback o2) {
-
-                return -1 * Integer.compare(o1.getClass().getAnnotation(Callback.class).order(),
-                        o2.getClass().getAnnotation(Callback.class).order());
+            	if (o1.getClass().getAnnotation(Callback.class).order() > o2.getClass().getAnnotation(Callback.class).order()) return -1 * 1;
+            	if (o1.getClass().getAnnotation(Callback.class).order() < o2.getClass().getAnnotation(Callback.class).order()) return -1 * (-1);
+            	return 0;
+                //return -1 * Integer.compare(o1.getClass().getAnnotation(Callback.class).order(),
+                //        o2.getClass().getAnnotation(Callback.class).order());
             }
         });
 

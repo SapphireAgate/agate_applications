@@ -253,7 +253,11 @@ public class OutputFilter {
                     masterCopy.copy() :
                     instance.getComp().copy();
                 componentToUTC(copy);
-            } catch (URISyntaxException | ParseException | IOException e) {
+            } catch (URISyntaxException e) {
+                throw new CosmoException("Error copying component", e);
+            } catch (ParseException e) {
+                throw new CosmoException("Error copying component", e);
+            } catch (IOException e) {
                 throw new CosmoException("Error copying component", e);
             }
 
@@ -610,7 +614,7 @@ public class OutputFilter {
      */
     public void addProperty(String name, boolean noValue) {
         if (properties == null) {
-            properties = new HashMap<>();
+            properties = new HashMap<String, Object>();
         }
         properties.put(name.toUpperCase(CosmoConstants.LANGUAGE_LOCALE), Boolean.valueOf(noValue));
     }

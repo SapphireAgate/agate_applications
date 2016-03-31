@@ -52,7 +52,7 @@ public class AuthenticationProviderDelegatorFactoryBean implements FactoryBean<A
         Collection<? extends SuccessfulAuthenticationListener> successfulAuthenticationListeners = getSuccessfulAuthenticationListeners();
         LOGGER.info("Found [{}] successful authentication listener implementations", authenticationProviders.size());
         
-        List<AuthenticationProvider> result = new ArrayList<>(1);
+        List<AuthenticationProvider> result = new ArrayList<AuthenticationProvider>(1);
         
         for(AuthenticationProvider authenticationProvider : authenticationProviders){
             AuthenticationProvider authenticationProviderProxy = authenticationProviderProxyFactory.createProxyFor(authenticationProvider, successfulAuthenticationListeners);

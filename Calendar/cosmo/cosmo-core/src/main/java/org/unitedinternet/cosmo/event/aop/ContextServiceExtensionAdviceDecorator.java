@@ -50,7 +50,7 @@ public class ContextServiceExtensionAdviceDecorator {
      */
     private <T> List<T> getInterceptorsList(Class<T> clazz) {
         Collection<? extends T> handlers = this.provider.getImplInstancesAnnotatedWith(Interceptor.class, clazz);
-        List<T> list = new ArrayList<>();
+        List<T> list = new ArrayList<T>();
         for (T handler : handlers) {
             list.add(handler);
         }

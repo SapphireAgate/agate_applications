@@ -24,8 +24,8 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.activation.MimeType;
-import javax.activation.MimeTypeParseException;
+import org.springframework.util.MimeType;
+import org.apache.abdera.util.MimeTypeParseException;
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
@@ -402,7 +402,8 @@ public class StandardDavRequest extends WebdavRequestImpl implements
                 throw new BadRequestException("No Content-Type specified");
             }
             MimeType mimeType = new MimeType(getContentType());
-            if (!(mimeType.match(APPLICATION_XML) || mimeType.match(TEXT_XML))) {
+            if (!(mimeType.getType().equals(APPLICATION_XML) || mimeType.getSubtype().equals(APPLICATION_XML)
+            		|| mimeType.getType().equals(TEXT_XML) || mimeType.getType().equals(TEXT_XML))) {
                 throw new UnsupportedMediaTypeException(
                         "Expected Content-Type " + APPLICATION_XML + " or "
                                 + TEXT_XML);
@@ -799,6 +800,6 @@ public class StandardDavRequest extends WebdavRequestImpl implements
     public long getContentLengthLong() {
         return 0;
     }
-    
-    
+
+
 }

@@ -207,8 +207,10 @@ public class MultigetReport extends CaldavMultiStatusReport {
                     new URI(url.getProtocol(), url.getAuthority(), url.getPath(),
                             url.getQuery(), url.getRef());
                 return new URL(escaped.toString());
-            } catch (URISyntaxException | MalformedURLException e2) {
+            } catch (URISyntaxException e2) {
                 throw new BadRequestException("Malformed unescaped href " + href + ": " + e.getMessage());
+            } catch (MalformedURLException e2) {
+            	throw new BadRequestException("Malformed unescaped href " + href + ": " + e.getMessage());
             }
         } catch (MalformedURLException e) {
             throw new BadRequestException("Malformed href " + href + ": " + e.getMessage());

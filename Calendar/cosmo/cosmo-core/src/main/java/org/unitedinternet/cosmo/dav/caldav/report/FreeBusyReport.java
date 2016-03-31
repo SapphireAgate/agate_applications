@@ -227,8 +227,14 @@ public class FreeBusyReport extends SimpleReport implements CaldavConstants {
             document.adoptNode(doc);
 
             return doc.getDocumentElement();
-        } catch (IOException | CosmoDavException | ParserConfigurationException | SAXException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (CosmoDavException e) {
+        	throw new RuntimeException(e);
+        } catch (ParserConfigurationException e) {
+        	throw new RuntimeException(e);
+        } catch (SAXException e) {
+        	throw new RuntimeException(e);
         }
     }
 
@@ -251,8 +257,10 @@ public class FreeBusyReport extends SimpleReport implements CaldavConstants {
             output = output.replaceAll("\r", "");
 
             return output;
-        } catch (IOException | ValidationException e) {
+        } catch (IOException e) {
             throw new CosmoDavException(e);
+        } catch (ValidationException e) {
+        	throw new CosmoDavException(e);
         }
     }
 

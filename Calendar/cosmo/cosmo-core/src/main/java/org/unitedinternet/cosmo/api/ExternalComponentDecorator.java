@@ -64,7 +64,13 @@ public class ExternalComponentDecorator implements ApplicationListener<ContextSt
                 Object toBeInjected = applicationContext.getBean(field.getType());
                 field.set(managedComponent, unwrapIfNecessary(toBeInjected, field.getAnnotation(Provided.class)));
                 LOGGER.info("Set field [{}] of [{}].", field.getName(), field.getDeclaringClass().getName());
-            } catch (BeansException | IllegalArgumentException | IllegalAccessException e) {
+            } catch (BeansException e) {
+            	LOGGER.error("Exception occured", e);
+                throw new RuntimeException(e);
+            } catch (IllegalArgumentException e) {
+            	LOGGER.error("Exception occured", e);
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
             	LOGGER.error("Exception occured", e);
                 throw new RuntimeException(e);
             }
@@ -88,7 +94,16 @@ public class ExternalComponentDecorator implements ApplicationListener<ContextSt
                 Object toBeSet = applicationContext.getBean(setter.getParameterTypes()[0]);
                 setter.invoke(managedComponent, unwrapIfNecessary(toBeSet, setter.getAnnotation(Provided.class)));
                 LOGGER.info("Invoked setter [{}] of [{}].", setter.getName(), setter.getDeclaringClass().getName());
-            } catch (BeansException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            } catch (BeansException e) {
+            	LOGGER.error("Exception occured", e);
+                throw new RuntimeException(e);
+            } catch (IllegalAccessException e) {
+            	LOGGER.error("Exception occured", e);
+                throw new RuntimeException(e);
+            } catch (IllegalArgumentException e) {
+            	LOGGER.error("Exception occured", e);
+                throw new RuntimeException(e);
+            } catch (InvocationTargetException e) {
             	LOGGER.error("Exception occured", e);
                 throw new RuntimeException(e);
             }

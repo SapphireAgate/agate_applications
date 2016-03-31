@@ -45,7 +45,7 @@ public class TypesFinder {
         Set<Class<? extends T>> subTypes = reflections.getSubTypesOf(type);
         
         
-        Set<ExternalComponentDescriptor<? extends T>> result = new HashSet<>();
+        Set<ExternalComponentDescriptor<? extends T>> result = new HashSet<ExternalComponentDescriptor<? extends T>>();
         
         for(Class<? extends T> clazz : subTypes){
             if(annotatedTypes.contains(clazz) && !Modifier.isAbstract(clazz.getModifiers())){
@@ -62,11 +62,11 @@ public class TypesFinder {
     
     public Set<SetterBasedServiceOwnerDescriptor> getSettersAnnotatedWith(Class<? extends Annotation> annotation){
         Set<Method> allMethods = reflections.getMethodsAnnotatedWith(annotation);
-        Set<SetterBasedServiceOwnerDescriptor> result = new HashSet<>();
+        Set<SetterBasedServiceOwnerDescriptor> result = new HashSet<SetterBasedServiceOwnerDescriptor>();
         for(Method method : allMethods){
             if(method.getParameterTypes().length == 1 && method.getName().startsWith("set")){
             	Class<?> setterDeclaringClass = method.getDeclaringClass();
-            	Set<Class<?>> setterDeclaringClasses = new HashSet<>(1);
+            	Set<Class<?>> setterDeclaringClasses = new HashSet<Class<?>>(1);
             	collectConcreteTypesFor(setterDeclaringClass, setterDeclaringClasses);
             	for(Class<?> c : setterDeclaringClasses){
             		result.add(new SetterBasedServiceOwnerDescriptor(c, method.getParameterTypes()[0], method));
@@ -79,7 +79,7 @@ public class TypesFinder {
     
     public Set<FieldBasedServiceOwnerDescriptor> getFieldsAnnotatedWith(Class<? extends Annotation> annotation){
         Set<Field> fields = reflections.getFieldsAnnotatedWith(annotation);
-        Set<FieldBasedServiceOwnerDescriptor> result = new HashSet<>();
+        Set<FieldBasedServiceOwnerDescriptor> result = new HashSet<FieldBasedServiceOwnerDescriptor>();
         
         for(Field field : fields){
         	result.add(new FieldBasedServiceOwnerDescriptor(field.getDeclaringClass(), field.getType(), field));

@@ -22,7 +22,7 @@ public class DefaultExternalComponentFactory implements ExternalComponentFactory
     
     private ThreadLocal<Map<Class<?>, Object>> cacheHolder = new ThreadLocal<Map<Class<?>, Object>>(){
     	protected Map<Class<?>, Object> initialValue(){
-			return new HashMap<>();
+			return new HashMap<Class<?>, Object>();
     	}
     };
     
@@ -36,8 +36,11 @@ public class DefaultExternalComponentFactory implements ExternalComponentFactory
         	}
             LOGGER.info("Created instance of type [{}]", desc.getImplementationClass().getName());
             return result;
-        } catch (InstantiationException | IllegalAccessException e) {
+        } catch (InstantiationException e) {
             LOGGER.error("Instantiation exception occured", e);
+            return null;
+        } catch (IllegalAccessException e) {
+        	LOGGER.error("Instantiation exception occured", e);
             return null;
         }
     }

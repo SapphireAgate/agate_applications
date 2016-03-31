@@ -25,7 +25,7 @@ public class ContentConverter {
     }
 
     public Set<NoteItem> asItems(Calendar calendar) {
-        Set<NoteItem> items = new HashSet<>();
+        Set<NoteItem> items = new HashSet<NoteItem>();
         if (calendar != null) {
             Set<ICalendarItem> calendarItems = this.entityConverter.convertCalendar(calendar);
 

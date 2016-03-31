@@ -80,7 +80,7 @@ public final class CosmoConstants {
     
     private static final String PROPERTIES_FILE = "/etc/application.properties"; 
     
-    private static final Locale FALLBACK_LOCALE = Locale.GERMAN;
+    private static final Locale FALLBACK_LOCALE = Locale.US;
     
     static {
         Properties props = loadCosmoProperties();
@@ -103,8 +103,10 @@ public final class CosmoConstants {
     private static Properties loadCosmoProperties() {
         
         Properties props = new Properties();
+
         
-        try(InputStream is = CosmoConstants.class.getResourceAsStream(PROPERTIES_FILE)) {
+        try {
+        	InputStream is = CosmoConstants.class.getResourceAsStream(PROPERTIES_FILE);
             props.load(is);
         } catch (IOException e) {
 			
@@ -117,11 +119,11 @@ public final class CosmoConstants {
             return FALLBACK_LOCALE;
         }
         
-        for (String isoLanguage : Locale.getISOLanguages()){
-            if(isoLanguage.equalsIgnoreCase(language)){
-                return Locale.forLanguageTag(isoLanguage);
-            }
-        }
+        //for (String isoLanguage : Locale.getISOLanguages()){
+        //    if(isoLanguage.equalsIgnoreCase(language)){
+        //        return Locale.forLanguageTag(isoLanguage);
+        //    }
+        //}
         
         return FALLBACK_LOCALE;
     }

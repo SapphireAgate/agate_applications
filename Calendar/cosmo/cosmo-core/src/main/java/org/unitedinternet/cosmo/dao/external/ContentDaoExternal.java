@@ -112,7 +112,7 @@ public class ContentDaoExternal implements ContentDao {
 
     @Override
     public Set<Item> findItems(ItemFilter filter) {
-        Set<Item> items = new HashSet<>();
+        Set<Item> items = new HashSet<Item>();
         if (filter != null && filter.getParent() != null) {
             CollectionItem calendarItem = filter.getParent();
             CalendarCollectionStamp stamp = (CalendarCollectionStamp) calendarItem

@@ -46,7 +46,7 @@ public class LifecycleLoggerListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         LOG.info(CosmoConstants.PRODUCT_NAME + " " +
                  CosmoConstants.PRODUCT_VERSION + " stopping");
-        java.beans.Introspector.flushCaches();
+        //java.beans.Introspector.flushCaches();
         LogFactory.releaseAll();
     }
 }

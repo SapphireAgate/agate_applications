@@ -72,8 +72,10 @@ public class JournalValidator implements ConstraintValidator<Journal, Calendar> 
         } catch(ParserException e) {
             LOG.warn("parse error", e);
             LOG.warn("error parsing journal: " + calendar.toString() );
-        } catch (IOException | RuntimeException e) {
+        } catch (IOException e) {
             LOG.warn(e);
+        } catch (RuntimeException e) {
+        	LOG.warn(e);
         }
         return false;
     }

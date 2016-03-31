@@ -2,10 +2,11 @@ package org.unitedinternet.cosmo.dao.external;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
-import com.mysql.jdbc.StringUtils;
+import com.google.code.regexp.Pattern;
+import com.google.code.regexp.Matcher;
 
 /**
  * Represents the path segments as they might appear in the CALDAV requests. e.g. /homeUid/collectionUid/eventUid.
@@ -36,12 +37,12 @@ class PathSegments {
         }
         Matcher matcher = PATTERN.matcher(path);
         matcher.find();
-        
+      
         this.homeCollectionUid = matcher.group("homeCollectionUid");
         this.collectionUid = matcher.group("collectionUid");
         this.eventUid = matcher.group("eventUid");
     }
-
+    
     public String getHomeCollectionUid() {
         return decode(homeCollectionUid);
     }
@@ -55,7 +56,7 @@ class PathSegments {
     }
     
     private static String decode(String path){
-        if(StringUtils.isNullOrEmpty(path)){
+        if(path == null || path.isEmpty()){
             return path;
         }
         try {

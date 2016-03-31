@@ -37,7 +37,7 @@ public class ExternalComponentInstanceProvider {
         
         Set<ExternalComponentDescriptor<? extends T>> descriptions = typesFinder.findConcreteImplementationsByTypeAndMetadata(superType ,metadata);
         
-        Set<T> result = new HashSet<>(1);
+        Set<T> result = new HashSet<T>(1);
         
         LOGGER.info("Found [{}] type(s) [{}] annotated with [{}]",  descriptions.size(), superType.getName(), metadata.getName());
         

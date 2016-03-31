@@ -90,8 +90,10 @@ public class EventExceptionValidator implements ConstraintValidator<EventExcepti
         } catch(ParserException e) {
             LOG.warn("parse error", e);
             LOG.warn("error parsing event: " + calendar.toString() );
-        } catch (IOException | RuntimeException e ) {
+        } catch (IOException e ) {
             LOG.warn(e);
+        } catch (RuntimeException e) {
+        	LOG.warn(e);
         }
         return false;
     }

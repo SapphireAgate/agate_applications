@@ -355,9 +355,13 @@ public class HCalendarParser implements CalendarParser {
         handler.startProperty(Property.VERSION);
         try {
             handler.propertyValue(Version.VERSION_2_0.getValue());
-        } catch (URISyntaxException | ParseException | IOException e) {
+        } catch (URISyntaxException e) {
             LOG.warn("", e);
-        } 
+        } catch (ParseException e) {
+            LOG.warn("", e);
+        } catch (IOException e) {
+            LOG.warn("", e);
+        }
         handler.endProperty(Property.VERSION);
 
         for (Element vevent : findElements(XPATH_VEVENTS, d)) {

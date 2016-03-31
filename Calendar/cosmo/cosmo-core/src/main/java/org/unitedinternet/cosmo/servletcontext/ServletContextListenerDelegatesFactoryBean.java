@@ -39,7 +39,10 @@ public class ServletContextListenerDelegatesFactoryBean implements FactoryBean<L
 				int order1 = o1.getClass().getAnnotation(Delegate.class).order();
 				int order2 = o2.getClass().getAnnotation(Delegate.class).order();
 				
-				return Integer.compare(order1, order2);
+				//return Integer.compare(order1, order2);
+				if (order1 > order2) return 1;
+				if (order1 < order2) return -1;
+				return 0;
 			}});
 		
 		return delegatesList;

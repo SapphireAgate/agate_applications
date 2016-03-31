@@ -72,8 +72,10 @@ public class TaskValidator implements ConstraintValidator<Task, Calendar> {
         }catch(ParserException e) {
             LOG.warn("parse error", e);
             LOG.warn("error parsing task: " + calendar.toString() );
-        } catch (IOException | RuntimeException e) {
+        } catch (IOException e) {
             LOG.warn(e);
+        } catch (RuntimeException e) {
+        	LOG.warn(e);
         }
         return false;
     }
