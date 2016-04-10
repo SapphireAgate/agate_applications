@@ -332,12 +332,4 @@ public class StandardDavResponse extends WebdavResponseImpl
             }
         }
     }
-
-
-    @Override
-    public void setContentLengthLong(long len) {
-        
-    }
-    
-    
 }

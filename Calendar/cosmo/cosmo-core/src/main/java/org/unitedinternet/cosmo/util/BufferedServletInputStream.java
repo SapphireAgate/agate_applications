@@ -18,7 +18,6 @@ package org.unitedinternet.cosmo.util;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 
 
@@ -118,20 +117,4 @@ public class BufferedServletInputStream extends ServletInputStream {
         content = new BufferedContent(is, maxMemoryBuffer);
         this.is = content.getInputStream();
     }
-
-    @Override
-    public boolean isFinished() {
-        throw new RuntimeException("Not yet implemented");
-    }
-
-    @Override
-    public boolean isReady() {
-        throw new RuntimeException("Not yet implemented");
-    }
-
-   @Override
-    public void setReadListener(ReadListener readListener) {
-        throw new RuntimeException("Not yet implemented");
-    }
-    
 }

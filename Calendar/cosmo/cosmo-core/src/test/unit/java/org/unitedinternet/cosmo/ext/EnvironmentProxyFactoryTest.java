@@ -35,7 +35,7 @@ public class EnvironmentProxyFactoryTest {
 
     @Test
     public void shouldGetNoProxyWhenProxyPropertiesAreNotSet() {
-        Map<String, Object> properties = new HashMap<>();
+        Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(PROP_PROXY_NON_PROXY_HOSTS, "");
         ProxyFactory factory = withProperties(properties);
         Proxy proxy = factory.get(null);
@@ -50,7 +50,7 @@ public class EnvironmentProxyFactoryTest {
         String proxyHost = "proxyHost";
         String proxyPort = "8080";
 
-        Map<String, Object> properties = new HashMap<>();
+        Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(PROP_PROXY_HOST, proxyHost);
         properties.put(PROP_PROXY_PORT, proxyPort);
         properties.put(PROP_PROXY_NON_PROXY_HOSTS, "host1|host2|host3");

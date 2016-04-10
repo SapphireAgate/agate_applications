@@ -28,7 +28,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
@@ -197,17 +196,6 @@ public class ClientBugAccommodationFilter implements Filter {
 
         private byte[] replaceContent(byte[] bs) throws UnsupportedEncodingException {
             return new String(bs, "UTF-8").replaceAll(findString, replaceString).getBytes("UTF-8");
-        }
-
-        @Override
-        public boolean isReady() {
-            throw new RuntimeException("Not yet implemented");
-        }
-
-        @Override
-        public void setWriteListener(WriteListener writeListener) {
-            throw new RuntimeException("Not yet implemented");
-            
         }
     }
     

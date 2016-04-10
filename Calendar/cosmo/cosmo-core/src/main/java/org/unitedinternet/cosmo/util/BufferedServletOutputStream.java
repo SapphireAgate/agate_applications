@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
 
 /**
  * ServletOutputStream implementation that buffers all data written to
@@ -50,16 +49,5 @@ public class BufferedServletOutputStream extends ServletOutputStream {
      */
     public boolean isEmpty() {
         return buffer.size()==0;
-    }
-
-    @Override
-    public boolean isReady() {
-        throw new RuntimeException("Not yet implemented");
-    }
-
-    @Override
-    public void setWriteListener(WriteListener writeListener) {
-        throw new RuntimeException("Not yet implemented");
-        
     }
 }

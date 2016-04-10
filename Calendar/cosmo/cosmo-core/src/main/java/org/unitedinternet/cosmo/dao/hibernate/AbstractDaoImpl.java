@@ -36,8 +36,7 @@ public abstract class AbstractDaoImpl {
      * @return Returns the current Hibernate session.
      */
     protected Session getSession() {
-        //return sessionFactory.getCurrentSession();
-    	return null;
+        return sessionFactory.getCurrentSession();
     }
 
     /**

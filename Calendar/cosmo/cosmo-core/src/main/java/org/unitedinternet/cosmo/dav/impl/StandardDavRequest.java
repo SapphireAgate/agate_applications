@@ -24,8 +24,12 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
 
-import org.springframework.util.MimeType;
-import org.apache.abdera.util.MimeTypeParseException;
+//import org.springframework.util.MimeType;
+//import org.apache.abdera.util.MimeTypeParseException;
+import javax.activation.MimeType;
+import javax.activation.MimeTypeParseException;
+
+
 import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
 import javax.servlet.ServletContext;
@@ -35,7 +39,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpUpgradeHandler;
+//import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 import javax.xml.stream.XMLStreamException;
 
@@ -402,8 +406,7 @@ public class StandardDavRequest extends WebdavRequestImpl implements
                 throw new BadRequestException("No Content-Type specified");
             }
             MimeType mimeType = new MimeType(getContentType());
-            if (!(mimeType.getType().equals(APPLICATION_XML) || mimeType.getSubtype().equals(APPLICATION_XML)
-            		|| mimeType.getType().equals(TEXT_XML) || mimeType.getType().equals(TEXT_XML))) {
+            if (!(mimeType.match(APPLICATION_XML) || mimeType.match(TEXT_XML))) {
                 throw new UnsupportedMediaTypeException(
                         "Expected Content-Type " + APPLICATION_XML + " or "
                                 + TEXT_XML);
@@ -785,21 +788,4 @@ public class StandardDavRequest extends WebdavRequestImpl implements
         return originalHttpServletRequest.startAsync(servletRequest,
                 servletResponse);
     }
-
-    @Override
-    public String changeSessionId() {
-        return null;
-    }
-
-    @Override
-    public <T extends HttpUpgradeHandler> T upgrade(Class<T> handlerClass) throws IOException, ServletException {
-        return null;
-    }
-
-    @Override
-    public long getContentLengthLong() {
-        return 0;
-    }
-
-
 }

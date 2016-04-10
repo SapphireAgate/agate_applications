@@ -28,14 +28,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven-war-plugin.version>2.1.1</maven-war-plugin.version>
 		<maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
-		<maven.compiler.target>1.7</maven.compiler.target>
-		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
 
 		<org.springframework.security.version>3.2.5.RELEASE</org.springframework.security.version>
 		<org.springframework.version>4.1.4.RELEASE</org.springframework.version>
 
-		<maven.compiler.target>1.7</maven.compiler.target>
-		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
 
 		<qxlint.report.profile>false</qxlint.report.profile>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -128,6 +128,13 @@
 				<artifactId>cosmo-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+
+
+		<dependency>
+			<groupId>org.springframework.android</groupId>
+			<artifactId>spring-android-rest-template</artifactId>
+			<version>${org.springframework.android-version}</version>
+		</dependency>
 
 			<!-- XML & co. -->
 			<dependency>
@@ -485,7 +492,7 @@
 							<rulesets>
 								<ruleset>com/unitedinternet/portal/maven2/pom/customPMDRuleset.xml</ruleset>
 							</rulesets>
-							<targetJdk>1.7</targetJdk>
+							<targetJdk>1.6</targetJdk>
 							<skipEmptyReport>false</skipEmptyReport>
 						</configuration>
 					</execution>
@@ -500,7 +507,7 @@
 							<rulesets>
 								<ruleset>com/unitedinternet/portal/maven2/pom/customPMDRuleset.xml</ruleset>
 							</rulesets>
-							<targetJdk>1.7</targetJdk>
+							<targetJdk>1.6</targetJdk>
 							<skipEmptyReport>false</skipEmptyReport>
 						</configuration>
 					</execution>
@@ -523,7 +530,7 @@
 					<rulesets>
 						<ruleset>com/unitedinternet/portal/maven2/pom/customPMDRuleset.xml</ruleset>
 					</rulesets>
-					<targetJdk>1.7</targetJdk>
+					<targetJdk>1.6</targetJdk>
 					<skipEmptyReport>false</skipEmptyReport>
 				</configuration>
 			</plugin>
@@ -545,9 +552,10 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
+				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.0.0.v20130308</version>
+				<!-- <version>9.0.0.v20130308</version> -->
+				<version>8.1.9.v20130131</version>
 				<configuration>
 					<war>${basedir}/cosmo-webapp/target/cosmo.war</war>
 					<webApp>
@@ -599,8 +607,8 @@
 				<inherited>true</inherited>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<meminitial>1024m</meminitial>
 					<maxmem>2024m</maxmem>
 				</configuration>
@@ -614,5 +622,26 @@
 		<url>https://github.com/1and1/</url>
 		<tag>cosmo-multimodule-1.0.7</tag>
 	</scm>
+  <repositories>
+  <repository>
+        <id>spring-milestones</id>
+        <name>Spring Milestones</name>
+        <url>https://repo.spring.io/libs-milestone</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    <repository>
+      <id>old-jetty</id>
+      <name>Old Jetty</name>
+      <url>http://repo1.maven.org/maven2</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+    </repository>
+  </repositories>
 
 </project>
