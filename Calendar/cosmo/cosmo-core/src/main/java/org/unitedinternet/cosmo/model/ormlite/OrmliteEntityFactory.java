@@ -101,7 +101,7 @@ public class OrmliteEntityFactory implements EntityFactory {
     }
 
     public CalendarAttribute createCalendarAttribute(QName qname, Calendar cal) {
-        return new OrmliteCalendarAttribute(qname, cal);
+        return new OrmliteCalendarAttributeWrapper(qname, cal);
     }
 
     public CalendarCollectionStamp createCalendarCollectionStamp(CollectionItem col) {

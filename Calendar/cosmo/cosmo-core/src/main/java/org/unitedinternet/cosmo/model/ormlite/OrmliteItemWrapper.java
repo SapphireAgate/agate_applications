@@ -242,8 +242,16 @@ public class OrmliteItemWrapper implements Item {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public void setItemType(String itemtype) {
 		getPersistedItem().setItemtype(itemtype);
+	}
+
+	public Long getId() {
+		return getPersistedItem().getId();
+	}
+	
+	public void addParent(CollectionItem parent) {
+		getPersistedItem().addParent(((OrmliteItemWrapper)parent).getPersistedItem());
 	}
 }

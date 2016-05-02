@@ -52,6 +52,7 @@ public class OrmliteBinaryAttributeWrapper extends OrmliteAttributeWrapper imple
 
     /** default constructor */
     public OrmliteBinaryAttributeWrapper() {
+    	getPersistedAttribute().setAttributetype("binary");
     }
 
     public OrmliteBinaryAttributeWrapper(QName qname, byte[] value) {

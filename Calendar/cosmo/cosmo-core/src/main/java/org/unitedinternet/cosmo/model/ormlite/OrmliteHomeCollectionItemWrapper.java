@@ -34,6 +34,10 @@ public class OrmliteHomeCollectionItemWrapper extends OrmliteCollectionItemWrapp
 
     private static final long serialVersionUID = -4301319758735788800L;
     
+    public OrmliteHomeCollectionItemWrapper() {
+    	getPersistedItem().setItemtype("homecollection");
+    }
+    
     public void setName(String name) {
         // Prevent name changes to home collection
         if(getName()==null) {

@@ -78,7 +78,7 @@ public class OrmliteTombstone implements Tombstone {
     private String itemname;
     
     // Foreign fields
-    @DatabaseField(columnName = "ITEMID", foreign = true)
+    @DatabaseField(columnName = "ITEMID", foreign = true, foreignAutoCreate = true)
     private OrmliteItem item;
     
     /**

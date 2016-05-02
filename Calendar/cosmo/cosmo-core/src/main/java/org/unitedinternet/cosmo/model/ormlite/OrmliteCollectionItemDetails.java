@@ -47,23 +47,24 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "collection_item")
 public class OrmliteCollectionItemDetails implements CollectionItemDetails {
 
-	@DatabaseField(columnName = "createdate")
+	@DatabaseField(columnName = "CREATEDATE")
 	private Long createDate;
 	
-	@DatabaseField(columnName = "collectionid", foreign = true, canBeNull = false)
+	@DatabaseField(columnName = "COLLECTIONID", foreign = true, canBeNull = false, foreignAutoCreate = true)
     private OrmliteItem collectionid;
 
-    @DatabaseField(columnName = "itemid", foreign = true, canBeNull = false)
+    @DatabaseField(columnName = "ITEMID", foreign = true, canBeNull = false, foreignAutoCreate = true)
     private OrmliteItem itemid;
  
     public OrmliteCollectionItemDetails() {
     	this.createDate = System.currentTimeMillis();
     }
     
-    public OrmliteCollectionItemDetails(CollectionItem collection,
+    public OrmliteCollectionItemDetails(Item collection,
             Item item) {
-        this.collectionid = ((OrmliteCollectionItemWrapper) collection).getPersistedItem();
-        this.itemid = ((OrmliteItemWrapper) item).getPersistedItem();
+        this.collectionid = (OrmliteItem) collection;
+        //this.itemid = ((OrmliteItemWrapper) item).getPersistedItem();
+        this.itemid = (OrmliteItem)item;
         this.createDate = System.currentTimeMillis();
     }
     

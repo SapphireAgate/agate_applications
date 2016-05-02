@@ -48,11 +48,13 @@ public class OrmliteStringAttributeWrapper extends OrmliteAttributeWrapper imple
 
     /** default constructor */
     public OrmliteStringAttributeWrapper() {
+    	getPersistedAttribute().setAttributetype("string");
     }
 
     public OrmliteStringAttributeWrapper(QName qname, String value) {
         setQName(qname);
         getPersistedAttribute().setStringvalue(value);
+    	getPersistedAttribute().setAttributetype("string");
     }
 
     // Property accessors
@@ -114,7 +116,8 @@ public class OrmliteStringAttributeWrapper extends OrmliteAttributeWrapper imple
         StringAttribute attr = (StringAttribute) item.getAttribute(qname);
         if(attr==null && value!=null) {
             attr = new OrmliteStringAttributeWrapper(qname,value);
-            item.addAttribute(attr);
+            ((OrmliteStringAttributeWrapper)attr).validate();
+            item.addAttribute(((OrmliteStringAttributeWrapper)attr).getPersistedAttribute());
             return;
         }
         if(value==null) {

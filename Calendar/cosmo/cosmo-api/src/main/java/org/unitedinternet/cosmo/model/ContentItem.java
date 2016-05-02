@@ -19,7 +19,7 @@ package org.unitedinternet.cosmo.model;
  * Extends {@link Item} to represent an abstract
  * content item.
  */
-public interface ContentItem extends Item{
+public interface ContentItem extends Item {
 
     public static class Action {
 

@@ -70,4 +70,7 @@ public class OrmliteAttributeWrapper implements Attribute {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void validate() {
+	}
 }

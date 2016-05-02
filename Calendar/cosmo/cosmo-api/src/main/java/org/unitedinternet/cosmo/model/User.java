@@ -78,7 +78,7 @@ public interface User {//extends AuditableObject{
     
     /**
      */
-    public static final int PASSWORD_LEN_MIN = 5;
+    public static final int PASSWORD_LEN_MIN = 3;
     /**
      */
     public static final int PASSWORD_LEN_MAX = 16;

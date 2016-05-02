@@ -132,21 +132,15 @@ public class StandardRequestHandler extends HttpServlet implements ServerConstan
 		CollectionItem collection = entityFactory.createCollection();
 		collection.setOwner(user);
 		collection.setName(defaultCalendarName);
-		collection.setDisplayName(calendarDisplayName);
+		collection.setDisplayName(calendarDisplayName);	
 		collection.getStamp(CalendarCollectionStamp.class);
-		
-		CalendarCollectionStamp colorCollectionStamp = entityFactory.createCalendarCollectionStamp(collection);
-		colorCollectionStamp.setColor(color);
-		colorCollectionStamp.setVisibility(true);
-		
-		System.out.println("[AGATE] Adding stamp to collection stampcollection");
-		
-		collection.addStamp(colorCollectionStamp);
 
-		System.out.println("[AGATE] Get root item");
-		
+		CalendarCollectionStamp colorCollectionStamp = entityFactory.createCalendarCollectionStamp(collection);
+		colorCollectionStamp.setColor(color);	
+		colorCollectionStamp.setVisibility(true);
+		collection.addStamp(colorCollectionStamp);	
+
 		CollectionItem rootItem = BeansSimulator.getContentService().getRootItem(user);
-		
 		BeansSimulator.getContentService().createCollection(rootItem, collection);
 		
 		return user;

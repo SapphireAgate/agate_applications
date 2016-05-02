@@ -78,6 +78,7 @@ public class OrmliteNoteItemWrapper extends OrmliteICalendarItemWrapper implemen
      * Constructor.
      */
     public OrmliteNoteItemWrapper() {
+    	getPersistedItem().setItemtype("note");
     }
 
     // Property accessors

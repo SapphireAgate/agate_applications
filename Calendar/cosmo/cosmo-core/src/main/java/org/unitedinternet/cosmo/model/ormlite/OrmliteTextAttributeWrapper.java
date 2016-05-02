@@ -54,6 +54,7 @@ public class OrmliteTextAttributeWrapper extends OrmliteAttributeWrapper impleme
 
     /** default constructor */
     public OrmliteTextAttributeWrapper() {
+    	getPersistedAttribute().setAttributetype("text");
     }
 
     public OrmliteTextAttributeWrapper(QName qname, String value) {

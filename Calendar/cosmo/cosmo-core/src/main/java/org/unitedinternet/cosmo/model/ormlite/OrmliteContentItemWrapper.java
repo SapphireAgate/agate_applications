@@ -48,6 +48,7 @@ public class OrmliteContentItemWrapper extends OrmliteItemWrapper implements Con
     private static final long serialVersionUID = 4904755977871771389L;
     
     public OrmliteContentItemWrapper() {
+    	getPersistedItem().setItemtype("content");
     }
     
     /* (non-Javadoc)

@@ -44,6 +44,7 @@ public class OrmliteFreeBusyItemWrapper extends OrmliteICalendarItemWrapper impl
     private static final long serialVersionUID = -8464653125685599042L;
 
     public OrmliteFreeBusyItemWrapper() {
+    	getPersistedItem().setItemtype("freebusy");
     }
 
     /* (non-Javadoc)

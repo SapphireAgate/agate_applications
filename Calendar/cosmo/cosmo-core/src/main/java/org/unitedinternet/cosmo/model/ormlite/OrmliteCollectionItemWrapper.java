@@ -60,6 +60,7 @@ public class OrmliteCollectionItemWrapper extends OrmliteItemWrapper implements 
     private transient Set<Item> children = null;
 
     public OrmliteCollectionItemWrapper() {
+    	getPersistedItem().setItemtype("collection");
     };
 
     /* (non-Javadoc)

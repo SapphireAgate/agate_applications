@@ -44,11 +44,13 @@ public class OrmliteDecimalAttributeWrapper extends OrmliteAttributeWrapper impl
     
     /** default constructor */
     public OrmliteDecimalAttributeWrapper() {
+    	getPersistedAttribute().setAttributetype("decimal");
     }
 
     public OrmliteDecimalAttributeWrapper(QName qname, BigDecimal value) {
         setQName(qname);
         getPersistedAttribute().setDecvalue(value);
+        getPersistedAttribute().setAttributetype("decimal");
     }
 
     // Property accessors
@@ -76,7 +78,7 @@ public class OrmliteDecimalAttributeWrapper extends OrmliteAttributeWrapper impl
      * @see org.unitedinternet.cosmo.model.DecimalAttribute#setValue(java.math.BigDecimal)
      */
     public void setValue(BigDecimal value) {
-    	getPersistedAttribute().setDecvalue(value);;
+    	getPersistedAttribute().setDecvalue(value);
     }
 
     /* (non-Javadoc)

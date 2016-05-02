@@ -1,5 +1,7 @@
 SET WRITE_DELAY 0;
 
+CREATE SEQUENCE seq START WITH 1;
+
 DROP TABLE attribute IF EXISTS;
 CREATE TABLE attribute (
   attributetype VARCHAR(16) NOT NULL,

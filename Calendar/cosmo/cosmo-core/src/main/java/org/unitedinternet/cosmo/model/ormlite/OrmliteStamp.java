@@ -68,7 +68,7 @@ public class OrmliteStamp implements Stamp {//extends HibAuditableObject impleme
     //@DatabaseField(id = true, columnName = "ID")
     //private OrmliteItem id;
     
-    @DatabaseField(columnName = "ITEMID", foreign = true)
+    @DatabaseField(columnName = "ITEMID", foreign = true, foreignAutoCreate = true)
     private OrmliteItem item;
     
     @DatabaseField(columnName = "STAMPTYPE", defaultValue = "task")

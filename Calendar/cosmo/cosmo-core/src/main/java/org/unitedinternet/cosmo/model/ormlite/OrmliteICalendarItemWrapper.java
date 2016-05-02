@@ -39,6 +39,7 @@ public abstract class OrmliteICalendarItemWrapper extends OrmliteContentItemWrap
             ICalendarItem.class, "icalendar");
     
     public OrmliteICalendarItemWrapper() {
+    	getPersistedItem().setItemtype("icalendar");
     }
     
     /* (non-Javadoc)

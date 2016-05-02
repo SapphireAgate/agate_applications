@@ -83,8 +83,8 @@ public class OrmliteAttribute extends OrmliteQName implements Attribute {
     private String tzvalue;
     
     // Foreign fields
-    @DatabaseField(columnName = "ITEMID", foreign = true)
-    private OrmliteItem item;
+    @DatabaseField(columnName = "ITEMID", foreign = true, foreignAutoCreate = true)
+    private OrmliteItem itemid;
 
     // Constructors
     /** default constructor */
@@ -117,14 +117,14 @@ public class OrmliteAttribute extends OrmliteQName implements Attribute {
      * @see org.unitedinternet.cosmo.model.Attribute#getItem()
      */
     public Item getItem() {
-        return item;
+        return itemid;
     }
 
     /* (non-Javadoc)
      * @see org.unitedinternet.cosmo.model.Attribute#setItem(org.unitedinternet.cosmo.model.Item)
      */
     public void setItem(Item item) {
-        this.item = (OrmliteItem)item;
+        this.itemid = (OrmliteItem)item;
     }
 
     /* (non-Javadoc)
@@ -145,9 +145,7 @@ public class OrmliteAttribute extends OrmliteQName implements Attribute {
         return value.toString();
     }
 
-    public void validate() {
-    	throw new NotImplementedException();
-    }
+    public void validate() {}
 
 	@Override
 	public Object getValue() {
@@ -244,6 +242,6 @@ public class OrmliteAttribute extends OrmliteQName implements Attribute {
 	}
 
 	public void setItem(OrmliteItem item) {
-		this.item = item;
+		this.itemid = item;
 	}
 }

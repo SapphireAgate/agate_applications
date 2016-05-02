@@ -239,15 +239,15 @@ public abstract class ItemDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#getRootItem(org.unitedinternet.cosmo.model.User)
      */
     public HomeCollectionItem getRootItem(User user) {
-//        try {
-//            return findRootItem(getBaseModelObject(user).getId());
-//        } catch (HibernateException e) {
-//            getSession().clear();
-//            throw e;
-//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
-//        }
-    	System.out.println("[AGATE] ContentDaoImpl not implemented getRootItem");
-    	throw new NotImplementedException();
+        //try {
+            return findRootItem(((OrmliteUser)user).getId());
+        //} catch (HibernateException e) {
+        //    getSession().clear();
+        //    throw e;
+            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+        //}
+//    	System.out.println("[AGATE] ContentDaoImpl not implemented getRootItem");
+//    	throw new NotImplementedException();
     }
 
     /* (non-Javadoc)
@@ -958,23 +958,36 @@ public abstract class ItemDaoImpl implements ItemDao {
 
     protected void checkForDuplicateUid(Item item) {
         // verify uid not in use
-//        if (item.getUid() != null) {
-//
-//            // Lookup item by uid
-//            Query hibQuery = getSession().getNamedQuery("itemid.by.uid")
-//                    .setParameter("uid", item.getUid());
-//            hibQuery.setFlushMode(FlushMode.MANUAL);
-//
-//            Long itemId = (Long) hibQuery.uniqueResult();
-//
-//            // if uid is in use throw exception
-//            if (itemId != null) {
-//                throw new UidInUseException(item.getUid(), "uid " + item.getUid()
-//                        + " already in use");
-//            }
-//        }
-       	System.out.println("[AGATE] ContentDaoImpl not implemented checkForDuplicateId");
-    	throw new NotImplementedException();
+        if (item.getUid() != null) {
+
+            // Lookup item by uid
+        	Dao<OrmliteItem, String> itemsDao = BeansSimulator.getBaseItemDao();
+        	QueryBuilder<OrmliteItem, String> itemsDaoQb = itemsDao.queryBuilder();
+        	
+        	try {
+    			OrmliteItem it = itemsDaoQb.where().eq("UID", item.getUid()).queryForFirst();
+    			if (it != null) {
+                    throw new UidInUseException(item.getUid(), "uid " + item.getUid()
+                            + " already in use");
+                }
+        	} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+        	
+            //Query hibQuery = getSession().getNamedQuery("itemid.by.uid")
+            //        .setParameter("uid", item.getUid());
+            //            hibQuery.setFlushMode(FlushMode.MANUAL);
+
+            //Long itemId = (Long) hibQuery.uniqueResult();
+
+            // if uid is in use throw exception
+            //if (itemId != null) {
+            //    throw new UidInUseException(item.getUid(), "uid " + item.getUid()
+            //            + " already in use");
+            //}
+        }
+       	//System.out.println("[AGATE] ContentDaoImpl not implemented checkForDuplicateId");
+    	//throw new NotImplementedException();
     }
 
     protected Ticket getTicketRecursive(Item item, String key) {

@@ -43,6 +43,7 @@ public class OrmliteTimestampAttributeWrapper extends OrmliteAttributeWrapper im
 
     /** default constructor */
     public OrmliteTimestampAttributeWrapper() {
+    	getPersistedAttribute().setAttributetype("timestamp");
     }
 
     public OrmliteTimestampAttributeWrapper(QName qname, Date value) {

@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 
 //import javax.persistence.CascadeType;
 //import javax.persistence.Column;
@@ -101,7 +102,7 @@ public class OrmliteItem implements Item { //extends HibAuditableObject implemen
 	@DatabaseField(columnName = "ITEMTYPE")
 	private String itemtype;
 	
-    @DatabaseField(id = true, columnName = "ID", unique = true)
+    @DatabaseField(generatedIdSequence = "SEQ", columnName = "ID")
     private Long id;
     
     @DatabaseField(columnName = "CREATEDATE")
@@ -202,6 +203,10 @@ public class OrmliteItem implements Item { //extends HibAuditableObject implemen
 	private transient Boolean isActive = Boolean.TRUE;
     private transient Map<String, Stamp> stampMap = null;
     private transient Set<CollectionItem> parents = null;
+
+    public OrmliteItem() {
+    	uid = UUID.randomUUID().toString();
+    }
 
     public Long getId() {
         return id;
@@ -346,7 +351,7 @@ public class OrmliteItem implements Item { //extends HibAuditableObject implemen
             }
         }
 
-        ((OrmliteAttribute) attribute).validate();
+        //((OrmliteAttribute) attribute).validate();
         attribute.setItem(this);
         attributes.add((OrmliteAttribute) attribute);
     }
@@ -554,7 +559,7 @@ public class OrmliteItem implements Item { //extends HibAuditableObject implemen
     /**
      * @param parent collection to add item to
      */
-    public void addParent(CollectionItem parent) {
+    public void addParent(OrmliteItem parent) {
         parentDetails.add(new OrmliteCollectionItemDetails(parent,this));
 
         // clear cached parents

@@ -25,9 +25,6 @@ import org.unitedinternet.cosmo.model.BooleanAttribute;
 import org.unitedinternet.cosmo.model.Item;
 import org.unitedinternet.cosmo.model.QName;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 ///**
 // * Hibernate persistent BooleanAtttribute.
 // */
@@ -42,11 +39,13 @@ public class OrmliteBooleanAttributeWrapper extends OrmliteAttributeWrapper impl
     
     /** default constructor */
     public OrmliteBooleanAttributeWrapper() {
+    	getPersistedAttribute().setAttributetype("boolean");
     }
 
     public OrmliteBooleanAttributeWrapper(QName qname, Boolean value) {
         setQName(qname);
         getPersistedAttribute().setBoolvalue(value);
+        getPersistedAttribute().setAttributetype("boolean");
     }
 
     // Property accessors
@@ -110,7 +109,8 @@ public class OrmliteBooleanAttributeWrapper extends OrmliteAttributeWrapper impl
         BooleanAttribute attr = (BooleanAttribute) item.getAttribute(qname);
         if(attr==null && value!=null) {
             attr = new OrmliteBooleanAttributeWrapper(qname,value);
-            item.addAttribute(attr);
+            System.out.println("[AGATE] attributetype of boolean wrapper = " +  ((OrmliteBooleanAttributeWrapper)attr).getPersistedAttribute().getAttributetype());
+            item.addAttribute(((OrmliteBooleanAttributeWrapper)attr).getPersistedAttribute());
             return;
         }
         if(value==null) {
@@ -121,11 +121,11 @@ public class OrmliteBooleanAttributeWrapper extends OrmliteAttributeWrapper impl
         }
     }
 
-//    @Override
-//    public void validate() {
+    @Override
+    public void validate() {
 //        // TODO Auto-generated method stub
 //        
-//    }
+    }
 
     @Override
     public String calculateEntityTag() {

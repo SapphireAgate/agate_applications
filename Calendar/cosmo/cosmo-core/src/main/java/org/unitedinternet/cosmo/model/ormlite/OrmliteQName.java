@@ -33,9 +33,9 @@ public class OrmliteQName implements QName, Serializable {
     
     public static final String DEFAULT_NAMESPACE = "org.unitedinternet.cosmo.default";
     
-    @DatabaseField(columnName = "namespace")
+    @DatabaseField(columnName = "NAMESPACE")
     private String namespace;
-    @DatabaseField(columnName = "localname")
+    @DatabaseField(columnName = "LOCALNAME")
     private String localName;
     
     public OrmliteQName() {

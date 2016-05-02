@@ -15,6 +15,7 @@
  */
 package org.unitedinternet.cosmo.dao.hibernate;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +32,7 @@ import org.apache.commons.logging.LogFactory;
 //import org.hibernate.Hibernate;
 //import org.hibernate.HibernateException;
 //import org.hibernate.Query;
+import org.unitedinternet.cosmo.BeansSimulator;
 import org.unitedinternet.cosmo.dao.ContentDao;
 import org.unitedinternet.cosmo.dao.ModelValidationException;
 import org.unitedinternet.cosmo.model.CollectionItem;
@@ -44,6 +46,9 @@ import org.unitedinternet.cosmo.model.ormlite.OrmliteCollectionItemWrapper;
 import org.unitedinternet.cosmo.model.ormlite.OrmliteItem;
 import org.unitedinternet.cosmo.model.ormlite.OrmliteItemTombstoneWrapper;
 //import org.springframework.orm.hibernate4.SessionFactoryUtils;
+
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 /**
  * Implementation of ContentDao using hibernate persistence objects
@@ -62,44 +67,49 @@ public class ContentDaoImpl extends ItemDaoImpl implements ContentDao {
     public CollectionItem createCollection(CollectionItem parent,
                                            CollectionItem collection) {
 
-//        if (parent == null) {
-//            throw new IllegalArgumentException("parent cannot be null");
-//        }
-//
-//        if (collection == null) {
-//            throw new IllegalArgumentException("collection cannot be null");
-//        }
-//
-//        if (collection.getOwner() == null) {
-//            throw new IllegalArgumentException("collection must have owner");
-//        }
-//
-//        if (getBaseModelObject(collection).getId() != -1) {
-//            throw new IllegalArgumentException("invalid collection id (expected -1)");
-//        }
-//
-//
-//        try {
-//            // verify uid not in use
-//            checkForDuplicateUid(collection);
-//
-//            setBaseItemProps(collection);
-//            ((HibItem) collection).addParent(parent);
-//
-//            getSession().save(collection);
-//            getSession().flush();
-//
-//            return collection;
-//        } catch (HibernateException e) {
-//            getSession().clear();
-//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
-//            throw e;
-//        } catch (ConstraintViolationException cve) {
-//            logConstraintViolationException(cve);
-//            throw cve;
-//        }
-    	System.out.println("[AGATE] ContentDaoImpl not implemented createCollection");
-    	throw new NotImplementedException();
+        if (parent == null) {
+            throw new IllegalArgumentException("parent cannot be null");
+        }
+
+        if (collection == null) {
+            throw new IllegalArgumentException("collection cannot be null");
+        }
+
+        if (collection.getOwner() == null) {
+            throw new IllegalArgumentException("collection must have owner");
+        }
+
+        if (((OrmliteCollectionItemWrapper)collection).getId() != -1) {
+        	System.out.println("[AGATE] Already inserted - " + ((OrmliteCollectionItemWrapper)collection).getId());
+            //throw new IllegalArgumentException("invalid collection id (expected -1)");
+        }
+
+
+        try {
+            // verify uid not in use
+            //checkForDuplicateUid(collection);
+
+            setBaseItemProps(collection);
+            ((OrmliteCollectionItemWrapper) collection).addParent(parent);
+            Dao<OrmliteItem, String> itemsDao = BeansSimulator.getBaseItemDao();
+            itemsDao.createOrUpdate(((OrmliteCollectionItemWrapper)collection).getPersistedItem());
+
+            //getSession().save(collection);
+            //getSession().flush();
+
+            return collection;
+        } catch (SQLException e) {
+            //getSession().clear();
+            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+            e.printStackTrace();
+        } catch (ConstraintViolationException cve) {
+            //logConstraintViolationException(cve);
+            cve.printStackTrace();
+        }
+        
+        return null;
+    	//System.out.println("[AGATE] ContentDaoImpl not implemented createCollection");
+    	//throw new NotImplementedException();
     }
     
     

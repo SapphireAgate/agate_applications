@@ -55,6 +55,7 @@ public class OrmliteICalendarAttributeWrapper extends OrmliteAttributeWrapper im
 
     /** default constructor */
     public OrmliteICalendarAttributeWrapper() {
+    	getPersistedAttribute().setAttributetype("icalendar");
     }
 
     /**
@@ -64,6 +65,7 @@ public class OrmliteICalendarAttributeWrapper extends OrmliteAttributeWrapper im
     public OrmliteICalendarAttributeWrapper(QName qname, Calendar value) {
         setQName(qname);
         getPersistedAttribute().setTextvalue(toString(value));
+    	getPersistedAttribute().setAttributetype("icalendar");
     }
     
     /**

@@ -40,11 +40,13 @@ public class OrmliteIntegerAttributeWrapper extends OrmliteAttributeWrapper impl
 
     /** default constructor */
     public OrmliteIntegerAttributeWrapper() {
+    	getPersistedAttribute().setAttributetype("integer");
     }
 
     public OrmliteIntegerAttributeWrapper(QName qname, Long value) {
         setQName(qname);
         getPersistedAttribute().setIntvalue(value);
+        getPersistedAttribute().setAttributetype("integer");
     }
 
     // Property accessors
@@ -106,7 +108,7 @@ public class OrmliteIntegerAttributeWrapper extends OrmliteAttributeWrapper impl
         IntegerAttribute attr = (IntegerAttribute) item.getAttribute(qname);
         if(attr==null && value!=null) {
             attr = new OrmliteIntegerAttributeWrapper(qname,value);
-            item.addAttribute(attr);
+            item.addAttribute(((OrmliteIntegerAttributeWrapper)attr).getPersistedAttribute());
             return;
         }
         if(value==null) {
