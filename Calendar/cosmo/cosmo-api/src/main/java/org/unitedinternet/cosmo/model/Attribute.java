@@ -27,7 +27,7 @@ package org.unitedinternet.cosmo.model;
  * (String, Integer, Binary, Boolean, etc.)
  * 
  */
-public interface Attribute extends AuditableObject {
+public interface Attribute {//extends AuditableObject {
 
     public QName getQName();
 
@@ -67,5 +67,7 @@ public interface Attribute extends AuditableObject {
      * @return copy of Attribute
      */
     public Attribute copy();
+
+	String calculateEntityTag();
 
 }

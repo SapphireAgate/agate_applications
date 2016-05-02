@@ -15,8 +15,8 @@
  */
 package org.unitedinternet.cosmo.dav;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamWriter;
 
 /**
  * An exception indicating that a request was ill-formed.

@@ -154,6 +154,7 @@ public class StandardResourceFactory
     public WebDavResource resolve(DavResourceLocator locator)
         throws CosmoDavException {
         String uri = locator.getPath();
+        LOG.warn("[AGATE] resolving URI " + uri);
         if (LOG.isDebugEnabled()) {
             LOG.debug("resolving URI " + uri);
         }

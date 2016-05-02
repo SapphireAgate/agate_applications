@@ -51,12 +51,12 @@ public class ServletContextConfigurer {
      * attribute by looking up the root user's email address.
      */
     public void setServerAdmin() {
-        User overlord = userService.getUser(User.USERNAME_OVERLORD);
-        if (overlord == null) {
-            throw new IllegalStateException("overlord not in database");
-        }
+        //User overlord = userService.getUser(User.USERNAME_OVERLORD);
+        //if (overlord == null) {
+        //    throw new IllegalStateException("overlord not in database");
+        //}
         servletContext.setAttribute(CosmoConstants.SC_ATTR_SERVER_ADMIN,
-                                    overlord.getEmail());
+                                    "root@localhost");
     }
 
     /**

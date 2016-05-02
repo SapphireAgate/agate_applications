@@ -15,12 +15,13 @@
  */
 package org.unitedinternet.cosmo.model;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
  * Represents a user in the cosmo server.
  */
-public interface User extends AuditableObject{
+public interface User {//extends AuditableObject{
 
     /**
      */
@@ -297,6 +298,8 @@ public interface User extends AuditableObject{
      */
     public boolean isSubscribedTo(CollectionItem collection);
 
-    public String calculateEntityTag();
+	public Date getModifiedDate();
+
+    //public String calculateEntityTag();
 
 }

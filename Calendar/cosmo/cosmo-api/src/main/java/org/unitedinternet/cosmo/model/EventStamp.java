@@ -15,6 +15,7 @@
  */
 package org.unitedinternet.cosmo.model;
 
+import java.util.Date;
 import java.util.List;
 
 import net.fortuna.ical4j.model.Component;
@@ -38,5 +39,7 @@ public interface EventStamp extends BaseEventStamp{
      * when the stamp is saved.
      */
     public VEvent getMasterEvent();
+
+	public Date getCreationDate();
 
 }

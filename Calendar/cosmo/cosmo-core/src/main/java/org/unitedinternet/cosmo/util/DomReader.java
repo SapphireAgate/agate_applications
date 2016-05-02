@@ -21,9 +21,9 @@ import java.io.StringReader;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
+import mf.javax.xml.stream.XMLInputFactory;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

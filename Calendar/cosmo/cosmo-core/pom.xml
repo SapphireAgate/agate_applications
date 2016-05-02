@@ -354,6 +354,30 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/named-regexp-0.2.3.jar</systemPath>
         </dependency>
+        <dependency>
+            <artifactId>org.xerces-android</artifactId>
+            <groupId>xerces</groupId>
+            <version>1.2.3</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/xerces-android.jar</systemPath>
+        </dependency>
+        <dependency>
+            <artifactId>org.ormlite-core</artifactId>
+            <groupId>ormlite</groupId>
+            <version>4.48</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/ormlite-core-4.48.jar</systemPath>
+        </dependency>
+        <dependency>
+            <artifactId>org.ormlite-jdbc</artifactId>
+            <groupId>ormlite</groupId>
+            <version>4.48</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/ormlite-jdbc-4.48.jar</systemPath>
+        </dependency>
+
+
+
 	</dependencies>
 
 	<build>

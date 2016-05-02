@@ -24,15 +24,16 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
-import org.hibernate.Session;
+//import org.hibernate.Query;
+//import org.hibernate.Session;
 import org.unitedinternet.cosmo.CosmoConstants;
 import org.unitedinternet.cosmo.calendar.Instance;
 import org.unitedinternet.cosmo.calendar.InstanceList;
 import org.unitedinternet.cosmo.calendar.RecurrenceExpander;
-import org.unitedinternet.cosmo.dao.hibernate.AbstractDaoImpl;
+//import org.unitedinternet.cosmo.dao.hibernate.AbstractDaoImpl;
 import org.unitedinternet.cosmo.dao.query.ItemFilterProcessor;
 import org.unitedinternet.cosmo.model.ContentItem;
 import org.unitedinternet.cosmo.model.EventStamp;
@@ -54,7 +55,7 @@ import org.unitedinternet.cosmo.model.filter.NoteItemFilter;
 import org.unitedinternet.cosmo.model.filter.NullExpression;
 import org.unitedinternet.cosmo.model.filter.StampFilter;
 import org.unitedinternet.cosmo.model.filter.TextAttributeFilter;
-import org.unitedinternet.cosmo.model.hibernate.HibNoteItem;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteNoteItemWrapper;
 import org.unitedinternet.cosmo.util.NoteOccurrenceUtil;
 
 /**
@@ -62,7 +63,7 @@ import org.unitedinternet.cosmo.util.NoteOccurrenceUtil;
  * Translates filter into HQL Query, executes
  * query and processes the results.
  */
-public class StandardItemFilterProcessor extends AbstractDaoImpl implements ItemFilterProcessor {
+public class StandardItemFilterProcessor implements ItemFilterProcessor {
 
     private static final Log LOG = LogFactory.getLog(StandardItemFilterProcessor.class);
 
@@ -77,9 +78,11 @@ public class StandardItemFilterProcessor extends AbstractDaoImpl implements Item
      * (org.hibernate.Session, org.unitedinternet.cosmo.model.filter.ItemFilter)
      */
     public Set<Item> processFilter(ItemFilter filter) {
-        Query hibQuery = buildQuery(getSession(), filter);
-        List<Item> queryResults = hibQuery.list();
-        return processResults(queryResults, filter);
+//        Query hibQuery = buildQuery(getSession(), filter);
+//        List<Item> queryResults = hibQuery.list();
+//        return processResults(queryResults, filter);
+       	System.out.println("[AGATE] StandardItemFilterProcessor not implemented processFilter");
+    	throw new NotImplementedException();
     }
 
     /**
@@ -95,55 +98,55 @@ public class StandardItemFilterProcessor extends AbstractDaoImpl implements Item
      * @param filter  item filter
      * @return hibernate query built using HQL
      */
-    public Query buildQuery(Session session, ItemFilter filter) {
-        StringBuffer selectBuf = new StringBuffer();
-        StringBuffer whereBuf = new StringBuffer();
-        StringBuffer orderBuf = new StringBuffer();
-
-        HashMap<String, Object> params = new HashMap<String, Object>();
-
-        if (filter instanceof NoteItemFilter) {
-            handleNoteItemFilter(selectBuf, whereBuf, params, (NoteItemFilter) filter);
-        } else if (filter instanceof ContentItemFilter) {
-            handleContentItemFilter(selectBuf, whereBuf, params, (ContentItemFilter) filter);
-        } else {
-            handleItemFilter(selectBuf, whereBuf, params, filter);
-        }
-
-        selectBuf.append(whereBuf);
-
-        for (FilterOrder fo : filter.getOrders()) {
-            if (orderBuf.length() == 0) {
-                orderBuf.append(" order by ");
-            } else {
-                orderBuf.append(", ");
-            }
-
-            orderBuf.append("i." + fo.getName());
-
-            if (fo.getOrder().equals(Order.DESC)) {
-                orderBuf.append(" desc");
-            }
-        }
-
-        selectBuf.append(orderBuf);
-
-        if (LOG.isDebugEnabled()) {
-            LOG.debug(selectBuf.toString());
-        }
-
-        Query hqlQuery = session.createQuery(selectBuf.toString());
-
-        for (Entry<String, Object> param : params.entrySet()) {
-            hqlQuery.setParameter(param.getKey(), param.getValue());
-        }
-
-        if (filter.getMaxResults() != null) {
-            hqlQuery.setMaxResults(filter.getMaxResults());
-        }
-
-        return hqlQuery;
-    }
+//    public Query buildQuery(Session session, ItemFilter filter) {
+//        StringBuffer selectBuf = new StringBuffer();
+//        StringBuffer whereBuf = new StringBuffer();
+//        StringBuffer orderBuf = new StringBuffer();
+//
+//        HashMap<String, Object> params = new HashMap<String, Object>();
+//
+//        if (filter instanceof NoteItemFilter) {
+//            handleNoteItemFilter(selectBuf, whereBuf, params, (NoteItemFilter) filter);
+//        } else if (filter instanceof ContentItemFilter) {
+//            handleContentItemFilter(selectBuf, whereBuf, params, (ContentItemFilter) filter);
+//        } else {
+//            handleItemFilter(selectBuf, whereBuf, params, filter);
+//        }
+//
+//        selectBuf.append(whereBuf);
+//
+//        for (FilterOrder fo : filter.getOrders()) {
+//            if (orderBuf.length() == 0) {
+//                orderBuf.append(" order by ");
+//            } else {
+//                orderBuf.append(", ");
+//            }
+//
+//            orderBuf.append("i." + fo.getName());
+//
+//            if (fo.getOrder().equals(Order.DESC)) {
+//                orderBuf.append(" desc");
+//            }
+//        }
+//
+//        selectBuf.append(orderBuf);
+//
+//        if (LOG.isDebugEnabled()) {
+//            LOG.debug(selectBuf.toString());
+//        }
+//
+//        Query hqlQuery = session.createQuery(selectBuf.toString());
+//
+//        for (Entry<String, Object> param : params.entrySet()) {
+//            hqlQuery.setParameter(param.getKey(), param.getValue());
+//        }
+//
+//        if (filter.getMaxResults() != null) {
+//            hqlQuery.setMaxResults(filter.getMaxResults());
+//        }
+//
+//        return hqlQuery;
+//    }
 
     private void handleItemFilter(StringBuffer selectBuf,
                                   StringBuffer whereBuf, HashMap<String, Object> params,
@@ -289,7 +292,7 @@ public class StandardItemFilterProcessor extends AbstractDaoImpl implements Item
             String alias = "ta" + params.size();
             selectBuf.append(", HibTextAttribute " + alias);
             appendWhere(whereBuf, alias + ".item=i and " + alias + ".qname=:" + alias + "qname");
-            params.put(alias + "qname", HibNoteItem.ATTR_NOTE_BODY);
+            params.put(alias + "qname", OrmliteNoteItemWrapper.ATTR_NOTE_BODY);
             formatExpression(whereBuf, params, alias + ".value", filter.getBody());
         }
 
@@ -298,7 +301,7 @@ public class StandardItemFilterProcessor extends AbstractDaoImpl implements Item
             String alias = "tsa" + params.size();
             selectBuf.append(", HibTimestampAttribute " + alias);
             appendWhere(whereBuf, alias + ".item=i and " + alias + ".qname=:" + alias + "qname");
-            params.put(alias + "qname", HibNoteItem.ATTR_REMINDER_TIME);
+            params.put(alias + "qname", OrmliteNoteItemWrapper.ATTR_REMINDER_TIME);
             formatExpression(whereBuf, params, alias + ".value", filter.getReminderTime());
         }
 

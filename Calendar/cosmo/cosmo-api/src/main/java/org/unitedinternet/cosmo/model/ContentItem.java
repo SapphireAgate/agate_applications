@@ -60,5 +60,4 @@ public interface ContentItem extends Item{
     public Boolean getNeedsReply();
 
     public void setNeedsReply(Boolean needsReply);
-
 }

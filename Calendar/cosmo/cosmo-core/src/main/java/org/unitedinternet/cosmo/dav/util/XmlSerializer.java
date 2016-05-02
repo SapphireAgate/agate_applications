@@ -22,8 +22,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.jackrabbit.webdav.xml.XmlSerializable;
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
+import mf.org.apache.xml.serialize.OutputFormat;
+import mf.org.apache.xml.serialize.XMLSerializer;
 import org.unitedinternet.cosmo.CosmoParseException;
 import org.w3c.dom.Document;
 
@@ -47,7 +47,9 @@ public class XmlSerializer {
             XMLSerializer serializer =
                 new XMLSerializer(out, format);
             serializer.setNamespaces(true);
-            serializer.asDOMSerializer().serialize(doc);
+            
+            System.out.println("[AGATE] XmlSerializer Can't serialize the whole doc");
+            //serializer.asDOMSerializer().serialize(doc);
 
             return out.toString();
         } catch (ParserConfigurationException e) {

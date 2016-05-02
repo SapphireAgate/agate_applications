@@ -20,9 +20,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
+import mf.javax.xml.namespace.NamespaceContext;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamWriter;
 
 /**
  * An unclassified WebDAV Exception.

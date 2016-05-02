@@ -19,9 +19,9 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.text.ParseException;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamReader;
+import mf.javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -125,7 +125,7 @@ public class XhtmlSubscriptionFormat extends BaseXhtmlFormat
                     if (StringUtils.isBlank(key)) {
                         handleParseException("Key element must not be empty", reader);
                     }
-                    sub.setTicketKey(key);
+                    //sub.setTicketKey(key);
 
                     continue;
                 }
@@ -188,24 +188,24 @@ public class XhtmlSubscriptionFormat extends BaseXhtmlFormat
                 writer.writeEndElement();
             }
 
-            if (sub.getTicketKey() != null) {
-                writer.writeStartElement("div");
-                writer.writeAttribute("class", "ticket");
-                writer.writeCharacters("Ticket: ");
-                writer.writeStartElement("span");
-                writer.writeAttribute("class", "key");
-                writer.writeCharacters(sub.getTicketKey());
-                writer.writeEndElement();
-                if (isTicketProvided) {
-                    writer.writeCharacters(" Exists? ");
-                    writer.writeStartElement("span");
-                    writer.writeAttribute("class", "exists");
-                    writer.writeCharacters(Boolean.valueOf(ticket != null).
-                                           toString());
-                    writer.writeEndElement();
-                }
-                writer.writeEndElement();
-            }
+//            if (sub.getTicketKey() != null) {
+//                writer.writeStartElement("div");
+//                writer.writeAttribute("class", "ticket");
+//                writer.writeCharacters("Ticket: ");
+//                writer.writeStartElement("span");
+//                writer.writeAttribute("class", "key");
+//                writer.writeCharacters(sub.getTicketKey());
+//                writer.writeEndElement();
+//                if (isTicketProvided) {
+//                    writer.writeCharacters(" Exists? ");
+//                    writer.writeStartElement("span");
+//                    writer.writeAttribute("class", "exists");
+//                    writer.writeCharacters(Boolean.valueOf(ticket != null).
+//                                           toString());
+//                    writer.writeEndElement();
+//                }
+//                writer.writeEndElement();
+//            }
 
             writer.writeEndElement();
             writer.close();

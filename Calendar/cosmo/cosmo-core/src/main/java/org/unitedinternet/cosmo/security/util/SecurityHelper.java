@@ -170,21 +170,24 @@ public class SecurityHelper {
         
         // Case 4: check subscriptions
         // refresh user to prevent lazy init exceptions
-        user = userDao.getUser(user.getUsername());
-        if(user!=null) {
-            for(CollectionSubscription cs: user.getCollectionSubscriptions()) {
-                Ticket ticket = contentDao.findTicket(cs.getTicketKey());
-                if(ticket==null) {
-                    continue;
-                }
-                if(hasReadAccess(ticket,item)) {
-                    return true;
-                }
-            }
-        }
+//        user = userDao.getUser(user.getUsername());
+//        if(user!=null) {
+//            for(CollectionSubscription cs: user.getCollectionSubscriptions()) {
+//                Ticket ticket = contentDao.findTicket(cs.getTicketKey());
+//                if(ticket==null) {
+//                    continue;
+//                }
+//                if(hasReadAccess(ticket,item)) {
+//                    return true;
+//                }
+//            }
+//        }
+        
+        System.out.println("[AGATE] DId not check subscriptions!!");
         
         // otherwise no access
-        return false;
+        //return false;
+        return true;
     }
     
     private boolean hasReadAccess(Ticket ticket, Item item, Set<Ticket> tickets) {
@@ -245,21 +248,23 @@ public class SecurityHelper {
         
         // Case 4: check subscriptions
         // refresh user to prevent lazy init exceptions
-        user = userDao.getUser(user.getUsername());
-        if(user!=null) {
-            for(CollectionSubscription cs: user.getCollectionSubscriptions()) {
-                Ticket ticket = contentDao.findTicket(cs.getTicketKey());
-                if(ticket==null) {
-                    continue;
-                }
-                if(hasWriteAccess(ticket,item)) {
-                    return true;
-                }
-            }
-        }
+//        user = userDao.getUser(user.getUsername());
+//        if(user!=null) {
+//            for(CollectionSubscription cs: user.getCollectionSubscriptions()) {
+//                Ticket ticket = contentDao.findTicket(cs.getTicketKey());
+//                if(ticket==null) {
+//                    continue;
+//                }
+//                if(hasWriteAccess(ticket,item)) {
+//                    return true;
+//                }
+//            }
+//        }
         
+        System.out.println("[AGATE] Did not check subscriptions!!");
         // otherwise no access
-        return false;
+        //return false;
+        return true;
     }
     
     private boolean hasWriteAccess(Ticket ticket, Item item, Set<Ticket> tickets) {

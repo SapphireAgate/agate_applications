@@ -19,9 +19,9 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.text.ParseException;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamReader;
+import mf.javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;

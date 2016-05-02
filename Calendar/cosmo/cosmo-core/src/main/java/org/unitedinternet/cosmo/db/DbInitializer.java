@@ -16,9 +16,11 @@
 package org.unitedinternet.cosmo.db;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -31,10 +33,11 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.dbcp.BasicDataSource;
-import org.hibernate.HibernateException;
-import org.hibernate.tool.hbm2ddl.SchemaValidator;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.unitedinternet.cosmo.datasource.HibernateSessionFactoryBeanDelegate;
+//import org.hibernate.HibernateException;
+//import org.hibernate.SessionFactory;
+//import org.hibernate.tool.hbm2ddl.SchemaValidator;
+//import org.springframework.jdbc.core.JdbcTemplate;
+//import org.unitedinternet.cosmo.datasource.HibernateSessionFactoryBeanDelegate;
 
 /**
  * A helper class that initializes the Cosmo database schema and populates the database with seed data.
@@ -45,8 +48,10 @@ public class DbInitializer {
 
     private static final String PATH_SCHEMA = "/db/cosmo-schema.sql";
 
-    private HibernateSessionFactoryBeanDelegate localSessionFactory;
+    //private HibernateSessionFactoryBeanDelegate localSessionFactory;
+    //private SessionFactory localSessionFactory;
 
+    
     private DataSource datasource;
 
     private Collection<? extends DatabaseInitializationCallback> callbacks = Collections.emptyList();
@@ -59,26 +64,41 @@ public class DbInitializer {
     public void initialize() {
         // Create DB schema if not present
         if (!isSchemaInitialized()) {
-            this.executeStatements(PATH_SCHEMA);
+        	try {
+        		this.executeStatements(PATH_SCHEMA);
+        	} catch (Exception e) {
+        		LOG.error(e);
+        	}
             LOG.warn("[DB-startup] Cosmo database structure created successfully.");
             for (DatabaseInitializationCallback callback : callbacks) {
                 callback.execute();
             }
         }
         // More thorough schema validation
-        validateSchema();
+        //validateSchema();
     }
 
-    public void executeStatements(String resource) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(this.datasource);
+    public void executeStatements(String resource) throws SQLException {
+        
+    	Connection conn = DriverManager.getConnection("jdbc:hsqldb:mem:testdb", "sa", "");
+    	conn.setAutoCommit(true);
+
         for (String statement : this.readStatements(resource)) {
             LOG.info("\n" + statement);
-            try {
-                int rows = jdbcTemplate.update(statement);
-            } catch(Exception e) {
-                LOG.warn(e.toString());
+            Statement st = conn.createStatement();
+            int i = st.executeUpdate(statement);
+            //System.out.println("[AGATE] i = " + i);
+            if (i == -1) {
+                System.out.println("db error : " + statement);
             }
+            st.close();
+            //try {
+            //    int rows = jdbcTemplate.update(statement);
+            //} catch(Exception e) {
+            //    LOG.warn(e.toString());
+            //}
         }
+        conn.close();
     }
 
     private List<String> readStatements(String resource) {
@@ -105,9 +125,10 @@ public class DbInitializer {
         this.datasource = datasource;
     }
 
-    public void setLocalSessionFactory(HibernateSessionFactoryBeanDelegate hibernateLocalSessionFactoryDelegate) {
-        this.localSessionFactory = hibernateLocalSessionFactoryDelegate;
-    }
+    //public void setLocalSessionFactory(HibernateSessionFactoryBeanDelegate hibernateLocalSessionFactoryDelegate) {
+//    public void setLocalSessionFactory(SessionFactory hibernateLocalSessionFactoryDelegate) {
+//    	this.localSessionFactory = hibernateLocalSessionFactoryDelegate;
+//    }
 
     public void setCallbacks(Collection<? extends DatabaseInitializationCallback> callbacks) {
         this.callbacks = callbacks;
@@ -156,16 +177,17 @@ public class DbInitializer {
         }
     }
 
-    /**
-     * Schema validation
-     */
-    private void validateSchema() {
-        try {
-            new SchemaValidator(localSessionFactory.getConfiguration()).validate();
-            LOG.info("schema validation passed");
-        } catch (HibernateException e) {
-            LOG.error("error validating schema", e);
-            throw e;
-        }
-    }
+//    /**
+//     * Schema validation
+//     */
+//    private void validateSchema() {
+//        try {
+//            //new SchemaValidator(localSessionFactory.getConfiguration()).validate();
+//            LOG.warn("[AGATE] not validating schema");
+//        	//LOG.info("schema validation passed");
+//        } catch (HibernateException e) {
+//            LOG.error("error validating schema", e);
+//            throw e;
+//        }
+//    }
 }

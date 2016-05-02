@@ -23,8 +23,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
-import javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamException;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -155,7 +156,9 @@ public class DavUserPrincipal extends DavResourceBase implements CaldavConstants
     }
 
     public String getETag() {
-        return "\"" + user.getEntityTag() + "\"";
+       // return "\"" + user.getEntityTag() + "\"";
+    	//return "user33";
+    	throw new NotImplementedException();
     }
 
     public void writeTo(OutputContext context)
@@ -303,11 +306,11 @@ public class DavUserPrincipal extends DavResourceBase implements CaldavConstants
     }
     
     protected void loadLiveProperties(DavPropertySet properties) {
-        properties.add(new CreationDate(user.getCreationDate()));
+        //properties.add(new CreationDate(user.getCreationDate()));
         properties.add(new DisplayName(getDisplayName()));
         properties.add(new ResourceType(getResourceTypes()));
         properties.add(new IsCollection(isCollection()));
-        properties.add(new Etag(user.getEntityTag()));
+        //properties.add(new Etag(user.getEntityTag()));
         properties.add(new LastModified(user.getModifiedDate()));
         properties.add(new CalendarHomeSet(getResourceLocator(), user));
         

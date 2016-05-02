@@ -19,7 +19,7 @@ package org.unitedinternet.cosmo.model;
  * Represents a Stamp on an Item. A Stamp is a set of related
  * properties and apis that is associated to an item.
  */
-public interface Stamp extends AuditableObject {
+public interface Stamp {//extends AuditableObject {
 
     /**
      * @return Item attribute belongs to
@@ -46,6 +46,6 @@ public interface Stamp extends AuditableObject {
     /**
      * Update stamp's timestamp
      */
-    public void updateTimestamp();
+    //public void updateTimestamp();
 
 }

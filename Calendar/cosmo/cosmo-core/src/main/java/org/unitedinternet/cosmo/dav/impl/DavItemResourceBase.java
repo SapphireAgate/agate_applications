@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.abdera.i18n.text.UrlEncoding;
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -146,20 +147,22 @@ public abstract class DavItemResourceBase extends DavResourceBase implements
     }
 
     public String getETag() {
-        if (getItem() == null)
-            return null;
-        // an item that is about to be created does not yet have an etag
-        if (StringUtils.isBlank(getItem().getEntityTag()))
-            return null;
-        return "\"" + getItem().getEntityTag() + "\"";
+//        if (getItem() == null)
+//            return null;
+//        // an item that is about to be created does not yet have an etag
+//        if (StringUtils.isBlank(getItem().getEntityTag()))
+//            return null;
+//        return "\"" + getItem().getEntityTag() + "\"";
+    	throw new NotImplementedException();
     }
 
     public long getModificationTime() {
-        if (getItem() == null)
-            return -1;
-        if (getItem().getModifiedDate() == null)
-            return new Date().getTime();
-        return getItem().getModifiedDate().getTime();
+//        if (getItem() == null)
+//            return -1;
+//        if (getItem().getModifiedDate() == null)
+//            return new Date().getTime();
+//        return getItem().getModifiedDate().getTime();
+    	throw new NotImplementedException();
     }
 
     public void setProperty(
@@ -331,19 +334,19 @@ public abstract class DavItemResourceBase extends DavResourceBase implements
         getContentService().removeTicket(item, ticket);
     }
 
-    public Ticket getTicket(String id) {
-        for (Iterator<Ticket> i = item.getTickets().iterator(); i.hasNext();) {
-            Ticket t = (Ticket) i.next();
-            if (t.getKey().equals(id))
-                return t;
-        }
-        return null;
-    }
-
-    public Set<Ticket> getTickets() {
-        return getSecurityManager().getSecurityContext().findVisibleTickets(
-                item);
-    }
+//    public Ticket getTicket(String id) {
+//        for (Iterator<Ticket> i = item.getTickets().iterator(); i.hasNext();) {
+//            Ticket t = (Ticket) i.next();
+//            if (t.getKey().equals(id))
+//                return t;
+//        }
+//        return null;
+//    }
+//
+//    public Set<Ticket> getTickets() {
+//        return getSecurityManager().getSecurityContext().findVisibleTickets(
+//                item);
+//    }
 
     public EntityFactory getEntityFactory() {
         return entityFactory;
@@ -589,15 +592,16 @@ public abstract class DavItemResourceBase extends DavResourceBase implements
             return;
         }
 
-        properties.add(new CreationDate(item.getCreationDate()));
-        properties.add(new LastModified(item.getModifiedDate()));
+        //properties.add(new CreationDate(item.getCreationDate()));
+        //properties.add(new LastModified(item.getModifiedDate()));
+        System.out.println("[AGATE] did not add some properties");
         properties.add(new Etag(getETag()));
         properties.add(new DisplayName(getDisplayName()));
         properties.add(new ResourceType(getResourceTypes()));
         properties.add(new IsCollection(isCollection()));
         properties.add(new Owner(getResourceLocator(), item.getOwner()));
         properties.add(new PrincipalCollectionSet(getResourceLocator()));
-        properties.add(new TicketDiscovery(getResourceLocator(), getTickets()));
+        //properties.add(new TicketDiscovery(getResourceLocator(), getTickets()));
         properties.add(new Uuid(item.getUid()));
     }
 

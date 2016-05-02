@@ -25,7 +25,7 @@ import org.unitedinternet.cosmo.dav.DavResourceLocator;
 import org.unitedinternet.cosmo.dav.UnprocessableEntityException;
 import org.unitedinternet.cosmo.model.EntityFactory;
 import org.unitedinternet.cosmo.model.FreeBusyItem;
-import org.unitedinternet.cosmo.model.hibernate.EntityConverter;
+import org.unitedinternet.cosmo.model.ormlite.EntityConverter;
 
 /**
  * Extends <code>DavCalendarResource</code> to adapt the Cosmo

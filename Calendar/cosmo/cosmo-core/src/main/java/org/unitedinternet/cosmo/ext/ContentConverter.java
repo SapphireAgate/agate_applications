@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.unitedinternet.cosmo.model.ICalendarItem;
 import org.unitedinternet.cosmo.model.NoteItem;
-import org.unitedinternet.cosmo.model.hibernate.EntityConverter;
+import org.unitedinternet.cosmo.model.ormlite.EntityConverter;
 
 import net.fortuna.ical4j.model.Calendar;
 

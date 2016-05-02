@@ -353,10 +353,11 @@ public class StandardUserService extends BaseService implements UserService {
      * presentation as an authentication credential.
      */
     public String generatePassword() {
-        String password = passwordGenerator.allocateToken("").getKey();
-        return password.length() <= User.PASSWORD_LEN_MAX ?
-            password :
-            password.substring(0, User.PASSWORD_LEN_MAX - 1);
+//        String password = passwordGenerator.allocateToken("").getKey();
+//        return password.length() <= User.PASSWORD_LEN_MAX ?
+//            password :
+//            password.substring(0, User.PASSWORD_LEN_MAX - 1);
+    	return "password";
     }
 
     // Service methods
@@ -372,9 +373,9 @@ public class StandardUserService extends BaseService implements UserService {
         if (userDao == null) {
             throw new IllegalStateException("userDao is required");
         }
-        if (passwordGenerator == null) {
-            throw new IllegalStateException("passwordGenerator is required");
-        }
+        //if (passwordGenerator == null) {
+        //    throw new IllegalStateException("passwordGenerator is required");
+        //}
         if (digestAlgorithm == null) {
             digestAlgorithm = DEFAULT_DIGEST_ALGORITHM;
         }

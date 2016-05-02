@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ValidationException;
@@ -26,6 +27,7 @@ import javax.validation.ValidationException;
 import org.apache.abdera.util.EntityTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.unitedinternet.cosmo.BeansSimulator;
 import org.unitedinternet.cosmo.CosmoException;
 import org.unitedinternet.cosmo.dav.CosmoDavException;
 import org.unitedinternet.cosmo.dav.DavCollection;
@@ -60,13 +62,16 @@ import org.unitedinternet.cosmo.dav.provider.HomeCollectionProvider;
 import org.unitedinternet.cosmo.dav.provider.OutboxCollectionProvider;
 import org.unitedinternet.cosmo.dav.provider.UserPrincipalCollectionProvider;
 import org.unitedinternet.cosmo.dav.provider.UserPrincipalProvider;
+import org.unitedinternet.cosmo.model.CalendarCollectionStamp;
+import org.unitedinternet.cosmo.model.CollectionItem;
 import org.unitedinternet.cosmo.model.EntityFactory;
+import org.unitedinternet.cosmo.model.User;
 import org.unitedinternet.cosmo.security.CosmoSecurityException;
 import org.unitedinternet.cosmo.security.ItemSecurityException;
 import org.unitedinternet.cosmo.security.Permission;
 import org.unitedinternet.cosmo.server.ServerConstants;
 import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.web.HttpRequestHandler;
+import org.springframework.security.core.Authentication;
 
 /**
  * <p>
@@ -77,16 +82,113 @@ import org.springframework.web.HttpRequestHandler;
  * method based on the request method.
  * </p>
  */
-public class StandardRequestHandler
-    implements HttpRequestHandler, ServerConstants {
-    private static final Log LOG =
+public class StandardRequestHandler extends HttpServlet implements ServerConstants {
+
+	private static final Log LOG =
         LogFactory.getLog(StandardRequestHandler.class);
 
     private DavResourceLocatorFactory locatorFactory;
     private DavResourceFactory resourceFactory;
     private EntityFactory entityFactory;
     // RequestHandler methods
-               
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+    	
+    	/* AGATE if path is "/" create two users alice and bob*/
+    	if (request.getRequestURI().equals("/cosmo/dav/")) {
+    		createUserIfNotPresent("alice");
+    		createUserIfNotPresent("bob");    		
+    	}
+    	
+    	handleRequest(request, response);
+    }
+    
+    private User createUserIfNotPresent(String userName) {		
+		User user = BeansSimulator.getUserService().getUser(userName);
+		
+		if(user != null){
+			LOG.info("=== Found user with email [" + user.getEmail() + "]");
+			return user;
+		}
+		
+		LOG.info("=== No user found for principal [" + userName +"]. Creating one with an empty calendar.===");
+		user = entityFactory.createUser();
+        user.setUsername(userName);
+        user.setEmail(userName + "@server.com");
+        user.setFirstName(userName);
+        user.setLastName(userName);
+        user.setPassword(userName);
+        
+        user = BeansSimulator.getUserService().createUser(user);        
+		
+		String defaultCalendarName = "calendar";
+		String calendarDisplayName = "calendarDisplayName";
+		String color = "#f0f0f0";
+		
+		System.out.println("[AGATE] Creating collection");
+		
+		CollectionItem collection = entityFactory.createCollection();
+		collection.setOwner(user);
+		collection.setName(defaultCalendarName);
+		collection.setDisplayName(calendarDisplayName);
+		collection.getStamp(CalendarCollectionStamp.class);
+		
+		CalendarCollectionStamp colorCollectionStamp = entityFactory.createCalendarCollectionStamp(collection);
+		colorCollectionStamp.setColor(color);
+		colorCollectionStamp.setVisibility(true);
+		
+		System.out.println("[AGATE] Adding stamp to collection stampcollection");
+		
+		collection.addStamp(colorCollectionStamp);
+
+		System.out.println("[AGATE] Get root item");
+		
+		CollectionItem rootItem = BeansSimulator.getContentService().getRootItem(user);
+		
+		BeansSimulator.getContentService().createCollection(rootItem, collection);
+		
+		return user;
+	}
+    
+    
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+    	handleRequest(request, response);
+    }
+    
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+    	handleRequest(request, response);
+    }
+    
+    @Override
+    protected void doHead(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+    	handleRequest(request, response);
+    }
+    
+    @Override
+    protected void doOptions(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+    	handleRequest(request, response);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+    	handleRequest(request, response);
+    }
+    
+    @Override
+    protected void doTrace(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+    	handleRequest(request, response);
+    }
+
     /**
      * <p>
      * Processes the request and returns a response. Calls
@@ -107,12 +209,15 @@ public class StandardRequestHandler
         dumpRequest(request);
         DavRequest wreq = null;
         DavResponse wres = null;
-        
+
+        LOG.info("[AGATE] got request: " + request);
+
         try {
             wreq = createDavRequest(request);
             wres = createDavResponse(response);
 
             WebDavResource resource = resolveTarget(wreq);
+            LOG.info("[AGATE] resource = " + resource);
             preconditions(wreq, wres, resource);
             process(wreq, wres, resource);
         } catch (Exception e) {
@@ -372,14 +477,17 @@ public class StandardRequestHandler
     }
 
     public void init() {
+    	locatorFactory = BeansSimulator.getDavResourceLocatorFactory();
         if (locatorFactory == null) {
             throw new CosmoException("locatorFactory must not be null",
                     new CosmoException());
         }
+        resourceFactory = BeansSimulator.getDavResourceFactory();
         if (resourceFactory == null) {
             throw new CosmoException("resourceFactory must not be null",
                     new CosmoException());
         }
+        entityFactory = BeansSimulator.getCosmoEntityFactory();
     }
 
     public DavResourceLocatorFactory getResourceLocatorFactory() {

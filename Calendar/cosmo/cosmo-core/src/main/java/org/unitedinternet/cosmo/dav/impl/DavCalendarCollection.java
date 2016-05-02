@@ -76,7 +76,7 @@ import org.unitedinternet.cosmo.model.IcalUidInUseException;
 import org.unitedinternet.cosmo.model.Item;
 import org.unitedinternet.cosmo.model.NoteItem;
 import org.unitedinternet.cosmo.model.StampUtils;
-import org.unitedinternet.cosmo.model.hibernate.EntityConverter;
+import org.unitedinternet.cosmo.model.ormlite.EntityConverter;
 
 import com.google.common.collect.Sets;
 
@@ -254,9 +254,10 @@ public class DavCalendarCollection extends DavCollectionBase implements CaldavCo
         // add CS:getctag property, which is the collection's entitytag
         // if it exists
         Item item = getItem();
-        if (item != null && item.getEntityTag() != null) {
-            properties.add(new GetCTag(item.getEntityTag()));
-        }
+       // if (item != null && item.getEntityTag() != null) {
+       //     properties.add(new GetCTag(item.getEntityTag()));
+        //}
+        System.out.println("[AGATE] loadLiveProperties not added entity tag");
 
         properties.add(new SupportedCalendarComponentSet());
         properties.add(new SupportedCollationSet());

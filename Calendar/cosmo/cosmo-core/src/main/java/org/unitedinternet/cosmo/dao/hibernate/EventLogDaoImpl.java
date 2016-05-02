@@ -19,11 +19,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
+//import org.hibernate.HibernateException;
+//import org.hibernate.Query;
 import org.unitedinternet.cosmo.dao.EventLogDao;
 import org.unitedinternet.cosmo.model.CollectionItem;
 import org.unitedinternet.cosmo.model.ContentItem;
@@ -35,44 +36,50 @@ import org.unitedinternet.cosmo.model.event.ItemAddedEntry;
 import org.unitedinternet.cosmo.model.event.ItemEntry;
 import org.unitedinternet.cosmo.model.event.ItemRemovedEntry;
 import org.unitedinternet.cosmo.model.event.ItemUpdatedEntry;
-import org.unitedinternet.cosmo.model.hibernate.HibEventLogEntry;
-import org.unitedinternet.cosmo.model.hibernate.HibItem;
-import org.unitedinternet.cosmo.model.hibernate.HibTicket;
-import org.unitedinternet.cosmo.model.hibernate.HibUser;
-import org.springframework.orm.hibernate4.SessionFactoryUtils;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteEventLogEntry;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteItem;
+//import org.unitedinternet.cosmo.model.hibernate.HibTicket;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteUser;
+//import org.springframework.orm.hibernate4.SessionFactoryUtils;
 
 
 /**
  * Implementation of EventLogDao using Hibernate persistence objects.
  */
-public class EventLogDaoImpl extends AbstractDaoImpl implements EventLogDao {
+public class EventLogDaoImpl implements EventLogDao {
 
     @SuppressWarnings("unused")
     private static final Log LOG = LogFactory.getLog(EventLogDaoImpl.class);
 
 
     public void addEventLogEntry(EventLogEntry entry) {
-        try {
-            addEventLogEntryInternal(entry);
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            addEventLogEntryInternal(entry);
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented addEventLogEntry");
+    	throw new NotImplementedException();
     }
 
     public void addEventLogEntries(List<EventLogEntry> entries) {
 
-        try {
-            for (EventLogEntry entry : entries) {
-                addEventLogEntryInternal(entry);
-            }
-
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            for (EventLogEntry entry : entries) {
+//                addEventLogEntryInternal(entry);
+//            }
+//
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented addEventLogEntries");
+    	throw new NotImplementedException();
     }
 
     /**
@@ -80,25 +87,28 @@ public class EventLogDaoImpl extends AbstractDaoImpl implements EventLogDao {
      */
     public List<ItemChangeRecord> findChangesForCollection(
             CollectionItem collection, Date start, Date end) {
-        try {
-            Query hibQuery = getSession().getNamedQuery("logEntry.by.collection.date");
-            hibQuery.setParameter("parentId", ((HibItem) collection).getId());
-            hibQuery.setParameter("startDate", start);
-            hibQuery.setParameter("endDate", end);
-            List<HibEventLogEntry> results = hibQuery.list();
-
-            ArrayList<ItemChangeRecord> changeRecords = new ArrayList<ItemChangeRecord>();
-
-            for (HibEventLogEntry result : results) {
-                changeRecords.add(convertToItemChangeRecord(result));
-            }
-
-            return changeRecords;
-
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            Query hibQuery = getSession().getNamedQuery("logEntry.by.collection.date");
+//            hibQuery.setParameter("parentId", ((HibItem) collection).getId());
+//            hibQuery.setParameter("startDate", start);
+//            hibQuery.setParameter("endDate", end);
+//            List<HibEventLogEntry> results = hibQuery.list();
+//
+//            ArrayList<ItemChangeRecord> changeRecords = new ArrayList<ItemChangeRecord>();
+//
+//            for (HibEventLogEntry result : results) {
+//                changeRecords.add(convertToItemChangeRecord(result));
+//            }
+//
+//            return changeRecords;
+//
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findChangesForCollection");
+    	throw new NotImplementedException();
     }
 
 
@@ -110,7 +120,7 @@ public class EventLogDaoImpl extends AbstractDaoImpl implements EventLogDao {
 
     }
 
-    private ItemChangeRecord convertToItemChangeRecord(HibEventLogEntry entry) {
+    private ItemChangeRecord convertToItemChangeRecord(OrmliteEventLogEntry entry) {
         ItemChangeRecord record = new ItemChangeRecord();
         record.setAction(ItemChangeRecord.toAction(entry.getType()));
         record.setDate(entry.getDate());
@@ -139,9 +149,9 @@ public class EventLogDaoImpl extends AbstractDaoImpl implements EventLogDao {
      * @param entry item added.
      */
     private void addItemAddedEntry(ItemAddedEntry entry) {
-        HibEventLogEntry hibEntry = createBaseHibEntry(entry);
-        hibEntry.setType("ItemAdded");
-        setBaseItemEntryAttributes(hibEntry, entry);
+        OrmliteEventLogEntry ormEntry = createBaseHibEntry(entry);
+        ormEntry.setType("ItemAdded");
+        setBaseItemEntryAttributes(ormEntry, entry);
     }
 
     /**
@@ -150,9 +160,9 @@ public class EventLogDaoImpl extends AbstractDaoImpl implements EventLogDao {
      * @param entry
      */
     private void addItemRemovedEntry(ItemRemovedEntry entry) {
-        HibEventLogEntry hibEntry = createBaseHibEntry(entry);
-        hibEntry.setType("ItemRemoved");
-        setBaseItemEntryAttributes(hibEntry, entry);
+        OrmliteEventLogEntry ormEntry = createBaseHibEntry(entry);
+        ormEntry.setType("ItemRemoved");
+        setBaseItemEntryAttributes(ormEntry, entry);
     }
 
     /**
@@ -161,54 +171,56 @@ public class EventLogDaoImpl extends AbstractDaoImpl implements EventLogDao {
      * @param entry
      */
     private void addItemUpdatedEntry(ItemUpdatedEntry entry) {
-        HibEventLogEntry hibEntry = createBaseHibEntry(entry);
-        hibEntry.setType("ItemUpdated");
-        setBaseItemEntryAttributes(hibEntry, entry);
+        OrmliteEventLogEntry ormEntry = createBaseHibEntry(entry);
+        ormEntry.setType("ItemUpdated");
+        setBaseItemEntryAttributes(ormEntry, entry);
     }
 
-    private HibEventLogEntry createBaseHibEntry(EventLogEntry entry) {
-        HibEventLogEntry hibEntry = new HibEventLogEntry();
+    private OrmliteEventLogEntry createBaseHibEntry(EventLogEntry entry) {
+        OrmliteEventLogEntry ormEntry = new OrmliteEventLogEntry();
 
         if (entry.getDate() != null) {
-            hibEntry.setDate(entry.getDate());
+            ormEntry.setDate(entry.getDate());
         }
 
         if (entry.getUser() != null) {
-            hibEntry.setAuthType("user");
-            hibEntry.setAuthId(((HibUser) entry.getUser()).getId());
+            ormEntry.setAuthType("user");
+            ormEntry.setAuthId(((OrmliteUser) entry.getUser()).getId());
         } else {
-            hibEntry.setAuthType("ticket");
-            hibEntry.setAuthId(((HibTicket) entry.getTicket()).getId());
+            //hibEntry.setAuthType("ticket");
+            //hibEntry.setAuthId(((HibTicket) entry.getTicket()).getId());
         }
 
-        return hibEntry;
+        return ormEntry;
     }
 
-    private void setBaseItemEntryAttributes(HibEventLogEntry hibEntry, ItemEntry entry) {
-        hibEntry.setId1(((HibItem) entry.getCollection()).getId());
-        hibEntry.setId2(((HibItem) entry.getItem()).getId());
-        hibEntry.setUid1(entry.getItem().getUid());
-        updateDisplayName(hibEntry, entry);
-        updateLastModifiedBy(hibEntry, entry);
-        getSession().save(hibEntry);
+    private void setBaseItemEntryAttributes(OrmliteEventLogEntry ormEntry, ItemEntry entry) {
+//        hibEntry.setId1(((HibItem) entry.getCollection()).getId());
+//        hibEntry.setId2(((HibItem) entry.getItem()).getId());
+//        hibEntry.setUid1(entry.getItem().getUid());
+//        updateDisplayName(hibEntry, entry);
+//        updateLastModifiedBy(hibEntry, entry);
+//        getSession().save(hibEntry);
+       	System.out.println("[AGATE] ContentDaoImpl not implemented setBaseItemEntryAttributes");
+    	throw new NotImplementedException();
     }
 
-    private void updateLastModifiedBy(HibEventLogEntry hibEntry, ItemEntry entry) {
+    private void updateLastModifiedBy(OrmliteEventLogEntry ormEntry, ItemEntry entry) {
         Item item = entry.getItem();
         if (item instanceof ContentItem) {
-            hibEntry.setStrval2(((ContentItem) item).getLastModifiedBy());
+            ormEntry.setStrval2(((ContentItem) item).getLastModifiedBy());
         }
 
-        if (hibEntry.getStrval2() == null) {
+        if (ormEntry.getStrval2() == null) {
             if (entry.getUser() != null) {
-                hibEntry.setStrval2(entry.getUser().getEmail());
+                ormEntry.setStrval2(entry.getUser().getEmail());
             } else {
-                hibEntry.setStrval2("ticket: anonymous");
+                ormEntry.setStrval2("ticket: anonymous");
             }
         }
     }
 
-    private void updateDisplayName(HibEventLogEntry hibEntry, ItemEntry entry) {
+    private void updateDisplayName(OrmliteEventLogEntry hibEntry, ItemEntry entry) {
         Item item = entry.getItem();
         String displayName = item.getDisplayName();
 

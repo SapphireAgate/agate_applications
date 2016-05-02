@@ -15,8 +15,8 @@
  */
 package org.unitedinternet.cosmo.dav.caldav;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.lang.StringUtils;
 import org.unitedinternet.cosmo.dav.PreconditionFailedException;

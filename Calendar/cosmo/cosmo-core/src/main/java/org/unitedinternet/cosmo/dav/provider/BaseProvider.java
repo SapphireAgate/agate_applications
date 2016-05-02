@@ -348,7 +348,7 @@ public abstract class BaseProvider
         Ticket ticket = request.getTicketInfo();
         ticket.setOwner(getSecurityContext().getUser());
 
-        dir.saveTicket(ticket);
+        //dir.saveTicket(ticket);
 
         response.sendMkTicketResponse(dir, ticket.getKey());
     }
@@ -375,12 +375,12 @@ public abstract class BaseProvider
             LOG.debug("DELTICKET for " + resource.getResourcePath());
         }
 
-        String key = request.getTicketKey();
-        Ticket ticket = dir.getTicket(key);
-        if (ticket == null) {
-            throw new PreconditionFailedException("Ticket " + key + " does not exist");
-        }
-        dir.removeTicket(ticket);
+        //String key = request.getTicketKey();
+        //Ticket ticket = dir.getTicket(key);
+        //if (ticket == null) {
+        //    throw new PreconditionFailedException("Ticket " + key + " does not exist");
+        //}
+        //dir.removeTicket(ticket);
 
         response.setStatus(204);
     }

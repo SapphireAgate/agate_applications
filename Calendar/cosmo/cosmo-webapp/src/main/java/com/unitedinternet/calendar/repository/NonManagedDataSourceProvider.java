@@ -21,7 +21,7 @@ public class NonManagedDataSourceProvider implements DataSourceProvider{
         BasicDataSource dataSource = new BasicDataSource();
         
         dataSource.setDriverClassName("org.hsqldb.jdbc.JDBCDriver");
-        dataSource.setUrl("jdbc:hsqldb:file:mem:testdb");
+        dataSource.setUrl("jdbc:hsqldb:file:testdb");
         dataSource.setUsername("sa");
         dataSource.setPassword("");
         dataSource.setMaxActive(100);

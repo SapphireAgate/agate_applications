@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.unitedinternet.cosmo.model.Attribute;
 import org.unitedinternet.cosmo.model.CollectionItem;
 import org.unitedinternet.cosmo.model.CollectionItemDetails;
@@ -54,7 +55,8 @@ class ExternalCollectionItem implements CollectionItem{
     }
 
     public void updateTimestamp() {
-        delegate.updateTimestamp();
+        //delegate.updateTimestamp();
+    	throw new NotImplementedException();
     }
 
     public Item getChild(String uid) {
@@ -62,7 +64,8 @@ class ExternalCollectionItem implements CollectionItem{
     }
 
     public String getEntityTag() {
-        return delegate.getEntityTag();
+        //return delegate.getEntityTag();
+    	throw new NotImplementedException();
     }
 
     public Map<String, Stamp> getStampMap() {
@@ -89,9 +92,9 @@ class ExternalCollectionItem implements CollectionItem{
         delegate.removeStamp(stamp);
     }
 
-    public EntityFactory getFactory() {
-        return delegate.getFactory();
-    }
+//    public EntityFactory getFactory() {
+//        return delegate.getFactory();
+//    }
 
     public Long getHue() {
         return delegate.getHue();
@@ -117,13 +120,13 @@ class ExternalCollectionItem implements CollectionItem{
         return delegate.getAttributes();
     }
 
-    public void addTicket(Ticket ticket) {
-        delegate.addTicket(ticket);
-    }
-
-    public void removeTicket(Ticket ticket) {
-        delegate.removeTicket(ticket);
-    }
+//    public void addTicket(Ticket ticket) {
+//        delegate.addTicket(ticket);
+//    }
+//
+//    public void removeTicket(Ticket ticket) {
+//        delegate.removeTicket(ticket);
+//    }
 
     public void addAttribute(Attribute attribute) {
         delegate.addAttribute(attribute);
@@ -237,9 +240,9 @@ class ExternalCollectionItem implements CollectionItem{
         delegate.setIsActive(isActive);
     }
 
-    public Set<Ticket> getTickets() {
-        return delegate.getTickets();
-    }
+//    public Set<Ticket> getTickets() {
+//        return delegate.getTickets();
+//    }
 
     public Set<Tombstone> getTombstones() {
         return delegate.getTombstones();

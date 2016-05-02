@@ -18,9 +18,9 @@ package org.unitedinternet.cosmo.util;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
+import mf.javax.xml.stream.XMLOutputFactory;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

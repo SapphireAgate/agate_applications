@@ -284,6 +284,7 @@ public class SecurityAdvice extends OrderedAdvice {
                 throwItemSecurityException(child, Permission.WRITE); 
             }
         }
+        //System.out.println("[AGATE] Security advice creatin date not checked");
         
         return pjp.proceed();
     }
@@ -466,8 +467,8 @@ public class SecurityAdvice extends OrderedAdvice {
                 if(!securityHelper.hasWriteAccess(context, content)) {
                     throwItemSecurityException(content, Permission.WRITE);
                 }
-            } 
-            // new items
+            }
+        	// new items
             else {
                 // NoteMods require write access to the master (which should be checked)
                 if(isNoteMod(content)) {

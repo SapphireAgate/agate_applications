@@ -23,8 +23,18 @@ import java.util.Set;
  * Represents an item on server.  All
  * content in cosmo extends from Item.
  */
-public interface Item extends AuditableObject{
+public interface Item {//extends AuditableObject {
 
+    /**
+     * @return date object was created
+     */
+    public Date getCreationDate();
+
+    /**
+     * @return date object was last updated
+     */
+    public Date getModifiedDate();
+	
     /**
      * Return all stamps associated with Item.  Use
      * addStamp() and removeStamp() to manipulate set.
@@ -70,9 +80,9 @@ public interface Item extends AuditableObject{
      */
     public Map<QName, Attribute> getAttributes();
 
-    public void addTicket(Ticket ticket);
+    //public void addTicket(Ticket ticket);
 
-    public void removeTicket(Ticket ticket);
+    //public void removeTicket(Ticket ticket);
 
     public void addAttribute(Attribute attribute);
 
@@ -207,7 +217,7 @@ public interface Item extends AuditableObject{
      * Get all Tickets on Item.  
      * @return set of tickets
      */
-    public Set<Ticket> getTickets();
+    //public Set<Ticket> getTickets();
 
     public Set<Tombstone> getTombstones();
 

@@ -15,6 +15,8 @@
  */
 package org.unitedinternet.cosmo.dao.query;
 
+import java.sql.SQLException;
+
 import org.unitedinternet.cosmo.model.CollectionItem;
 import org.unitedinternet.cosmo.model.Item;
 

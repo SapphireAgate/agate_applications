@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
-import javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;

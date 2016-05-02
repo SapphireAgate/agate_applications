@@ -48,7 +48,8 @@ import org.unitedinternet.cosmo.model.StampUtils;
 import org.unitedinternet.cosmo.model.Ticket;
 import org.unitedinternet.cosmo.model.User;
 import org.unitedinternet.cosmo.model.filter.ItemFilter;
-import org.unitedinternet.cosmo.model.hibernate.ModificationUidImpl;
+import org.unitedinternet.cosmo.model.ormlite.ModificationUidImpl;
+//import org.unitedinternet.cosmo.model.hibernate.ModificationUidImpl;
 import org.unitedinternet.cosmo.service.ContentService;
 import org.unitedinternet.cosmo.service.lock.LockManager;
 import org.unitedinternet.cosmo.service.triage.TriageStatusQueryContext;
@@ -155,7 +156,7 @@ public class StandardContentService implements ContentService {
                 return null;
             }
             else {
-                return getNoteOccurrence(parent, modUid.getRecurrenceId());
+                //return getNoteOccurrence(parent, modUid.getRecurrenceId());
             }
         }
         
@@ -167,6 +168,7 @@ public class StandardContentService implements ContentService {
      * /username/parent1/parent2/itemname.
      */
     public Item findItemByPath(String path) {
+    	LOG.warn("[AGATE] finding item at path " + path);    	
         if (LOG.isDebugEnabled()) {
             LOG.debug("finding item at path " + path);
         }

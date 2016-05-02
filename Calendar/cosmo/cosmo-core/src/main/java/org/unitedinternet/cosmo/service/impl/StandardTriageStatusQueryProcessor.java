@@ -51,7 +51,7 @@ import org.unitedinternet.cosmo.model.filter.EventStampFilter;
 import org.unitedinternet.cosmo.model.filter.ItemFilter;
 import org.unitedinternet.cosmo.model.filter.NoteItemFilter;
 import org.unitedinternet.cosmo.model.filter.Restrictions;
-import org.unitedinternet.cosmo.model.hibernate.ModificationUidImpl;
+import org.unitedinternet.cosmo.model.ormlite.ModificationUidImpl;
 import org.unitedinternet.cosmo.service.triage.TriageStatusQueryContext;
 import org.unitedinternet.cosmo.service.triage.TriageStatusQueryProcessor;
 import org.unitedinternet.cosmo.util.NoteOccurrenceUtil;

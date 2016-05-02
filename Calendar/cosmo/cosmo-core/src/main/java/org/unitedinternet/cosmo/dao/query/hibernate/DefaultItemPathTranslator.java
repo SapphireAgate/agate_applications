@@ -16,21 +16,31 @@
 package org.unitedinternet.cosmo.dao.query.hibernate;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.abdera.i18n.text.UrlEncoding;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.unitedinternet.cosmo.dao.hibernate.AbstractDaoImpl;
+import org.apache.commons.lang.NotImplementedException;
+//import org.hibernate.Query;
+//import org.hibernate.Session;
+//import org.unitedinternet.cosmo.dao.hibernate.AbstractDaoImpl;
+import org.unitedinternet.cosmo.BeansSimulator;
 import org.unitedinternet.cosmo.dao.query.ItemPathTranslator;
 import org.unitedinternet.cosmo.model.CollectionItem;
 import org.unitedinternet.cosmo.model.Item;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteItem;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteUser;
+
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.support.ConnectionSource;
 
 /**
  * Default implementation for ItempPathTranslator. This implementation expects
  * paths to be of the format: /username/parent1/parent2/itemname
  */
-public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPathTranslator {
+public class DefaultItemPathTranslator implements ItemPathTranslator {
 
     
    
@@ -49,8 +59,9 @@ public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPa
      * @return item The expected item.
      */
     public Item findItemByPath(final String path) {
-
-        return (Item) findItemByPath(getSession(), path);
+        return (Item) findItemByPath(BeansSimulator.getConnectionSource(), path);
+       	//System.out.println("[AGATE] DefaultItemPathTranslator not implemented findItemByPath");
+    	//throw new NotImplementedException();
 
     }
     
@@ -66,7 +77,9 @@ public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPa
      * @return The expected item.
      */
     public Item findItemByPath(final String path, final CollectionItem root) {
-        return (Item) findItemByPath(getSession(), path, root);
+        return (Item) findItemByPath(BeansSimulator.getConnectionSource(), path, root);
+       	//System.out.println("[AGATE] DefaultItemPathTranslator not implemented findItemByPath");
+    	//throw new NotImplementedException();
     }
 
     /**
@@ -118,7 +131,7 @@ public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPa
      * @param path    The given path.
      * @return The expected item.
      */
-    protected Item findItemByPath(Session session, String path) {
+    protected Item findItemByPath(ConnectionSource c, String path) {
 
         if (path == null || "".equals(path)) {
             return null;
@@ -135,8 +148,10 @@ public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPa
         }
         String username = decode(segments[0]);
 
+        System.out.println("[AGATE] username = " + username);
+        
         String rootName = username;
-        Item rootItem = findRootItemByOwnerAndName(session, username,
+        Item rootItem = findRootItemByOwnerAndName(c, username,
                 rootName);
 
         // If parent item doesn't exist don't go any further
@@ -146,7 +161,7 @@ public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPa
 
         Item parentItem = rootItem;
         for (int i = 1; i < segments.length; i++) {
-            Item nextItem = findItemByParentAndName(session, parentItem,
+            Item nextItem = findItemByParentAndName(c, parentItem,
                     decode(segments[i]));
             parentItem = nextItem;
             // if any parent item doesn't exist then bail now
@@ -166,7 +181,7 @@ public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPa
      * @param root    The collection root.
      * @return The expected item.
      */
-    protected Item findItemByPath(Session session, String path, CollectionItem root) {
+    protected Item findItemByPath(ConnectionSource c, String path, CollectionItem root) {
 
         if (path == null || "".equals(path)) {
             return null;
@@ -184,7 +199,7 @@ public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPa
 
         Item parentItem = root;
         for (int i = 0; i < segments.length; i++) {
-            Item nextItem = findItemByParentAndName(session, parentItem,
+            Item nextItem = findItemByParentAndName(c, parentItem,
                     decode(segments[i]));
             parentItem = nextItem;
             // if any parent item doesn't exist then bail now
@@ -196,31 +211,50 @@ public class DefaultItemPathTranslator extends AbstractDaoImpl implements ItemPa
         return parentItem;
     }
 
-    protected Item findRootItemByOwnerAndName(Session session,
-                                              String username, String name) {
-        Query hibQuery = session.getNamedQuery(
-                "item.by.ownerName.name.nullParent").setParameter("username",
-                username).setParameter("name", name);
+    protected Item findRootItemByOwnerAndName(ConnectionSource c, String username, String name) {
+    	
+    	Dao<OrmliteItem, String> itemsDao = BeansSimulator.getBaseItemDao();
+    	Dao<OrmliteUser, String> usersDao = BeansSimulator.getBaseUserDao();
+    	
+    	QueryBuilder<OrmliteItem, String> itemsDaoQb = itemsDao.queryBuilder();
+    	QueryBuilder<OrmliteUser, String> usersDaoQb = usersDao.queryBuilder();
 
-        List<?> results = hibQuery.list();
-        if (results.size() > 0) {
-            return (Item) results.get(0);
-        } else {
-            return null;
-        }
+    	try {
+    		usersDaoQb.where().eq("USERNAME", username);
+    		OrmliteItem item = itemsDaoQb.leftJoin(usersDaoQb).where().eq("ITEMNAME", name).queryForFirst();
+    		return item;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+ 
+//        Query hibQuery = session.getNamedQuery(
+//                "item.by.ownerName.name.nullParent").setParameter("username",
+//                username).setParameter("name", name);
+//
+//        List<?> results = hibQuery.list();
+//        if (results.size() > 0) {
+//            return (Item) results.get(0);
+//        } else {
+//            return null;
+//        }
+    	//System.out.println("[AGATE] DefaultItemPathTranslator not implemented findRootItemByOwnerAndName");
+    	//throw new NotImplementedException();
     }
 
-    protected Item findItemByParentAndName(Session session, Item parent,
+    protected Item findItemByParentAndName(ConnectionSource c, Item parent,
                                            String name) {
-        Query hibQuery = session.getNamedQuery("item.by.parent.name")
-                .setParameter("parent", parent).setParameter("name", name);
-
-        List<?> results = hibQuery.list();
-        if (results.size() > 0) {
-            return (Item) results.get(0);
-        } else {
-            return null;
-        }
+//        Query hibQuery = session.getNamedQuery("item.by.parent.name")
+//                .setParameter("parent", parent).setParameter("name", name);
+//
+//        List<?> results = hibQuery.list();
+//        if (results.size() > 0) {
+//            return (Item) results.get(0);
+//        } else {
+//            return null;
+//        }
+    	System.out.println("[AGATE] DefaultItemPathTranslator not implemented findItemByParentAndName");
+    	throw new NotImplementedException();
     }
     private static String decode(String urlPath){
         try {

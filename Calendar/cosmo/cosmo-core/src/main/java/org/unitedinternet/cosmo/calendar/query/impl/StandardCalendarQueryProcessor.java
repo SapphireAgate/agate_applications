@@ -59,7 +59,7 @@ import org.unitedinternet.cosmo.model.ICalendarItem;
 import org.unitedinternet.cosmo.model.Item;
 import org.unitedinternet.cosmo.model.StampUtils;
 import org.unitedinternet.cosmo.model.User;
-import org.unitedinternet.cosmo.model.hibernate.EntityConverter;
+import org.unitedinternet.cosmo.model.ormlite.EntityConverter;
 import org.unitedinternet.cosmo.util.VersionFourGenerator;
 
 /**

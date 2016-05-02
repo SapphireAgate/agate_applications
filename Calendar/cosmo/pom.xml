@@ -129,13 +129,6 @@
 				<version>${project.version}</version>
 			</dependency>
 
-
-		<dependency>
-			<groupId>org.springframework.android</groupId>
-			<artifactId>spring-android-rest-template</artifactId>
-			<version>${org.springframework.android-version}</version>
-		</dependency>
-
 			<!-- XML & co. -->
 			<dependency>
 				<groupId>dom4j</groupId>

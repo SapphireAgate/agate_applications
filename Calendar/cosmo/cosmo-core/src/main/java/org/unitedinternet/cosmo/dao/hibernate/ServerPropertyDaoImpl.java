@@ -15,19 +15,20 @@
  */
 package org.unitedinternet.cosmo.dao.hibernate;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.HibernateException;
+//import org.hibernate.HibernateException;
 import org.unitedinternet.cosmo.dao.ServerPropertyDao;
 import org.unitedinternet.cosmo.model.ServerProperty;
-import org.unitedinternet.cosmo.model.hibernate.HibServerProperty;
-import org.springframework.orm.hibernate4.SessionFactoryUtils;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteServerProperty;
+//import org.springframework.orm.hibernate4.SessionFactoryUtils;
 
 
 /**
  * Implementation of ServerPropertyDao using Hibernate persistent objects.
  */
-public class ServerPropertyDaoImpl extends AbstractDaoImpl implements
+public class ServerPropertyDaoImpl implements
         ServerPropertyDao {
     @SuppressWarnings("unused")
     private static final Log LOG = LogFactory.getLog(ServerPropertyDaoImpl.class);
@@ -36,42 +37,48 @@ public class ServerPropertyDaoImpl extends AbstractDaoImpl implements
      * @see org.unitedinternet.cosmo.dao.ServerPropertyDao#getServerProperty(java.lang.String)
      */
     public String getServerProperty(String property) {
-        try {
-            ServerProperty prop = (ServerProperty) getSession().createQuery(
-                    "from HibServerProperty where name=:name").setParameter(
-                    "name", property).uniqueResult();
-            if (prop != null) {
-                return prop.getValue();
-            } else {
-                return null;
-            }
-        } catch (HibernateException e) {
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            ServerProperty prop = (ServerProperty) getSession().createQuery(
+//                    "from HibServerProperty where name=:name").setParameter(
+//                    "name", property).uniqueResult();
+//            if (prop != null) {
+//                return prop.getValue();
+//            } else {
+//                return null;
+//            }
+//        } catch (HibernateException e) {
+//        	throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getServerProperty");
+    	throw new NotImplementedException();
     }
 
     /* (non-Javadoc)
      * @see org.unitedinternet.cosmo.dao.ServerPropertyDao#setServerProperty(java.lang.String, java.lang.String)
      */
     public void setServerProperty(String property, String value) {
-        try {
-
-            ServerProperty prop = (ServerProperty) getSession().createQuery(
-                    "from HibServerProperty where name=:name").setParameter(
-                    "name", property).uniqueResult();
-            if (prop != null) {
-                prop.setValue(value);
-                getSession().update(prop);
-            } else {
-                prop = new HibServerProperty(property, value);
-                getSession().save(prop);
-            }
-
-            getSession().flush();
-
-        } catch (HibernateException e) {
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//
+//            ServerProperty prop = (ServerProperty) getSession().createQuery(
+//                    "from HibServerProperty where name=:name").setParameter(
+//                    "name", property).uniqueResult();
+//            if (prop != null) {
+//                prop.setValue(value);
+//                getSession().update(prop);
+//            } else {
+//                prop = new HibServerProperty(property, value);
+//                getSession().save(prop);
+//            }
+//
+//            getSession().flush();
+//
+//        } catch (HibernateException e) {
+//        	throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented setServerProperty");
+    	throw new NotImplementedException();
     }
 
     public void destroy() {

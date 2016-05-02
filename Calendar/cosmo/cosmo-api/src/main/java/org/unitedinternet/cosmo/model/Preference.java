@@ -19,7 +19,7 @@ package org.unitedinternet.cosmo.model;
  * Represents a user preference, which is a key,value
  * pair associated to a user.
  */
-public interface Preference extends AuditableObject{
+public interface Preference { //extends AuditableObject{
 
     public String getKey();
 

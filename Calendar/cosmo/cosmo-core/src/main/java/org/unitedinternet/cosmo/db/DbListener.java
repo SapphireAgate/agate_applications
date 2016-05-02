@@ -25,6 +25,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.unitedinternet.cosmo.BeansSimulator;
 import org.unitedinternet.cosmo.servlet.ServletContextListenerDelegate;
 
 /**
@@ -56,20 +57,36 @@ public class DbListener implements ServletContextListener {
         ServletContext sc = sce.getServletContext();
         WebApplicationContext wac = WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
 
-        DbInitializer initializer = beanForName(BEAN_DB_INITIALIZER, wac, DbInitializer.class);
+        System.out.println("[AGATE]DbListener; wac = " + wac);
+        
+        //DbInitializer initializer = beanForName(BEAN_DB_INITIALIZER, wac, DbInitializer.class);
 
-        initializer.initialize();
+        //AGATE
+        DbInitializer initializer;
+		try {
+			initializer = BeansSimulator.getDbInitializer().getObject();
+			initializer.initialize();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-        delegates = beanForName(DELEGATES_BEAN_NAME, wac, List.class);
+        //delegates = beanForName(DELEGATES_BEAN_NAME, wac, List.class);
 
-        for (ServletContextListenerDelegate delegate : delegates) {
-            delegate.contextInitialized(sce);
-        }
+        try {
+			delegates = (List<ServletContextListenerDelegate>) BeansSimulator.getServletContextListenersDelegate().getObject();
+	        for (ServletContextListenerDelegate delegate : delegates) {
+	            delegate.contextInitialized(sce);
+	        }
+        } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
-    private <T> T beanForName(String beanName, WebApplicationContext wac, Class<T> clazz) {
-        return (T) wac.getBean(beanName, clazz);
-    }
+    //private <T> T beanForName(String beanName, WebApplicationContext wac, Class<T> clazz) {
+    //    return (T) wac.getBean(beanName, clazz);
+    //}
 
     public void contextDestroyed(ServletContextEvent sce) {
         for (ServletContextListenerDelegate delegate : delegates) {

@@ -15,6 +15,7 @@
  */
 package org.unitedinternet.cosmo.dao.hibernate;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -23,15 +24,17 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolationException;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
-import org.hibernate.FlushMode;
-import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.criterion.Order;
+//import org.hibernate.Criteria;
+//import org.hibernate.FlushMode;
+//import org.hibernate.Hibernate;
+//import org.hibernate.HibernateException;
+//import org.hibernate.Query;
+//import org.hibernate.Session;
+//import org.hibernate.criterion.Order;
+import org.unitedinternet.cosmo.BeansSimulator;
 import org.unitedinternet.cosmo.dao.DuplicateEmailException;
 import org.unitedinternet.cosmo.dao.DuplicateUsernameException;
 import org.unitedinternet.cosmo.dao.UserDao;
@@ -40,248 +43,305 @@ import org.unitedinternet.cosmo.model.PagedList;
 import org.unitedinternet.cosmo.model.PasswordRecovery;
 import org.unitedinternet.cosmo.model.User;
 import org.unitedinternet.cosmo.model.filter.PageCriteria;
-import org.unitedinternet.cosmo.model.hibernate.BaseModelObject;
-import org.unitedinternet.cosmo.model.hibernate.HibUser;
+import org.unitedinternet.cosmo.model.ormlite.BaseModelObject;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteItem;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteUser;
 import org.unitedinternet.cosmo.util.VersionFourGenerator;
-import org.springframework.orm.hibernate4.SessionFactoryUtils;
+//import org.springframework.orm.hibernate4.SessionFactoryUtils;
+
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 
 /**
  * Implemtation of UserDao using Hibernate persistence objects.
  */
-public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
+public class UserDaoImpl implements UserDao {
 
     @SuppressWarnings("unused")
     private static final Log LOG = LogFactory.getLog(UserDaoImpl.class);
 
     private VersionFourGenerator idGenerator;
 
-    private static final QueryCriteriaBuilder<User.SortType> QUERY_CRITERIA_BUILDER =
-            new UserQueryCriteriaBuilder<User.SortType>();
+    //private static final QueryCriteriaBuilder<User.SortType> QUERY_CRITERIA_BUILDER =
+    //        new UserQueryCriteriaBuilder<User.SortType>();
 
     public User createUser(User user) {
 
-        try {
+        //try {
             if (user == null) {
                 throw new IllegalArgumentException("user is required");
             }
 
-            if (getBaseModelObject(user).getId() != -1) {
-                throw new IllegalArgumentException("new user is required");
-            }
+//            if (getBaseModelObject(user).getId() != -1) {
+//                throw new IllegalArgumentException("new user is required");
+//            }
 
-            if (findUserByUsernameIgnoreCase(user.getUsername()) != null) {
-                throw new DuplicateUsernameException(user.getUsername());
-            }
-
-            if (findUserByEmailIgnoreCase(user.getEmail()) != null) {
-                throw new DuplicateEmailException(user.getEmail());
-            }
-
+//            if (findUserByUsernameIgnoreCase(user.getUsername()) != null) {
+//                throw new DuplicateUsernameException(user.getUsername());
+//            }
+//
+//            if (findUserByEmailIgnoreCase(user.getEmail()) != null) {
+//                throw new DuplicateEmailException(user.getEmail());
+//            }
+//
             if (user.getUid() == null || "".equals(user.getUid())) {
                 user.setUid(getIdGenerator().nextStringIdentifier());
             }
-
-            getSession().save(user);
-            getSession().flush();
-            return user;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        } catch (ConstraintViolationException cve) {
-            logConstraintViolationException(cve);
-            throw cve;
-        }
-
+            
+            Dao<OrmliteUser, String> usersDao = BeansSimulator.getBaseUserDao();
+            try {
+				int r = usersDao.create((OrmliteUser)user);
+				return user;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+//
+//            getSession().save(user);
+//            getSession().flush();
+//            return user;
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        } catch (ConstraintViolationException cve) {
+//            logConstraintViolationException(cve);
+//            throw cve;
+//        }
+//       	System.out.println("[AGATE] ContentDaoImpl not implemented createUser");
+//    	throw new NotImplementedException();
     }
 
     public User getUser(String username) {
-        try {
+//        try {
             return findUserByUsername(username);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	//System.out.println("[AGATE] ContentDaoImpl not implemented getUser");
+    	//throw new NotImplementedException();
     }
 
     public User getUserByUid(String uid) {
-        if (uid == null) {
-            throw new IllegalArgumentException("uid required");
-        }
-
-        try {
-            return findUserByUid(uid);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        if (uid == null) {
+//            throw new IllegalArgumentException("uid required");
+//        }
+//
+//        try {
+//            return findUserByUid(uid);
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getUserByUid");
+    	throw new NotImplementedException();
     }
 
     public User getUserByActivationId(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("id required");
-        }
-        try {
-            return findUserByActivationId(id);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        if (id == null) {
+//            throw new IllegalArgumentException("id required");
+//        }
+//        try {
+//            return findUserByActivationId(id);
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getUserByActivationId");
+    	throw new NotImplementedException();
     }
 
     public User getUserByEmail(String email) {
-        if (email == null) {
-            throw new IllegalArgumentException("email required");
-        }
-        try {
-            return findUserByEmail(email);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        if (email == null) {
+//            throw new IllegalArgumentException("email required");
+//        }
+//        try {
+//            return findUserByEmail(email);
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getUserByEmail");
+    	throw new NotImplementedException();
     }
 
     public Set<User> getUsers() {
-        try {
-            HashSet<User> users = new HashSet<User>();
-            Iterator it = getSession().getNamedQuery("user.all").iterate();
-            while (it.hasNext()) {
-                users.add((User) it.next());
-            }
-
-            return users;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            HashSet<User> users = new HashSet<User>();
+//            Iterator it = getSession().getNamedQuery("user.all").iterate();
+//            while (it.hasNext()) {
+//                users.add((User) it.next());
+//            }
+//
+//            return users;
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getUsers");
+    	throw new NotImplementedException();
     }
 
     public PagedList getUsers(PageCriteria<User.SortType> pageCriteria) {
-        try {
-            Criteria crit = QUERY_CRITERIA_BUILDER.buildQueryCriteria(
-                    getSession(), pageCriteria);
-            List<User> results = crit.list();
-
-            // Need the total
-            Long size = (Long) getSession().getNamedQuery("user.count")
-                    .uniqueResult();
-
-            return new ArrayPagedList<User, User.SortType>(pageCriteria, results, size.intValue());
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            Criteria crit = QUERY_CRITERIA_BUILDER.buildQueryCriteria(
+//                    getSession(), pageCriteria);
+//            List<User> results = crit.list();
+//
+//            // Need the total
+//            Long size = (Long) getSession().getNamedQuery("user.count")
+//                    .uniqueResult();
+//
+//            return new ArrayPagedList<User, User.SortType>(pageCriteria, results, size.intValue());
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getUsers");
+    	throw new NotImplementedException();
     }
 
 
     public Set<User> findUsersByPreference(String key, String value) {
-        try {
-            Query hibQuery = getSession().getNamedQuery("users.byPreference");
-            hibQuery.setParameter("key", key).setParameter("value", value);
-            List<User> results = hibQuery.list();
-
-            Set<User> users = new HashSet<User>();
-
-            // TODO figure out how to load all properties using HQL
-            for (User user : results) {
-                Hibernate.initialize(user);
-                users.add(user);
-            }
-
-            return users;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            Query hibQuery = getSession().getNamedQuery("users.byPreference");
+//            hibQuery.setParameter("key", key).setParameter("value", value);
+//            List<User> results = hibQuery.list();
+//
+//            Set<User> users = new HashSet<User>();
+//
+//            // TODO figure out how to load all properties using HQL
+//            for (User user : results) {
+//                Hibernate.initialize(user);
+//                users.add(user);
+//            }
+//
+//            return users;
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findUsersByPreference");
+    	throw new NotImplementedException();
     }
 
     public void removeUser(String username) {
-        try {
-            User user = findUserByUsername(username);
-            // delete user
-            if (user != null) {
-                removeUser(user);
-            }
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            User user = findUserByUsername(username);
+//            // delete user
+//            if (user != null) {
+//                removeUser(user);
+//            }
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented removeUser");
+    	throw new NotImplementedException();
     }
 
     public void removeUser(User user) {
-        try {
-            // TODO: should probably let db take care of this with
-            // cacade constaint
-            deleteAllPasswordRecoveries(user);
-
-            getSession().delete(user);
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            // TODO: should probably let db take care of this with
+//            // cacade constaint
+//            deleteAllPasswordRecoveries(user);
+//
+//            getSession().delete(user);
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented removeUser");
+    	throw new NotImplementedException();
     }
 
     public User updateUser(User user) {
-        try {
-            // prevent auto flushing when querying for existing users
-            getSession().setFlushMode(FlushMode.MANUAL);
-
-            User findUser = findUserByUsernameOrEmailIgnoreCaseAndId(getBaseModelObject(user)
-                    .getId(), user.getUsername(), user.getEmail());
-
-            if (findUser != null) {
-                if (findUser.getEmail().equals(user.getEmail())) {
-                    throw new DuplicateEmailException(user.getEmail());
-                } else {
-                    throw new DuplicateUsernameException(user.getUsername());
-                }
-            }
-
-            user.updateTimestamp();
-            getSession().update(user);
-            getSession().flush();
-
-            return user;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        } catch (ConstraintViolationException cve) {
-            logConstraintViolationException(cve);
-            throw cve;
-        }
+//        try {
+//            // prevent auto flushing when querying for existing users
+//            getSession().setFlushMode(FlushMode.MANUAL);
+//
+//            User findUser = findUserByUsernameOrEmailIgnoreCaseAndId(getBaseModelObject(user)
+//                    .getId(), user.getUsername(), user.getEmail());
+//
+//            if (findUser != null) {
+//                if (findUser.getEmail().equals(user.getEmail())) {
+//                    throw new DuplicateEmailException(user.getEmail());
+//                } else {
+//                    throw new DuplicateUsernameException(user.getUsername());
+//                }
+//            }
+//
+//            user.updateTimestamp();
+//            getSession().update(user);
+//            getSession().flush();
+//
+//            return user;
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        } catch (ConstraintViolationException cve) {
+//            logConstraintViolationException(cve);
+//            throw cve;
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented updateUser");
+    	throw new NotImplementedException();
     }
 
     public void createPasswordRecovery(PasswordRecovery passwordRecovery) {
-        try {
-            getSession().save(passwordRecovery);
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            getSession().save(passwordRecovery);
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	
+       	System.out.println("[AGATE] ContentDaoImpl not implemented createPasswordRecovery");
+    	throw new NotImplementedException();
     }
 
     public PasswordRecovery getPasswordRecovery(String key) {
-        try {
-            Query hibQuery = getSession().getNamedQuery("passwordRecovery.byKey")
-                    .setParameter("key", key);
-            hibQuery.setCacheable(true);
-            return (PasswordRecovery) hibQuery.uniqueResult();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            Query hibQuery = getSession().getNamedQuery("passwordRecovery.byKey")
+//                    .setParameter("key", key);
+//            hibQuery.setCacheable(true);
+//            return (PasswordRecovery) hibQuery.uniqueResult();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getPasswordRecovery");
+    	throw new NotImplementedException();
     }
 
     public void deletePasswordRecovery(PasswordRecovery passwordRecovery) {
-        try {
-            getSession().delete(passwordRecovery);
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            getSession().delete(passwordRecovery);
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented deletePasswordRecovery");
+    	throw new NotImplementedException();
     }
 
     public void destroy() {
@@ -304,132 +364,157 @@ public class UserDaoImpl extends AbstractDaoImpl implements UserDao {
     }
 
     private User findUserByUsername(String username) {
-        return (User) getSession().byNaturalId(HibUser.class).using("username", username).load();
+    	Dao<OrmliteUser, String> usersDao = BeansSimulator.getBaseUserDao();
+    	QueryBuilder<OrmliteUser, String> usersDaoQb = usersDao.queryBuilder();
+    	
+    	try {
+    		return usersDaoQb.where().eq("USERNAME", username).queryForFirst();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+    	//return (User) getSession().byNaturalId(HibUser.class).using("username", username).load();
+       	//System.out.println("[AGATE] ContentDaoImpl not implemented findUserByUsername");
+    	//throw new NotImplementedException();
     }
 
     private User findUserByUsernameIgnoreCase(String username) {
-        Session session = getSession();
-        Query hibQuery = session.getNamedQuery("user.byUsername.ignorecase").setParameter(
-                "username", username);
-        hibQuery.setCacheable(true);
-        hibQuery.setFlushMode(FlushMode.MANUAL);
-        List users = hibQuery.list();
-        if (users.size() > 0) {
-            return (User) users.get(0);
-        } else {
-            return null;
-        }
+//        Session session = getSession();
+//        Query hibQuery = session.getNamedQuery("user.byUsername.ignorecase").setParameter(
+//                "username", username);
+//        hibQuery.setCacheable(true);
+//        hibQuery.setFlushMode(FlushMode.MANUAL);
+//        List users = hibQuery.list();
+//        if (users.size() > 0) {
+//            return (User) users.get(0);
+//        } else {
+//            return null;
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findUserByUsernameIgnoreCase");
+    	throw new NotImplementedException();
     }
 
     private User findUserByUsernameOrEmailIgnoreCaseAndId(Long userId,
                                                           String username, String email) {
-        Session session = getSession();
-        Query hibQuery = session.getNamedQuery(
-                "user.byUsernameOrEmail.ignorecase.ingoreId").setParameter(
-                "username", username).setParameter("email", email)
-                .setParameter("userid", userId);
-        hibQuery.setCacheable(true);
-        hibQuery.setFlushMode(FlushMode.MANUAL);
-        List users = hibQuery.list();
-        if (users.size() > 0) {
-            return (User) users.get(0);
-        } else {
-            return null;
-        }
+//        Session session = getSession();
+//        Query hibQuery = session.getNamedQuery(
+//                "user.byUsernameOrEmail.ignorecase.ingoreId").setParameter(
+//                "username", username).setParameter("email", email)
+//                .setParameter("userid", userId);
+//        hibQuery.setCacheable(true);
+//        hibQuery.setFlushMode(FlushMode.MANUAL);
+//        List users = hibQuery.list();
+//        if (users.size() > 0) {
+//            return (User) users.get(0);
+//        } else {
+//            return null;
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findUserByUsernameOrEmailIgnoreCaseAndId");
+    	throw new NotImplementedException();
     }
 
     private User findUserByEmail(String email) {
-        Session session = getSession();
-        Query hibQuery = session.getNamedQuery("user.byEmail").setParameter(
-                "email", email);
-        hibQuery.setCacheable(true);
-        hibQuery.setFlushMode(FlushMode.MANUAL);
-        List users = hibQuery.list();
-        if (users.size() > 0) {
-            return (User) users.get(0);
-        } else {
-            return null;
-        }
+//        Session session = getSession();
+//        Query hibQuery = session.getNamedQuery("user.byEmail").setParameter(
+//                "email", email);
+//        hibQuery.setCacheable(true);
+//        hibQuery.setFlushMode(FlushMode.MANUAL);
+//        List users = hibQuery.list();
+//        if (users.size() > 0) {
+//            return (User) users.get(0);
+//        } else {
+//            return null;
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findUserByEmail");
+    	throw new NotImplementedException();
     }
 
     private User findUserByEmailIgnoreCase(String email) {
-        Session session = getSession();
-        Query hibQuery = session.getNamedQuery("user.byEmail.ignorecase").setParameter(
-                "email", email);
-        hibQuery.setCacheable(true);
-        hibQuery.setFlushMode(FlushMode.MANUAL);
-        List users = hibQuery.list();
-        if (users.size() > 0) {
-            return (User) users.get(0);
-        } else {
-            return null;
-        }
+//        Session session = getSession();
+//        Query hibQuery = session.getNamedQuery("user.byEmail.ignorecase").setParameter(
+//                "email", email);
+//        hibQuery.setCacheable(true);
+//        hibQuery.setFlushMode(FlushMode.MANUAL);
+//        List users = hibQuery.list();
+//        if (users.size() > 0) {
+//            return (User) users.get(0);
+//        } else {
+//            return null;
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findUserByEmailIgnoreCase");
+    	throw new NotImplementedException();
     }
 
     private User findUserByUid(String uid) {
-        Session session = getSession();
-        Query hibQuery = session.getNamedQuery("user.byUid").setParameter(
-                "uid", uid);
-        hibQuery.setCacheable(true);
-        hibQuery.setFlushMode(FlushMode.MANUAL);
-        return (User) hibQuery.uniqueResult();
+//        Session session = getSession();
+//        Query hibQuery = session.getNamedQuery("user.byUid").setParameter(
+//                "uid", uid);
+//        hibQuery.setCacheable(true);
+//        hibQuery.setFlushMode(FlushMode.MANUAL);
+//        return (User) hibQuery.uniqueResult();
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findUserByUid");
+    	throw new NotImplementedException();
     }
 
     private void deleteAllPasswordRecoveries(User user) {
-        Session session = getSession();
-        session.getNamedQuery("passwordRecovery.delete.byUser").setParameter(
-                "user", user).executeUpdate();
+//        Session session = getSession();
+//        session.getNamedQuery("passwordRecovery.delete.byUser").setParameter(
+//                "user", user).executeUpdate();
+       	System.out.println("[AGATE] ContentDaoImpl not implemented deleteAllPasswordRecoveries");
+    	throw new NotImplementedException();
     }
 
     private User findUserByActivationId(String id) {
-        Session session = getSession();
-        Query hibQuery = session.getNamedQuery("user.byActivationId").setParameter(
-                "activationId", id);
-        hibQuery.setCacheable(true);
-        return (User) hibQuery.uniqueResult();
+//        Session session = getSession();
+//        Query hibQuery = session.getNamedQuery("user.byActivationId").setParameter(
+//                "activationId", id);
+//        hibQuery.setCacheable(true);
+//        return (User) hibQuery.uniqueResult();
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findUserByActivationId");
+    	throw new NotImplementedException();
     }
 
-    private static class UserQueryCriteriaBuilder<SortType extends User.SortType> extends
-            StandardQueryCriteriaBuilder<SortType> {
+//    private static class UserQueryCriteriaBuilder<SortType extends User.SortType> extends
+//            StandardQueryCriteriaBuilder<SortType> {
 
-        public UserQueryCriteriaBuilder() {
-            super(User.class);
-        }
+//        public UserQueryCriteriaBuilder() {
+//            super(User.class);
+//        }
 
-        protected List<Order> buildOrders(PageCriteria<SortType> pageCriteria) {
-            List<Order> orders = new ArrayList<Order>();
-
-            User.SortType sort = pageCriteria.getSortType();
-            if (sort == null) {
-                sort = User.SortType.USERNAME;
-            }
-
-            if (sort.equals(User.SortType.NAME)) {
-                orders.add(createOrder(pageCriteria, "lastName"));
-                orders.add(createOrder(pageCriteria, "firstName"));
-            } else if (sort.equals(User.SortType.ADMIN)) {
-                orders.add(createOrder(pageCriteria, "admin"));
-            } else if (sort.equals(User.SortType.EMAIL)) {
-                orders.add(createOrder(pageCriteria, "email"));
-            } else if (sort.equals(User.SortType.CREATED)) {
-                orders.add(createOrder(pageCriteria, "CreatedDate"));
-            } else if (sort.equals(User.SortType.LAST_MODIFIED)) {
-                orders.add(createOrder(pageCriteria, "ModifiedDate"));
-            } else if (sort.equals(User.SortType.ACTIVATED)) {
-                orders.add(createOrder(pageCriteria, "activationId"));
-            } else {
-                orders.add(createOrder(pageCriteria, "username"));
-            }
-
-            return orders;
-        }
-
-        private Order createOrder(PageCriteria pageCriteria, String property) {
-            return pageCriteria.isSortAscending() ?
-                    Order.asc(property) :
-                    Order.desc(property);
-        }
-    }
+ //       protected List<Order> buildOrders(PageCriteria<SortType> pageCriteria) {
+//            List<Order> orders = new ArrayList<Order>();
+//
+//            User.SortType sort = pageCriteria.getSortType();
+//            if (sort == null) {
+//                sort = User.SortType.USERNAME;
+//            }
+//
+//            if (sort.equals(User.SortType.NAME)) {
+//                orders.add(createOrder(pageCriteria, "lastName"));
+//                orders.add(createOrder(pageCriteria, "firstName"));
+//            } else if (sort.equals(User.SortType.ADMIN)) {
+//                orders.add(createOrder(pageCriteria, "admin"));
+//            } else if (sort.equals(User.SortType.EMAIL)) {
+//                orders.add(createOrder(pageCriteria, "email"));
+//            } else if (sort.equals(User.SortType.CREATED)) {
+//                orders.add(createOrder(pageCriteria, "CreatedDate"));
+//            } else if (sort.equals(User.SortType.LAST_MODIFIED)) {
+//                orders.add(createOrder(pageCriteria, "ModifiedDate"));
+//            } else if (sort.equals(User.SortType.ACTIVATED)) {
+//                orders.add(createOrder(pageCriteria, "activationId"));
+//            } else {
+//                orders.add(createOrder(pageCriteria, "username"));
+//            }
+//
+//            return orders;
+//        }
+//
+//        private Order createOrder(PageCriteria pageCriteria, String property) {
+//            return pageCriteria.isSortAscending() ?
+//                    Order.asc(property) :
+//                    Order.desc(property);
+//        }
+//    }
 
     protected BaseModelObject getBaseModelObject(Object obj) {
         return (BaseModelObject) obj;

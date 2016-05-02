@@ -79,7 +79,9 @@ public class SpaceUsageReport {
 
         /** */
         public Date getLastAccessed() {
-            return item.getModifiedDate();
+            //return item.getModifiedDate();
+        	System.out.println("[AGATE] getLastAccessed not implemented!!");
+        	return null;
         }
 
         /** */

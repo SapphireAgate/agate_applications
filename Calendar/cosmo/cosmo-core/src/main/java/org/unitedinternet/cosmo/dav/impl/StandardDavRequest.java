@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 //import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
-import javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamException;
 
 import org.apache.abdera.util.EntityTag;
 import org.apache.commons.lang.StringUtils;
@@ -729,6 +729,7 @@ public class StandardDavRequest extends WebdavRequestImpl implements
     @Override
     public boolean authenticate(HttpServletResponse response)
             throws IOException, ServletException {
+        LOG.info("[AGATE] authenticate on req: " + originalHttpServletRequest);
         return originalHttpServletRequest.authenticate(response);
     }
 

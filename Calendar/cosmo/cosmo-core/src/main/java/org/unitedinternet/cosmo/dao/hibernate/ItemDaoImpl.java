@@ -15,26 +15,29 @@
  */
 package org.unitedinternet.cosmo.dao.hibernate;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import java.sql.SQLException;
+//import java.util.Date;
+//import java.util.HashSet;
+//import java.util.Iterator;
+//import java.util.List;
 import java.util.Set;
 
-import javax.validation.ConstraintViolationException;
+//import javax.validation.ConstraintViolationException;
 
+import org.apache.commons.lang.NotImplementedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.FlushMode;
-import org.hibernate.Hibernate;
-import org.hibernate.HibernateException;
-import org.hibernate.LockMode;
-import org.hibernate.ObjectDeletedException;
-import org.hibernate.ObjectNotFoundException;
-import org.hibernate.Query;
-import org.hibernate.UnresolvableObjectException;
-import org.springframework.orm.hibernate4.SessionFactoryUtils;
+//import org.hibernate.FlushMode;
+//import org.hibernate.Hibernate;
+//import org.hibernate.HibernateException;
+//import org.hibernate.LockMode;
+//import org.hibernate.ObjectDeletedException;
+//import org.hibernate.ObjectNotFoundException;
+//import org.hibernate.Query;
+//import org.hibernate.UnresolvableObjectException;
+//import org.springframework.orm.hibernate4.SessionFactoryUtils;
 import org.springframework.security.core.token.TokenService;
+import org.unitedinternet.cosmo.BeansSimulator;
 import org.unitedinternet.cosmo.CosmoException;
 import org.unitedinternet.cosmo.dao.DuplicateItemNameException;
 import org.unitedinternet.cosmo.dao.ItemDao;
@@ -52,19 +55,24 @@ import org.unitedinternet.cosmo.model.Ticket;
 import org.unitedinternet.cosmo.model.UidInUseException;
 import org.unitedinternet.cosmo.model.User;
 import org.unitedinternet.cosmo.model.filter.ItemFilter;
-import org.unitedinternet.cosmo.model.hibernate.BaseModelObject;
-import org.unitedinternet.cosmo.model.hibernate.HibCollectionItem;
-import org.unitedinternet.cosmo.model.hibernate.HibEventStamp;
-import org.unitedinternet.cosmo.model.hibernate.HibHomeCollectionItem;
-import org.unitedinternet.cosmo.model.hibernate.HibItem;
-import org.unitedinternet.cosmo.model.hibernate.HibItemTombstone;
+import org.unitedinternet.cosmo.model.ormlite.BaseModelObject;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteCollectionItemWrapper;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteItemWrapper;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteEventStamp;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteHomeCollectionItemWrapper;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteItem;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteItemTombstoneWrapper;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteUser;
 import org.unitedinternet.cosmo.util.VersionFourGenerator;
+
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 
 /**
  * Implementation of ItemDao using Hibernate persistent objects.
  */
-public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
+public abstract class ItemDaoImpl implements ItemDao {
 
     @SuppressWarnings("unused")
     private static final Log LOG = LogFactory.getLog(ItemDaoImpl.class);
@@ -80,13 +88,17 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#findItemByPath(java.lang.String)
      */
     public Item findItemByPath(String path) {
-        try {
+//        try {
             Item dbItem = itemPathTranslator.findItemByPath(path);
             return dbItem;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        } catch (Exception e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+        	
+//        }
+//    	System.out.println("[AGATE] ItemDaoImpl not implemented findItemByPath");
+//    	throw new NotImplementedException();
     }
 
 
@@ -94,17 +106,20 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#findItemByPath(java.lang.String, java.lang.String)
      */
     public Item findItemByPath(String path, String parentUid) {
-        try {
-            Item parent = findItemByUid(parentUid);
-            if (parent == null) {
-                return null;
-            }
-            Item item = itemPathTranslator.findItemByPath(path, (CollectionItem) parent);
-            return item;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            Item parent = findItemByUid(parentUid);
+//            if (parent == null) {
+//                return null;
+//            }
+//            Item item = itemPathTranslator.findItemByPath(path, (CollectionItem) parent);
+//            return item;
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	System.out.println("[AGATE] ContentDaoImpl not implemented findItemByPath");
+    	throw new NotImplementedException();
     }
 
 
@@ -112,13 +127,16 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#findItemParentByPath(java.lang.String)
      */
     public Item findItemParentByPath(String path) {
-        try {
-            Item dbItem = itemPathTranslator.findItemParent(path);
-            return dbItem;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            Item dbItem = itemPathTranslator.findItemParent(path);
+//            return dbItem;
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	System.out.println("[AGATE] ContentDaoImpl not implemented findItemByPath");
+    	throw new NotImplementedException();
     }
 
 
@@ -128,24 +146,27 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#findEventStampFromDbByUid(java.lang.String)
      */
     public <STAMP_TYPE extends Stamp> STAMP_TYPE findStampByInternalItemUid(String internalItemUid, Class<STAMP_TYPE> clazz){
-        try {
-            // Lookup item by uid
-            Query hibQuery = getStatlessSession().getNamedQuery("item.stamps.by.uid")
-                    .setParameter("uid", internalItemUid).setFlushMode(null).setCacheMode(null);
-            @SuppressWarnings("unchecked")
-            List<Stamp> stamps = (List<Stamp>) hibQuery.list();
-            for(Stamp stamp:stamps) {
-                if(clazz.isInstance(stamp)) {
-                    return clazz.cast(stamp);
-                }
-            }
-        } catch (HibernateException e) {
-            getStatlessSession().close();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        } finally {
-            getStatlessSession().close();
-        }
-        return null;
+//        try {
+//            // Lookup item by uid
+//            Query hibQuery = getStatlessSession().getNamedQuery("item.stamps.by.uid")
+//                    .setParameter("uid", internalItemUid).setFlushMode(null).setCacheMode(null);
+//            @SuppressWarnings("unchecked")
+//            List<Stamp> stamps = (List<Stamp>) hibQuery.list();
+//            for(Stamp stamp:stamps) {
+//                if(clazz.isInstance(stamp)) {
+//                    return clazz.cast(stamp);
+//                }
+//            }
+//        } catch (HibernateException e) {
+//            getStatlessSession().close();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        } finally {
+//            getStatlessSession().close();
+//        }
+//        return null;
+    	System.out.println("[AGATE] ContentDaoImpl not implemented findStampByInternalItemUid");
+    	throw new NotImplementedException();
     }
 
     /*
@@ -154,14 +175,18 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#findItemByUid(java.lang.String)
      */
     public Item findItemByUid(String uid) {
-        try {
-            // prevent auto flushing when looking up item by uid
-            getSession().setFlushMode(FlushMode.MANUAL);
-            return (Item) getSession().byNaturalId(HibItem.class).using("uid", uid).load();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            // prevent auto flushing when looking up item by uid
+//            getSession().setFlushMode(FlushMode.MANUAL);
+//            return (Item) getSession().byNaturalId(HibItem.class).using("uid", uid).load();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	
+    	System.out.println("[AGATE] ContentDaoImpl not implemented findItemByUid");
+    	throw new NotImplementedException();
     }
 
     /*
@@ -170,36 +195,42 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#removeItem(org.unitedinternet.cosmo.model.Item)
      */
     public void removeItem(Item item) {
-        try {
-
-            if (item == null) {
-                throw new IllegalArgumentException("item cannot be null");
-            }
-
-            if (item instanceof HomeCollectionItem) {
-                throw new IllegalArgumentException("cannot remove root item");
-            }
-
-            removeItemInternal(item);
-            getSession().flush();
-
-        } catch (ObjectNotFoundException onfe) {
-            throw new ItemNotFoundException("item not found");
-        } catch (ObjectDeletedException ode) {
-            throw new ItemNotFoundException("item not found");
-        } catch (UnresolvableObjectException uoe) {
-            throw new ItemNotFoundException("item not found");
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//
+//            if (item == null) {
+//                throw new IllegalArgumentException("item cannot be null");
+//            }
+//
+//            if (item instanceof HomeCollectionItem) {
+//                throw new IllegalArgumentException("cannot remove root item");
+//            }
+//
+//            removeItemInternal(item);
+//            getSession().flush();
+//
+//        } catch (ObjectNotFoundException onfe) {
+//            throw new ItemNotFoundException("item not found");
+//        } catch (ObjectDeletedException ode) {
+//            throw new ItemNotFoundException("item not found");
+//        } catch (UnresolvableObjectException uoe) {
+//            throw new ItemNotFoundException("item not found");
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	System.out.println("[AGATE] ContentDaoImpl not implemented removeItem");
+    	throw new NotImplementedException();
     }
 
     public HomeCollectionItem getRootItem(User user, boolean forceReload) {
-        if(forceReload){
-            getSession().clear();
-        }
-        return getRootItem(user);
+//        if(forceReload){
+//            getSession().clear();
+//        }
+//        return getRootItem(user);
+    	
+    	System.out.println("[AGATE] ContentDaoImpl not implemented getRootItem");
+    	throw new NotImplementedException();
     }
 
     /*
@@ -208,151 +239,190 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#getRootItem(org.unitedinternet.cosmo.model.User)
      */
     public HomeCollectionItem getRootItem(User user) {
-        try {
-            return findRootItem(getBaseModelObject(user).getId());
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            return findRootItem(getBaseModelObject(user).getId());
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	System.out.println("[AGATE] ContentDaoImpl not implemented getRootItem");
+    	throw new NotImplementedException();
     }
 
     /* (non-Javadoc)
      * @see org.unitedinternet.cosmo.dao.ItemDao#createRootItem(org.unitedinternet.cosmo.model.User)
      */
     public HomeCollectionItem createRootItem(User user) {
-        try {
+//        try {
 
             if (user == null) {
                 throw new IllegalArgumentException("invalid user");
             }
 
-            if (findRootItem(getBaseModelObject(user).getId()) != null) {
+            if (findRootItem(((OrmliteUser) user).getId()) != null) {
                 throw new CosmoException("user already has root item", new CosmoException());
             }
 
-            HomeCollectionItem newItem = new HibHomeCollectionItem();
+            try {
+            	HomeCollectionItem newItem = new OrmliteHomeCollectionItemWrapper();
 
-            newItem.setOwner(user);
-            newItem.setName(user.getUsername());
-            //do not set this, it might be sensitive or different than name
-            //newItem.setDisplayName(newItem.getName()); 
-            setBaseItemProps(newItem);
-            getSession().save(newItem);
-            getSession().flush();
-            return newItem;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        } catch (ConstraintViolationException cve) {
-            logConstraintViolationException(cve);
-            throw cve;
-        }
+            	//do not set this, it might be sensitive or different than name
+            	//newItem.setDisplayName(newItem.getName()); 
+            	Dao<OrmliteItem, String> itemDao = BeansSimulator.getBaseItemDao();
+                ((OrmliteItemWrapper)newItem).setItemType("homecollection");
+                newItem.setOwner(user);
+                newItem.setName(user.getUsername());
+                setBaseItemProps(newItem);
+                itemDao.create(((OrmliteHomeCollectionItemWrapper)newItem).getPersistedItem());
+                return newItem;
+            } catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+            
+            //getSession().save(newItem);
+            //getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        } catch (ConstraintViolationException cve) {
+//            logConstraintViolationException(cve);
+//            throw cve;
+//        }
+    	
+    	//System.out.println("[AGATE] ContentDaoImpl not implemented createRootItem");
+    	//throw new NotImplementedException();
     }
 
     public void addItemToCollection(Item item, CollectionItem collection) {
-        try {
-            addItemToCollectionInternal(item, collection);
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            addItemToCollectionInternal(item, collection);
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	
+    	System.out.println("[AGATE] ContentDaoImpl not implemented addItemToCollection");
+    	throw new NotImplementedException();
     }
 
     public void removeItemFromCollection(Item item, CollectionItem collection) {
-        try {
-            removeItemFromCollectionInternal(item, collection);
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            removeItemFromCollectionInternal(item, collection);
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	System.out.println("[AGATE] ContentDaoImpl not implemented removeItemFromCollection");
+    	throw new NotImplementedException();
     }
 
     public Set<Ticket> getTickets(Item item) {
-        if (item == null) {
-            throw new IllegalArgumentException("item cannot be null");
-        }
-
-        try {
-            getSession().refresh(item);
-            return item.getTickets();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        if (item == null) {
+//            throw new IllegalArgumentException("item cannot be null");
+//        }
+//
+//        try {
+//            getSession().refresh(item);
+//            return item.getTickets();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+    	System.out.println("[AGATE] ContentDaoImpl not implemented getTickets");
+    	throw new NotImplementedException();
     }
 
     public Ticket findTicket(String key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
-
-        try {
-            // prevent auto flushing when looking up ticket
-            getSession().setFlushMode(FlushMode.MANUAL);
-            Query hibQuery = getSession().getNamedQuery("ticket.by.key")
-                    .setParameter("key", key);
-            hibQuery.setCacheable(true);
-            hibQuery.setFlushMode(FlushMode.MANUAL);
-            return (Ticket) hibQuery.uniqueResult();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        if (key == null) {
+//            throw new IllegalArgumentException("key cannot be null");
+//        }
+//
+//        try {
+//            // prevent auto flushing when looking up ticket
+//            getSession().setFlushMode(FlushMode.MANUAL);
+//            Query hibQuery = getSession().getNamedQuery("ticket.by.key")
+//                    .setParameter("key", key);
+//            hibQuery.setCacheable(true);
+//            hibQuery.setFlushMode(FlushMode.MANUAL);
+//            return (Ticket) hibQuery.uniqueResult();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findTicket");
+    	throw new NotImplementedException();
     }
 
     public void createTicket(Item item, Ticket ticket) {
-        try {
-            if (ticket == null) {
-                throw new IllegalArgumentException("ticket cannot be null");
-            }
-
-            if (item == null) {
-                throw new IllegalArgumentException("item cannot be null");
-            }
-
-            User owner = ticket.getOwner();
-            if (owner == null) {
-                throw new IllegalArgumentException("ticket must have owner");
-            }
-
-            if (ticket.getKey() == null) {
-                ticket.setKey(ticketKeyGenerator.allocateToken("").getKey());
-            }
-
-            ticket.setCreated(new Date());
-            getSession().update(item);
-            item.addTicket(ticket);
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        } catch (ConstraintViolationException cve) {
-            logConstraintViolationException(cve);
-            throw cve;
-        }
+//        try {
+//            if (ticket == null) {
+//                throw new IllegalArgumentException("ticket cannot be null");
+//            }
+//
+//            if (item == null) {
+//                throw new IllegalArgumentException("item cannot be null");
+//            }
+//
+//            User owner = ticket.getOwner();
+//            if (owner == null) {
+//                throw new IllegalArgumentException("ticket must have owner");
+//            }
+//
+//            if (ticket.getKey() == null) {
+//                ticket.setKey(ticketKeyGenerator.allocateToken("").getKey());
+//            }
+//
+//            ticket.setCreated(new Date());
+//            getSession().update(item);
+//            item.addTicket(ticket);
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        } catch (ConstraintViolationException cve) {
+//            logConstraintViolationException(cve);
+//            throw cve;
+//        }
+    	
+       	System.out.println("[AGATE] ContentDaoImpl not implemented createTicket");
+    	throw new NotImplementedException();
     }
 
     public Ticket getTicket(Item item, String key) {
-        try {
-            getSession().refresh(item);
-            return getTicketRecursive(item, key);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            getSession().refresh(item);
+//            return getTicketRecursive(item, key);
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getTicket");
+    	throw new NotImplementedException();
     }
 
     public void removeTicket(Item item, Ticket ticket) {
-        try {
-            getSession().update(item);
-            item.removeTicket(ticket);
-            getSession().flush();
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            getSession().update(item);
+//            item.removeTicket(ticket);
+//            getSession().flush();
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented removeTicket");
+    	throw new NotImplementedException();
 
     }
 
@@ -360,69 +430,77 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#removeItemByPath(java.lang.String)
      */
     public void removeItemByPath(String path) {
-        try {
-            Item item = itemPathTranslator.findItemByPath(path);
-            if (item == null) {
-                throw new ItemNotFoundException("item at " + path
-                        + " not found");
-            }
-            removeItem(item);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
-
+//        try {
+//            Item item = itemPathTranslator.findItemByPath(path);
+//            if (item == null) {
+//                throw new ItemNotFoundException("item at " + path
+//                        + " not found");
+//            }
+//            removeItem(item);
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented removeItemByPath");
+    	throw new NotImplementedException();
     }
 
     /* (non-Javadoc)
      * @see org.unitedinternet.cosmo.dao.ItemDao#removeItemByUid(java.lang.String)
      */
     public void removeItemByUid(String uid) {
-        try {
-            Item item = findItemByUid(uid);
-            if (item == null) {
-                throw new ItemNotFoundException("item with uid " + uid
-                        + " not found");
-            }
-            removeItem(item);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            Item item = findItemByUid(uid);
+//            if (item == null) {
+//                throw new ItemNotFoundException("item with uid " + uid
+//                        + " not found");
+//            }
+//            removeItem(item);
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e; 
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented removeItemByUid");
+    	throw new NotImplementedException();
     }
 
 
     public void copyItem(Item item, String destPath, boolean deepCopy) {
-        try {
-            String copyName = itemPathTranslator.getItemName(destPath);
-
-            if (copyName == null || "".equals(copyName)) {
-                throw new IllegalArgumentException("path must include name");
-            }
-
-            if (item instanceof HomeCollectionItem) {
-                throw new IllegalArgumentException("cannot copy root collection");
-            }
-
-            CollectionItem newParent = (CollectionItem) itemPathTranslator.findItemParent(destPath);
-
-            if (newParent == null) {
-                throw new ItemNotFoundException("parent collection not found");
-            }
-
-            verifyNotInLoop(item, newParent);
-
-            Item newItem = copyItemInternal(item, newParent, deepCopy);
-            newItem.setName(copyName);
-            getSession().flush();
-
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        } catch (ConstraintViolationException cve) {
-            logConstraintViolationException(cve);
-            throw cve;
-        }
+//        try {
+//            String copyName = itemPathTranslator.getItemName(destPath);
+//
+//            if (copyName == null || "".equals(copyName)) {
+//                throw new IllegalArgumentException("path must include name");
+//            }
+//
+//            if (item instanceof HomeCollectionItem) {
+//                throw new IllegalArgumentException("cannot copy root collection");
+//            }
+//
+//            CollectionItem newParent = (CollectionItem) itemPathTranslator.findItemParent(destPath);
+//
+//            if (newParent == null) {
+//                throw new ItemNotFoundException("parent collection not found");
+//            }
+//
+//            verifyNotInLoop(item, newParent);
+//
+//            Item newItem = copyItemInternal(item, newParent, deepCopy);
+//            newItem.setName(copyName);
+//            getSession().flush();
+//
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        } catch (ConstraintViolationException cve) {
+//            logConstraintViolationException(cve);
+//            throw cve;
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented copyItem");
+    	throw new NotImplementedException();
     }
 
 
@@ -430,59 +508,63 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#moveItem(java.lang.String, java.lang.String)
      */
     public void moveItem(String fromPath, String toPath) {
-        try {
-
-            // Get current item
-            Item item = itemPathTranslator.findItemByPath(fromPath);
-
-            if (item == null) {
-                throw new ItemNotFoundException("item " + fromPath + " not found");
-            }
-
-            if (item instanceof HomeCollectionItem) {
-                throw new IllegalArgumentException("cannot move root collection");
-            }
-
-            // Name of moved item
-            String moveName = itemPathTranslator.getItemName(toPath);
-
-            if (moveName == null || "".equals(moveName)) {
-                throw new IllegalArgumentException("path must include name");
-            }
-
-            // Parent of moved item
-            CollectionItem parent = (CollectionItem) itemPathTranslator.findItemParent(toPath);
-
-            if (parent == null) {
-                throw new ItemNotFoundException("parent collecion not found");
-            }
-
-            // Current parent
-            CollectionItem oldParent = (CollectionItem) itemPathTranslator.findItemParent(fromPath);
-
-            verifyNotInLoop(item, parent);
-
-            item.setName(moveName);
-            if (!parent.getUid().equals(oldParent.getUid())) {
-                ((HibCollectionItem) parent).removeTombstone(item);
-
-                // Copy over existing CollectionItemDetails
-                ((HibItem) item).addParent(parent);
-
-                // Remove item from old parent collection
-                getHibItem(oldParent).addTombstone(new HibItemTombstone(oldParent, item));
-                ((HibItem) item).removeParent(oldParent);
-            }
-
-            getSession().flush();
-
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        } catch (ConstraintViolationException cve) {
-            logConstraintViolationException(cve);
-            throw cve;
-        }
+//        try {
+//
+//            // Get current item
+//            Item item = itemPathTranslator.findItemByPath(fromPath);
+//
+//            if (item == null) {
+//                throw new ItemNotFoundException("item " + fromPath + " not found");
+//            }
+//
+//            if (item instanceof HomeCollectionItem) {
+//                throw new IllegalArgumentException("cannot move root collection");
+//            }
+//
+//            // Name of moved item
+//            String moveName = itemPathTranslator.getItemName(toPath);
+//
+//            if (moveName == null || "".equals(moveName)) {
+//                throw new IllegalArgumentException("path must include name");
+//            }
+//
+//            // Parent of moved item
+//            CollectionItem parent = (CollectionItem) itemPathTranslator.findItemParent(toPath);
+//
+//            if (parent == null) {
+//                throw new ItemNotFoundException("parent collecion not found");
+//            }
+//
+//            // Current parent
+//            CollectionItem oldParent = (CollectionItem) itemPathTranslator.findItemParent(fromPath);
+//
+//            verifyNotInLoop(item, parent);
+//
+//            item.setName(moveName);
+//            if (!parent.getUid().equals(oldParent.getUid())) {
+//                ((HibCollectionItem) parent).removeTombstone(item);
+//
+//                // Copy over existing CollectionItemDetails
+//                ((HibItem) item).addParent(parent);
+//
+//                // Remove item from old parent collection
+//                getHibItem(oldParent).addTombstone(new HibItemTombstone(oldParent, item));
+//                ((HibItem) item).removeParent(oldParent);
+//            }
+//
+//            getSession().flush();
+//
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        } catch (ConstraintViolationException cve) {
+//            logConstraintViolationException(cve);
+//            throw cve;
+//        }
+    	
+       	System.out.println("[AGATE] ContentDaoImpl not implemented moveItem");
+    	throw new NotImplementedException();
     }
 
 
@@ -490,12 +572,15 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#refreshItem(org.unitedinternet.cosmo.model.Item)
      */
     public void refreshItem(Item item) {
-        try {
-            getSession().refresh(item);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            getSession().refresh(item);
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented refreshItem");
+    	throw new NotImplementedException();
     }
 
 
@@ -503,17 +588,20 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @see org.unitedinternet.cosmo.dao.ItemDao#initializeItem(org.unitedinternet.cosmo.model.Item)
      */
     public void initializeItem(Item item) {
-        try {
-            LOG.info("initialize Item : "+item.getUid());
-            // initialize all the proxied-associations, to prevent
-            // lazy-loading of this data
-            Hibernate.initialize(item.getAttributes());
-            Hibernate.initialize(item.getStamps());
-            Hibernate.initialize(item.getTombstones());
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            LOG.info("initialize Item : "+item.getUid());
+//            // initialize all the proxied-associations, to prevent
+//            // lazy-loading of this data
+//            Hibernate.initialize(item.getAttributes());
+//            Hibernate.initialize(item.getStamps());
+//            Hibernate.initialize(item.getTombstones());
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented initializeItem");
+    	throw new NotImplementedException();
     }
 
     
@@ -524,21 +612,24 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @return set of children collection items or empty list of parent collection has no children
      */
     public Set<CollectionItem> findCollectionItems(CollectionItem collectionItem){
-        try {
-            HashSet<CollectionItem> children = new HashSet<CollectionItem>();
-            Query hibQuery = getSession().getNamedQuery("collections.children.by.parent")
-                    .setParameter("parent", collectionItem);
-
-            List<?> results = hibQuery.list();
-            for (Iterator<?> it = results.iterator(); it.hasNext(); ) {
-                CollectionItem content = (CollectionItem) it.next();
-                children.add(content);
-            }
-            return children;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            HashSet<CollectionItem> children = new HashSet<CollectionItem>();
+//            Query hibQuery = getSession().getNamedQuery("collections.children.by.parent")
+//                    .setParameter("parent", collectionItem);
+//
+//            List<?> results = hibQuery.list();
+//            for (Iterator<?> it = results.iterator(); it.hasNext(); ) {
+//                CollectionItem content = (CollectionItem) it.next();
+//                children.add(content);
+//            }
+//            return children;
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findCollectionItems");
+    	throw new NotImplementedException();
     }
     
     /**
@@ -548,12 +639,15 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @return set of items matching ItemFilter
      */
     public Set<Item> findItems(ItemFilter filter) {
-        try {
-            return itemFilterProcessor.processFilter(filter);
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            return itemFilterProcessor.processFilter(filter);
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findItems");
+    	throw new NotImplementedException();
     }
 
     /**
@@ -564,16 +658,19 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @return set of items matching any of the filters
      */
     public Set<Item> findItems(ItemFilter[] filters) {
-        try {
-            HashSet<Item> returnSet = new HashSet<Item>();
-            for (ItemFilter filter : filters) {
-                returnSet.addAll(itemFilterProcessor.processFilter(filter));
-            }
-            return returnSet;
-        } catch (HibernateException e) {
-            getSession().clear();
-            throw SessionFactoryUtils.convertHibernateAccessException(e);
-        }
+//        try {
+//            HashSet<Item> returnSet = new HashSet<Item>();
+//            for (ItemFilter filter : filters) {
+//                returnSet.addAll(itemFilterProcessor.processFilter(filter));
+//            }
+//            return returnSet;
+//        } catch (HibernateException e) {
+//            getSession().clear();
+//            throw e;
+//            //throw SessionFactoryUtils.convertHibernateAccessException(e);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findItems");
+    	throw new NotImplementedException();
     }
 
     /**
@@ -666,28 +763,30 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
     }
 
     protected Item copyItemInternal(Item item, CollectionItem newParent, boolean deepCopy) {
-
-        Item item2 = item.copy();
-        item2.setName(item.getName());
-
-        // copy base Item fields
-        setBaseItemProps(item2);
-
-        ((HibItem) item2).addParent(newParent);
-
-        // save Item before attempting deep copy
-        getSession().save(item2);
-        getSession().flush();
-
-        // copy children if collection and deepCopy = true
-        if (deepCopy == true && item instanceof CollectionItem) {
-            CollectionItem collection = (CollectionItem) item;
-            for (Item child : collection.getChildren()) {
-                copyItemInternal(child, (CollectionItem) item2, true);
-            }
-        }
-
-        return item2;
+//
+//        Item item2 = item.copy();
+//        item2.setName(item.getName());
+//
+//        // copy base Item fields
+//        setBaseItemProps(item2);
+//
+//        ((HibItem) item2).addParent(newParent);
+//
+//        // save Item before attempting deep copy
+//        getSession().save(item2);
+//        getSession().flush();
+//
+//        // copy children if collection and deepCopy = true
+//        if (deepCopy == true && item instanceof CollectionItem) {
+//            CollectionItem collection = (CollectionItem) item;
+//            for (Item child : collection.getChildren()) {
+//                copyItemInternal(child, (CollectionItem) item2, true);
+//            }
+//        }
+//
+//        return item2;
+       	System.out.println("[AGATE] ContentDaoImpl not implemented copyItemInternal");
+    	throw new NotImplementedException();
     }
 
     /**
@@ -699,24 +798,26 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @throws org.unitedinternet.cosmo.dao.ModelValidationException if newParent is child of item
      */
     protected void verifyNotInLoop(Item item, CollectionItem newParent) {
-        // need to verify that the new parent is not a child
-        // of the item, otherwise we get a loop
-        if (getBaseModelObject(item).getId().equals(getBaseModelObject(newParent).getId())) {
-            throw new ModelValidationException(newParent,
-                    "Invalid parent - will cause loop");
-        }
-
-        // If item is not a collection then all is good
-        if (!(item instanceof CollectionItem)) {
-            return;
-        }
-
-        CollectionItem collection = (CollectionItem) item;
-        getSession().refresh(collection);
-
-        for (Item nextItem : collection.getChildren()) {
-            verifyNotInLoop(nextItem, newParent);
-        }
+//        // need to verify that the new parent is not a child
+//        // of the item, otherwise we get a loop
+//        if (getBaseModelObject(item).getId().equals(getBaseModelObject(newParent).getId())) {
+//            throw new ModelValidationException(newParent,
+//                    "Invalid parent - will cause loop");
+//        }
+//
+//        // If item is not a collection then all is good
+//        if (!(item instanceof CollectionItem)) {
+//            return;
+//        }
+//
+//        CollectionItem collection = (CollectionItem) item;
+//        getSession().refresh(collection);
+//
+//        for (Item nextItem : collection.getChildren()) {
+//            verifyNotInLoop(nextItem, newParent);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented verifyNotInLoop");
+    	throw new NotImplementedException();
     }
 
     /**
@@ -729,14 +830,16 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      *                                    in collection
      */
     protected void verifyItemNameUnique(Item item, CollectionItem collection) {
-        Query hibQuery = getSession().getNamedQuery("itemId.by.parentId.name");
-        hibQuery.setParameter("name", item.getName()).setParameter("parentid",
-                ((HibItem) collection).getId());
-        List<Long> results = hibQuery.list();
-        if (results.size() > 0) {
-            throw new DuplicateItemNameException(item, "item name " + item.getName() +
-                    " already exists in collection " + collection.getUid());
-        }
+//        Query hibQuery = getSession().getNamedQuery("itemId.by.parentId.name");
+//        hibQuery.setParameter("name", item.getName()).setParameter("parentid",
+//                ((HibItem) collection).getId());
+//        List<Long> results = hibQuery.list();
+//        if (results.size() > 0) {
+//            throw new DuplicateItemNameException(item, "item name " + item.getName() +
+//                    " already exists in collection " + collection.getUid());
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented verifyItemNameUnique");
+    	throw new NotImplementedException();
     }
 
     /**
@@ -746,7 +849,9 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
      * @return DbItem with specified dbId
      */
     protected Item findItemByDbId(Long dbId) {
-        return (Item) getSession().get(Item.class, dbId);
+        //return (Item) getSession().get(Item.class, dbId);
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findItemById");
+    	throw new NotImplementedException();
     }
 
     // Set server generated item properties
@@ -761,163 +866,198 @@ public abstract class ItemDaoImpl extends AbstractDaoImpl implements ItemDao {
             ICalendarItem ical = (ICalendarItem) item;
             if (ical.getIcalUid() == null) {
                 ical.setIcalUid(item.getUid());
-                EventStamp es = HibEventStamp.getStamp(ical);
+                EventStamp es = OrmliteEventStamp.getStamp(ical);
                 if (es != null) {
                     es.setIcalUid(ical.getIcalUid());
                 }
             }
         }
-        for (Ticket ticket : item.getTickets()) {
-            if (ticket.getOwner() == null) {
-                ticket.setOwner(item.getOwner());
-            }
-            if (ticket.getKey() == null) {
-                ticket.setKey(ticketKeyGenerator.allocateToken("").getKey());
-            }
-            if (ticket.getTimeout() == null) {
-                ticket.setTimeout(Ticket.TIMEOUT_INFINITE);
-            }
-            ticket.setCreated(new Date());
-        }
+//        for (Ticket ticket : item.getTickets()) {
+//            if (ticket.getOwner() == null) {
+//                ticket.setOwner(item.getOwner());
+//            }
+//            if (ticket.getKey() == null) {
+//                ticket.setKey(ticketKeyGenerator.allocateToken("").getKey());
+//            }
+//            if (ticket.getTimeout() == null) {
+//                ticket.setTimeout(Ticket.TIMEOUT_INFINITE);
+//            }
+//            ticket.setCreated(new Date());
+//        }
+       	//System.out.println("[AGATE] ContentDaoImpl not implemented setBaseItemProps");
+    	//throw new NotImplementedException();
     }
 
     protected Item findItemByParentAndName(Long userDbId, Long parentDbId,
                                            String name) {
-        Query hibQuery = null;
-        if (parentDbId != null) {
-            hibQuery = getSession().getNamedQuery(
-                    "item.by.ownerId.parentId.name").setParameter("ownerid",
-                    userDbId).setParameter("parentid", parentDbId)
-                    .setParameter("name", name);
-
-        } else {
-            hibQuery = getSession().getNamedQuery(
-                    "item.by.ownerId.nullParent.name").setParameter("ownerid",
-                    userDbId).setParameter("name", name);
-        }
-        hibQuery.setFlushMode(FlushMode.MANUAL);
-        return (Item) hibQuery.uniqueResult();
+//        Query hibQuery = null;
+//        if (parentDbId != null) {
+//            hibQuery = getSession().getNamedQuery(
+//                    "item.by.ownerId.parentId.name").setParameter("ownerid",
+//                    userDbId).setParameter("parentid", parentDbId)
+//                    .setParameter("name", name);
+//
+//        } else {
+//            hibQuery = getSession().getNamedQuery(
+//                    "item.by.ownerId.nullParent.name").setParameter("ownerid",
+//                    userDbId).setParameter("name", name);
+//        }
+//        hibQuery.setFlushMode(FlushMode.MANUAL);
+//        return (Item) hibQuery.uniqueResult();
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findItemByParentAndName");
+    	throw new NotImplementedException();
     }
 
     protected Item findItemByParentAndNameMinusItem(Long userDbId, Long parentDbId,
                                                     String name, Long itemId) {
-        Query hibQuery = null;
-        if (parentDbId != null) {
-            hibQuery = getSession().getNamedQuery(
-                    "item.by.ownerId.parentId.name.minusItem").setParameter("itemid", itemId)
-                    .setParameter("ownerid",
-                            userDbId).setParameter("parentid", parentDbId)
-                    .setParameter("name", name);
-        } else {
-            hibQuery = getSession().getNamedQuery(
-                    "item.by.ownerId.nullParent.name.minusItem").setParameter("itemid", itemId)
-                    .setParameter("ownerid",
-                            userDbId).setParameter("name", name);
-        }
-        hibQuery.setFlushMode(FlushMode.MANUAL);
-        return (Item) hibQuery.uniqueResult();
+//        Query hibQuery = null;
+//        if (parentDbId != null) {
+//            hibQuery = getSession().getNamedQuery(
+//                    "item.by.ownerId.parentId.name.minusItem").setParameter("itemid", itemId)
+//                    .setParameter("ownerid",
+//                            userDbId).setParameter("parentid", parentDbId)
+//                    .setParameter("name", name);
+//        } else {
+//            hibQuery = getSession().getNamedQuery(
+//                    "item.by.ownerId.nullParent.name.minusItem").setParameter("itemid", itemId)
+//                    .setParameter("ownerid",
+//                            userDbId).setParameter("name", name);
+//        }
+//        hibQuery.setFlushMode(FlushMode.MANUAL);
+//        return (Item) hibQuery.uniqueResult();
+       	System.out.println("[AGATE] ContentDaoImpl not implemented findItemByParentAndNameMinusItem");
+    	throw new NotImplementedException();
     }
 
     protected HomeCollectionItem findRootItem(Long dbUserId) {
-        Query hibQuery = getSession().getNamedQuery(
-                "homeCollection.by.ownerId").setParameter("ownerid",
-                dbUserId);
-        hibQuery.setCacheable(true);
-        hibQuery.setFlushMode(FlushMode.MANUAL);
-
-        return (HomeCollectionItem) hibQuery.uniqueResult();
+    	Dao<OrmliteItem, String> itemsDao = BeansSimulator.getBaseItemDao();
+    	QueryBuilder<OrmliteItem, String> itemsDaoQb = itemsDao.queryBuilder();
+    	
+    	try {
+			OrmliteItem item = itemsDaoQb.where().eq("OWNERID", dbUserId).queryForFirst();
+			if (item == null)
+				return null;
+			OrmliteHomeCollectionItemWrapper itemw = new OrmliteHomeCollectionItemWrapper();
+			itemw.setPersistedItem(item);
+			return itemw;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+    	
+//        Query hibQuery = getSession().getNamedQuery(
+//                "homeCollection.by.ownerId").setParameter("ownerid",
+//                dbUserId);
+//        hibQuery.setCacheable(true);
+//        hibQuery.setFlushMode(FlushMode.MANUAL);
+//
+//        return (HomeCollectionItem) hibQuery.uniqueResult();
+       	//System.out.println("[AGATE] ContentDaoImpl not implemented finddRootItem");
+    	//throw new NotImplementedException();
     }
 
     protected void checkForDuplicateUid(Item item) {
         // verify uid not in use
-        if (item.getUid() != null) {
-
-            // Lookup item by uid
-            Query hibQuery = getSession().getNamedQuery("itemid.by.uid")
-                    .setParameter("uid", item.getUid());
-            hibQuery.setFlushMode(FlushMode.MANUAL);
-
-            Long itemId = (Long) hibQuery.uniqueResult();
-
-            // if uid is in use throw exception
-            if (itemId != null) {
-                throw new UidInUseException(item.getUid(), "uid " + item.getUid()
-                        + " already in use");
-            }
-        }
+//        if (item.getUid() != null) {
+//
+//            // Lookup item by uid
+//            Query hibQuery = getSession().getNamedQuery("itemid.by.uid")
+//                    .setParameter("uid", item.getUid());
+//            hibQuery.setFlushMode(FlushMode.MANUAL);
+//
+//            Long itemId = (Long) hibQuery.uniqueResult();
+//
+//            // if uid is in use throw exception
+//            if (itemId != null) {
+//                throw new UidInUseException(item.getUid(), "uid " + item.getUid()
+//                        + " already in use");
+//            }
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented checkForDuplicateId");
+    	throw new NotImplementedException();
     }
 
     protected Ticket getTicketRecursive(Item item, String key) {
-        if (item == null) {
-            return null;
-        }
-
-        for (Ticket ticket : item.getTickets()) {
-            if (ticket.getKey().equals(key)) {
-                return ticket;
-            }
-        }
-
-        for (Item parent : item.getParents()) {
-            Ticket ticket = getTicketRecursive(parent, key);
-            if (ticket != null) {
-                return ticket;
-            }
-        }
-
-        return null;
+//        if (item == null) {
+//            return null;
+//        }
+//
+//        for (Ticket ticket : item.getTickets()) {
+//            if (ticket.getKey().equals(key)) {
+//                return ticket;
+//            }
+//        }
+//
+//        for (Item parent : item.getParents()) {
+//            Ticket ticket = getTicketRecursive(parent, key);
+//            if (ticket != null) {
+//                return ticket;
+//            }
+//        }
+//
+//        return null;
+       	System.out.println("[AGATE] ContentDaoImpl not implemented getTicketRcursive");
+    	throw new NotImplementedException();
     }
 
     protected void attachToSession(Item item) {
-        if (getSession().contains(item)) {
-            return;
-        }
-        getSession().lock(item, LockMode.NONE);
+//        if (getSession().contains(item)) {
+//            return;
+//        }
+//        getSession().lock(item, LockMode.NONE);
+       	System.out.println("[AGATE] ContentDaoImpl not implemented attachToSession");
+    	throw new NotImplementedException();
     }
 
     protected void removeItemFromCollectionInternal(Item item, CollectionItem collection) {
 
-        getSession().update(collection);
-        getSession().update(item);
-
-        // do nothing if item doesn't belong to collection
-        if (!item.getParents().contains(collection)) {
-            return;
-        }
-
-        getHibItem(collection).addTombstone(new HibItemTombstone(collection, item));
-        ((HibItem) item).removeParent(collection);
-
-        // If the item belongs to no collection, then it should
-        // be purged.
-        if (item.getParents().size() == 0) {
-            removeItemInternal(item);
-        }
+//        getSession().update(collection);
+//        getSession().update(item);
+//
+//        // do nothing if item doesn't belong to collection
+//        if (!item.getParents().contains(collection)) {
+//            return;
+//        }
+//
+//        getHibItem(collection).addTombstone(new HibItemTombstone(collection, item));
+//        ((HibItem) item).removeParent(collection);
+//
+//        // If the item belongs to no collection, then it should
+//        // be purged.
+//        if (item.getParents().size() == 0) {
+//            removeItemInternal(item);
+//        }
+       	System.out.println("[AGATE] ContentDaoImpl not implemented removeItemFromCollectionInternal");
+    	throw new NotImplementedException();
     }
 
     protected void addItemToCollectionInternal(Item item,
                                                CollectionItem collection) {
-        verifyItemNameUnique(item, collection);
-        getSession().update(item);
-        getSession().update(collection);
-        ((HibCollectionItem) collection).removeTombstone(item);
-        ((HibItem) item).addParent(collection);
+//        verifyItemNameUnique(item, collection);
+//        getSession().update(item);
+//        getSession().update(collection);
+//        ((HibCollectionItem) collection).removeTombstone(item);
+//        ((HibItem) item).addParent(collection);
+       	System.out.println("[AGATE] ContentDaoImpl not implemented addItemToCollectionInternal");
+    	throw new NotImplementedException();
     }
 
     protected void removeItemInternal(Item item) {
-        getSession().delete(item);
+       // getSession().delete(item);
+       	System.out.println("[AGATE] ContentDaoImpl not implemented removeItemInternal");
+    	throw new NotImplementedException();
     }
 
     protected BaseModelObject getBaseModelObject(Object obj) {
         return (BaseModelObject) obj;
     }
 
-    protected HibItem getHibItem(Item item) {
-        return (HibItem) item;
+    protected OrmliteItem getHibItem(Item item) {
+        return (OrmliteItem) item;
     }
 
-    protected HibCollectionItem getHibCollectionItem(CollectionItem item) {
-        return (HibCollectionItem) item;
+    protected OrmliteCollectionItemWrapper getHibCollectionItem(CollectionItem item) {
+        return (OrmliteCollectionItemWrapper) item;
     }
 
 }

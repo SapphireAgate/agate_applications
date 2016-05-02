@@ -51,6 +51,6 @@ public interface QName {
      * Create copy of QName object.
      * @return copy of current QName object
      */
-    public QName copy();
+    public QName copyQName();
 
 }

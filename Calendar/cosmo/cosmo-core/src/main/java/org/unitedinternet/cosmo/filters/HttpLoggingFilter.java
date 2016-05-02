@@ -142,19 +142,21 @@ public class HttpLoggingFilter implements Filter {
             WebApplicationContextUtils.getRequiredWebApplicationContext(
                     config.getServletContext()
             );
+//AGATE
+//        this.securityManager = (CosmoSecurityManager)
+//            wac.getBean(BEAN_SECURITY_MANAGER,
+//                        CosmoSecurityManager.class);
+//
+//        if (this.securityManager == null){
+//            throw new ServletException("Could not initialize HttpLoggingFilter: " +
+//            "Could not find security manager.");
+//        }
 
-        this.securityManager = (CosmoSecurityManager)
-            wac.getBean(BEAN_SECURITY_MANAGER,
-                        CosmoSecurityManager.class);
+        //String format = (String)
+        //    wac.getBean(BEAN_HTTP_LOGGING_FORMAT, String.class);
 
-        if (this.securityManager == null){
-            throw new ServletException("Could not initialize HttpLoggingFilter: " +
-            "Could not find security manager.");
-        }
-
-        String format = (String)
-            wac.getBean(BEAN_HTTP_LOGGING_FORMAT, String.class);
-
+        String format = "%M %U %Q %C %I";
+        
         if (format != null){
             try {
                 this.format = (String) format;

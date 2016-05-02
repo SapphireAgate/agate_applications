@@ -12,9 +12,11 @@ import java.util.Collection;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.FactoryBean;
+import org.unitedinternet.cosmo.BeansSimulator;
 import org.unitedinternet.cosmo.api.ExternalComponentInstanceProvider;
 import org.unitedinternet.cosmo.db.DataSourceProvider;
 import org.unitedinternet.cosmo.metadata.CalendarRepository;
+import org.unitedinternet.cosmo.webapp.NonManagedDataSourceProvider;
 
 public class DataSourceFactoryBean implements FactoryBean<DataSource>{
     
@@ -26,15 +28,16 @@ public class DataSourceFactoryBean implements FactoryBean<DataSource>{
     
     @Override
     public DataSource getObject() throws Exception {
-        Collection<? extends DataSourceProvider> dsps = instanceProvider.getImplInstancesAnnotatedWith(CalendarRepository.class, DataSourceProvider.class);
-        if(dsps.size() != 1){
-            throw new IllegalStateException("One DataSourceProvider implementation must exist. Found [" + dsps.size() + "].");
-        }
-        DataSourceProvider dsp = dsps.iterator().next(); 
+        //AGATE
+    	
+    	//Collection<? extends DataSourceProvider> dsps = instanceProvider.getImplInstancesAnnotatedWith(CalendarRepository.class, DataSourceProvider.class);
+        //if(dsps.size() != 1){
+        //    throw new IllegalStateException("One DataSourceProvider implementation must exist. Found [" + dsps.size() + "].");
+        //}
+        //DataSourceProvider dsp = dsps.iterator().next(); 
 
-        DataSource ds = dsp.getDataSource();
-        
-        return ds;
+        //DataSource ds = dsp.getDataSource();
+        return BeansSimulator.getDataSource();
     }
 
     @Override

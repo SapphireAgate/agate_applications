@@ -36,9 +36,11 @@ public class SpringContextInitializerListener implements ServletContextListener{
     
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+    	System.out.println("[AGATE][Cosmo - SpringContextInitializerListener] contextInitialized");
         try{
 	    	AbstractRefreshableWebApplicationContext wac = (AbstractRefreshableWebApplicationContext)WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
-	        if(wac == null){
+	    	System.out.println("[AGATE][Cosmo - SpringContextInitializerListener] AbstractRefreshableWebApplicationContext wac = " + wac);
+	    	if(wac == null){
 	            contextLoader = new ContextLoader();
 	            createSpringApplicationContext(sce.getServletContext());
 	        }else{

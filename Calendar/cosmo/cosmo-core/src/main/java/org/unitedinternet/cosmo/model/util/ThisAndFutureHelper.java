@@ -34,7 +34,7 @@ import org.unitedinternet.cosmo.model.EventStamp;
 import org.unitedinternet.cosmo.model.NoteItem;
 import org.unitedinternet.cosmo.model.NoteOccurrence;
 import org.unitedinternet.cosmo.model.StampUtils;
-import org.unitedinternet.cosmo.model.hibernate.ModificationUidImpl;
+//import org.unitedinternet.cosmo.model.hibernate.ModificationUidImpl;
 
 /**
  * Helper class to handle breaking a recurring series to
@@ -118,7 +118,7 @@ public class ThisAndFutureHelper {
             
             Date recurrenceId = ees.getRecurrenceId();
            
-            copy.setUid(new ModificationUidImpl(newSeries, recurrenceId).toString());
+            //copy.setUid(new ModificationUidImpl(newSeries, recurrenceId).toString());
             
             // delete old
             modToMove.setIsActive(false);

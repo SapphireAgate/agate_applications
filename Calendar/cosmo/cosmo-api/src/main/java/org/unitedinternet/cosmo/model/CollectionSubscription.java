@@ -20,7 +20,7 @@ package org.unitedinternet.cosmo.model;
  * A subscription belongs to a user and consists of 
  * a ticket key and a collection uid.
  */
-public interface CollectionSubscription extends AuditableObject{
+public interface CollectionSubscription {//extends AuditableObject{
 
     /**
      * Return the uid of the shared collection.  
@@ -50,10 +50,10 @@ public interface CollectionSubscription extends AuditableObject{
      * created for a shared collection, and then removed by the owner.
      * @return
      */
-    public String getTicketKey();
-
-    public void setTicketKey(String ticketKey);
-
-    public void setTicket(Ticket ticket);
+//    public String getTicketKey();
+//
+//    public void setTicketKey(String ticketKey);
+//
+//    public void setTicket(Ticket ticket);
 
 }

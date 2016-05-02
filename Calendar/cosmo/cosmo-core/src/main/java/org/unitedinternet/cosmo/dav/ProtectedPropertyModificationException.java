@@ -17,8 +17,8 @@ package org.unitedinternet.cosmo.dav;
 
 import org.apache.jackrabbit.webdav.property.DavPropertyName;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamWriter;
 
 /**
  * An exception indicating that the request attempted to modify a

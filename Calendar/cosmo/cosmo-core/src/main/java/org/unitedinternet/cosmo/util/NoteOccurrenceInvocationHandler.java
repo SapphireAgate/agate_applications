@@ -24,7 +24,7 @@ import java.util.Set;
 import org.unitedinternet.cosmo.model.ModificationUid;
 import org.unitedinternet.cosmo.model.NoteItem;
 import org.unitedinternet.cosmo.model.NoteOccurrence;
-import org.unitedinternet.cosmo.model.hibernate.ModificationUidImpl;
+//import org.unitedinternet.cosmo.model.hibernate.ModificationUidImpl;
 
 import net.fortuna.ical4j.model.Date;
 
@@ -58,7 +58,7 @@ public class NoteOccurrenceInvocationHandler implements InvocationHandler {
     public NoteOccurrenceInvocationHandler(Date occurrenceDate,
                                            NoteItem masterNote) {
         // uid is the same as a modification's uid
-        this.modUid = new ModificationUidImpl(masterNote, occurrenceDate);
+        //this.modUid = new ModificationUidImpl(masterNote, occurrenceDate);
         this.occurrenceDate = occurrenceDate;
         this.masterNote = masterNote;
     }

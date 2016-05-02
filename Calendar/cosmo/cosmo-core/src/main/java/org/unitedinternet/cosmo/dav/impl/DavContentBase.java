@@ -63,7 +63,7 @@ public abstract class DavContentBase extends DavItemResourceBase
     private static final Log LOG = LogFactory.getLog(DavContentBase.class);
     private static final Set<String> DEAD_PROPERTY_FILTER =
         new HashSet<String>();
-
+    
     static {
 
         DEAD_PROPERTY_FILTER.add(NoteItem.class.getName());
@@ -126,8 +126,9 @@ public abstract class DavContentBase extends DavItemResourceBase
         content.setLastModifiedBy(user != null ? user.getEmail() : "");
 
         if (content.getUid() == null) {
-            content.setTriageStatus(TriageStatusUtil.initialize(content
-                    .getFactory().createTriageStatus()));
+            //content.setTriageStatus(TriageStatusUtil.initialize(content
+            //        .getFactory().createTriageStatus()));
+        	content.setTriageStatus(TriageStatusUtil.initialize(getEntityFactory().createTriageStatus()));
             content.setLastModification(ContentItem.Action.CREATED);
             content.setSent(Boolean.FALSE);
             content.setNeedsReply(Boolean.FALSE);

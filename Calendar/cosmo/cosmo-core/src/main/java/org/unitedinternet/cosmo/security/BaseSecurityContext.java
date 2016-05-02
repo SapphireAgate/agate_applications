@@ -123,28 +123,29 @@ public abstract class BaseSecurityContext implements CosmoSecurityContext {
         HashSet<Ticket> visible = new HashSet<Ticket>();
 
         // Admin context has access to all tickets
-        if (admin) {
-            visible.addAll(item.getTickets());
-        }
+//        if (admin) {
+//            visible.addAll(item.getTickets());
+//        }
+//
+//        // Ticket context can only see itself
+//        else if (ticket != null) {
+//            for (Ticket t : (Set<Ticket>) item.getTickets()) {
+//                if (ticket.equals(t)) {
+//                    visible.add(t);
+//                }
+//            }
+//        }
+//
+//        // User context can only see the tickets he owns
+//        else if (user != null) {
+//            for (Ticket t : (Set<Ticket>) item.getTickets()) {
+//                if (user.equals(t.getOwner())) {
+//                    visible.add(t);
+//                }
+//            }
+//        }
 
-        // Ticket context can only see itself
-        else if (ticket != null) {
-            for (Ticket t : (Set<Ticket>) item.getTickets()) {
-                if (ticket.equals(t)) {
-                    visible.add(t);
-                }
-            }
-        }
-
-        // User context can only see the tickets he owns
-        else if (user != null) {
-            for (Ticket t : (Set<Ticket>) item.getTickets()) {
-                if (user.equals(t.getOwner())) {
-                    visible.add(t);
-                }
-            }
-        }
-
+        System.out.println("[AGATE] no tickets");
         // Anonymous context can't see any tickets
 
         return visible;

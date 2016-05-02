@@ -19,12 +19,12 @@ import java.io.Reader;
 import java.io.Writer;
 import java.text.ParseException;
 
-import javax.xml.stream.Location;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
+import mf.javax.xml.stream.Location;
+import mf.javax.xml.stream.XMLInputFactory;
+import mf.javax.xml.stream.XMLOutputFactory;
+import mf.javax.xml.stream.XMLStreamException;
+import mf.javax.xml.stream.XMLStreamReader;
+import mf.javax.xml.stream.XMLStreamWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

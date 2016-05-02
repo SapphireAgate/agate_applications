@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.unitedinternet.cosmo.dao.ContentDao;
+import org.unitedinternet.cosmo.dao.hibernate.ContentDaoImpl;
 import org.unitedinternet.cosmo.model.CollectionItem;
 import org.unitedinternet.cosmo.model.filter.NoteItemFilter;
 
@@ -63,7 +64,7 @@ public class ContentDaoInvocationHandler implements InvocationHandler {
 
     private Object invokeInternalDao(Method method, Object[] args) throws Throwable {
         try {
-            return method.invoke(this.contentDaoInternal, args);
+        	return method.invoke(this.contentDaoInternal, args);
         } catch (Exception e) {
             throw unwrap(e);
         }

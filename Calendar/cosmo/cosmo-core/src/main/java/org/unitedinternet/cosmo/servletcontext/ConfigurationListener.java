@@ -21,6 +21,7 @@ import javax.servlet.ServletContextListener;
 
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.unitedinternet.cosmo.BeansSimulator;
 
 /**
  * A {@link javax.servlet.ServletContextListener} that uses a
@@ -44,9 +45,11 @@ public class ConfigurationListener implements ServletContextListener {
             WebApplicationContextUtils.getRequiredWebApplicationContext(sc);
 
         // load application configuration
-        ServletContextConfigurer scc = (ServletContextConfigurer)
-            wac.getBean(BEAN_SERVLET_CONTEXT_CONFIGURER,
-                        ServletContextConfigurer.class);
+        //ServletContextConfigurer scc = (ServletContextConfigurer)
+        //    wac.getBean(BEAN_SERVLET_CONTEXT_CONFIGURER,
+        //                ServletContextConfigurer.class);
+        //AGATE
+        ServletContextConfigurer scc = BeansSimulator.getServletContextConfigurer();
         scc.configure(sc);
     }
 

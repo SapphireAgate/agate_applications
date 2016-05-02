@@ -19,6 +19,6 @@ package org.unitedinternet.cosmo.model;
 /**
  * Represents a Task Stamp.
  */
-public interface TaskStamp extends Stamp{
+public interface TaskStamp extends Stamp {
 
 }

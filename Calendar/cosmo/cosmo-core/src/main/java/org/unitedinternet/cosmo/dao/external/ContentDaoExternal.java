@@ -19,7 +19,7 @@ import org.unitedinternet.cosmo.model.Stamp;
 import org.unitedinternet.cosmo.model.Ticket;
 import org.unitedinternet.cosmo.model.User;
 import org.unitedinternet.cosmo.model.filter.ItemFilter;
-import org.unitedinternet.cosmo.model.hibernate.HibNoteItem;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteNoteItemWrapper;
 
 import com.google.common.base.Strings;
 
@@ -137,11 +137,11 @@ public class ContentDaoExternal implements ContentDao {
      */
     private void postProcess(Set<NoteItem> noteItems) {
         for (NoteItem item : noteItems) {
-            HibNoteItem hibItem = (HibNoteItem) item;
-            String eTag = hibItem.getEntityTag();
-            if (eTag == null || eTag.trim().isEmpty()) {
-                hibItem.setEntityTag(UUID.randomUUID().toString());
-            }
+            OrmliteNoteItemWrapper ormItem = (OrmliteNoteItemWrapper) item;
+            //String eTag = ormItem.getEntityTag();
+            //if (eTag == null || eTag.trim().isEmpty()) {
+            //    ormItem.setEntityTag(UUID.randomUUID().toString());
+            //}
         }
     }
 
