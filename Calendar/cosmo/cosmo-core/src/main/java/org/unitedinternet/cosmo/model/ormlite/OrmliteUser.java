@@ -156,7 +156,7 @@ public class OrmliteUser implements User {//extends HibAuditableObject implement
 //            fetch=FetchType.LAZY, cascade=CascadeType.ALL, orphanRemoval=true)
 //    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 //    private Set<Preference> preferences = new HashSet<Preference>(0);
-    @ForeignCollectionField(eager = false)
+    @ForeignCollectionField(eager = true)
     ForeignCollection<OrmlitePreference> preferences;
     
 //    @OneToMany(targetEntity=HibCollectionSubscription.class, mappedBy = "owner", 
@@ -164,7 +164,7 @@ public class OrmliteUser implements User {//extends HibAuditableObject implement
 //    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 //    private Set<CollectionSubscription> subscriptions = 
 //        new HashSet<CollectionSubscription>(0);
-    @ForeignCollectionField(eager = false)
+    @ForeignCollectionField(eager = true)
     ForeignCollection<OrmliteCollectionSubscription> subscriptions;
 
     /**

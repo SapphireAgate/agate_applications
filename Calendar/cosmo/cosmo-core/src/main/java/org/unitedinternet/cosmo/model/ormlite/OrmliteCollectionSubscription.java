@@ -55,12 +55,12 @@ public class OrmliteCollectionSubscription implements CollectionSubscription { /
 //    @ManyToOne(targetEntity=OrmliteUser.class, fetch = FetchType.LAZY)
 //    @JoinColumn(name = "ownerid", nullable = false)
 //    @NotNull
-    @DatabaseField(columnName = "ownerid", foreign = true)
+    @DatabaseField(columnName = "OWNERID", foreign = true)
     private OrmliteUser owner;
     
     //@Column(name = "displayname", nullable = false, length = 255)
     //@NotNull
-    @DatabaseField(columnName = "displayname")
+    @DatabaseField(columnName = "DISPLAYNAME")
     private String displayName;
     
     //@Column(name = "ticketkey", nullable = false, length = 255)
@@ -69,7 +69,7 @@ public class OrmliteCollectionSubscription implements CollectionSubscription { /
     
     //@Column(name = "collectionuid", nullable = false, length = 255)
     //@NotNull
-    @DatabaseField(columnName = "collectionuid")
+    @DatabaseField(columnName = "COLLECTIONUID")
     private String collectionUid;
     
     /**

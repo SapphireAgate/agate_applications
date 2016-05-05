@@ -28,11 +28,13 @@ import org.unitedinternet.cosmo.BeansSimulator;
 import org.unitedinternet.cosmo.dao.query.ItemPathTranslator;
 import org.unitedinternet.cosmo.model.CollectionItem;
 import org.unitedinternet.cosmo.model.Item;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteCollectionItemDetails;
 import org.unitedinternet.cosmo.model.ormlite.OrmliteItem;
 import org.unitedinternet.cosmo.model.ormlite.OrmliteUser;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 
@@ -161,7 +163,7 @@ public class DefaultItemPathTranslator implements ItemPathTranslator {
 
         Item parentItem = rootItem;
         for (int i = 1; i < segments.length; i++) {
-            Item nextItem = findItemByParentAndName(c, parentItem,
+            Item nextItem = findItemByParentAndName(parentItem,
                     decode(segments[i]));
             parentItem = nextItem;
             // if any parent item doesn't exist then bail now
@@ -199,7 +201,7 @@ public class DefaultItemPathTranslator implements ItemPathTranslator {
 
         Item parentItem = root;
         for (int i = 0; i < segments.length; i++) {
-            Item nextItem = findItemByParentAndName(c, parentItem,
+            Item nextItem = findItemByParentAndName(parentItem,
                     decode(segments[i]));
             parentItem = nextItem;
             // if any parent item doesn't exist then bail now
@@ -242,8 +244,32 @@ public class DefaultItemPathTranslator implements ItemPathTranslator {
     	//throw new NotImplementedException();
     }
 
-    protected Item findItemByParentAndName(ConnectionSource c, Item parent,
+    protected Item findItemByParentAndName(Item parent,
                                            String name) {
+
+    	Dao<OrmliteItem, String> itemsDao = BeansSimulator.getBaseItemDao();
+    	//Dao<OrmliteCollectionItemDetails, String> collectionItemDetailsDao = BeansSimulator.getBaseCollectionItemDetailsDao();
+
+    	QueryBuilder<OrmliteItem, String> itemsDaoQb = itemsDao.queryBuilder();
+    	//QueryBuilder<OrmliteCollectionItemDetails, String> collectionItemQb = collectionItemDetailsDao.queryBuilder();
+
+    	try {
+    		String query = "SELECT \"ID\" FROM \"ITEM\" " +
+    				"LEFT JOIN \"COLLECTION_ITEM\" ON \"ITEM\".\"ID\" = \"COLLECTION_ITEM\".\"ITEMID\" " +
+    				"WHERE \"ITEM\".\"ITEMNAME\" = \'" + name + "\' AND  \"COLLECTION_ITEM\".\"COLLECTIONID\" = " + ((OrmliteItem)parent).getId();
+
+    		Long itemid = itemsDao.queryRawValue(query);
+    		
+    		itemsDaoQb.where().eq("ITEMNAME", name).and().eq("ID", itemid);
+    		//collectionItemQb.where().eq("COLLECTIONID", parent);
+    		//OrmliteItem item = itemsDaoQb.leftJoin(collectionItemQb).queryForFirst();
+    		OrmliteItem item = itemsDaoQb.queryForFirst();
+    		return item;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 //        Query hibQuery = session.getNamedQuery("item.by.parent.name")
 //                .setParameter("parent", parent).setParameter("name", name);
 //
@@ -253,8 +279,8 @@ public class DefaultItemPathTranslator implements ItemPathTranslator {
 //        } else {
 //            return null;
 //        }
-    	System.out.println("[AGATE] DefaultItemPathTranslator not implemented findItemByParentAndName");
-    	throw new NotImplementedException();
+    	//System.out.println("[AGATE] DefaultItemPathTranslator not implemented findItemByParentAndName");
+    	//throw new NotImplementedException();
     }
     private static String decode(String urlPath){
         try {

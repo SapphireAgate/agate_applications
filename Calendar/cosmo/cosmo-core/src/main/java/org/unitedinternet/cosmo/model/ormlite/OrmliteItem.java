@@ -181,22 +181,22 @@ public class OrmliteItem implements Item { //extends HibAuditableObject implemen
     private OrmliteItem modifies = null;
     
     // All foreign collections
-    @ForeignCollectionField(eager = false)
+    @ForeignCollectionField(eager = true)
     ForeignCollection<OrmliteItem> modifications;
 
-    @ForeignCollectionField(eager = false)
+    @ForeignCollectionField(eager = true, foreignFieldName = "itemid")
     ForeignCollection<OrmliteAttribute> attributes;
     
-    @ForeignCollectionField(eager = false)
+    @ForeignCollectionField(eager = true)
     ForeignCollection<OrmliteStamp> stamps;
     
-    @ForeignCollectionField(eager = false)
+    @ForeignCollectionField(eager = true)
     ForeignCollection<OrmliteTombstone> tombstones;
 
-    @ForeignCollectionField(eager = false,  foreignFieldName = "itemid")
+    @ForeignCollectionField(eager = true,  foreignFieldName = "itemid")
     ForeignCollection<OrmliteCollectionItemDetails> parentDetails;
     
-    @ForeignCollectionField(eager = false, foreignFieldName = "collectionid")
+    @ForeignCollectionField(eager = true, foreignFieldName = "collectionid")
     ForeignCollection<OrmliteCollectionItemDetails> childDetails;
     
     // Other
@@ -320,6 +320,10 @@ public class OrmliteItem implements Item { //extends HibAuditableObject implemen
         return Collections.unmodifiableMap(a);
     }
 
+    public ForeignCollection<OrmliteAttribute> getAttributesRaw() {
+    	return attributes;
+    }
+    
 //    /* (non-Javadoc)
 //     * @see org.unitedinternet.cosmo.model.Item#addTicket(org.unitedinternet.cosmo.model.Ticket)
 //     */
@@ -339,7 +343,8 @@ public class OrmliteItem implements Item { //extends HibAuditableObject implemen
      * @see org.unitedinternet.cosmo.model.Item#addAttribute(org.unitedinternet.cosmo.model.Attribute)
      */
     public void addAttribute(Attribute attribute) {
-        if (attribute == null) {
+    	
+    	if (attribute == null) {
             throw new IllegalArgumentException("attribute cannot be null");
         }
 
@@ -403,7 +408,7 @@ public class OrmliteItem implements Item { //extends HibAuditableObject implemen
      */
     public Attribute getAttribute(QName qname) {
     	for (Attribute a : attributes) {
-    		if (a.getQName().equals(qname))
+        	if (a.getQName().equals(qname))
     			return a;
     	}
     	return null;

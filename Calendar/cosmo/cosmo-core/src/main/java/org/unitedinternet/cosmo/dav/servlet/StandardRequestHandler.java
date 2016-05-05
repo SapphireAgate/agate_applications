@@ -63,15 +63,23 @@ import org.unitedinternet.cosmo.dav.provider.OutboxCollectionProvider;
 import org.unitedinternet.cosmo.dav.provider.UserPrincipalCollectionProvider;
 import org.unitedinternet.cosmo.dav.provider.UserPrincipalProvider;
 import org.unitedinternet.cosmo.model.CalendarCollectionStamp;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteCalendarCollectionStampWrapper;
+import org.unitedinternet.cosmo.model.Attribute;
 import org.unitedinternet.cosmo.model.CollectionItem;
 import org.unitedinternet.cosmo.model.EntityFactory;
 import org.unitedinternet.cosmo.model.User;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteAttribute;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteCollectionItemDetails;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteItem;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteCollectionItemWrapper;
 import org.unitedinternet.cosmo.security.CosmoSecurityException;
 import org.unitedinternet.cosmo.security.ItemSecurityException;
 import org.unitedinternet.cosmo.security.Permission;
 import org.unitedinternet.cosmo.server.ServerConstants;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.security.core.Authentication;
+
+import com.j256.ormlite.dao.Dao;
 
 /**
  * <p>
@@ -99,7 +107,7 @@ public class StandardRequestHandler extends HttpServlet implements ServerConstan
     	/* AGATE if path is "/" create two users alice and bob*/
     	if (request.getRequestURI().equals("/cosmo/dav/")) {
     		createUserIfNotPresent("alice");
-    		createUserIfNotPresent("bob");    		
+    		//createUserIfNotPresent("bob");	
     	}
     	
     	handleRequest(request, response);
@@ -128,7 +136,7 @@ public class StandardRequestHandler extends HttpServlet implements ServerConstan
 		String color = "#f0f0f0";
 		
 		System.out.println("[AGATE] Creating collection");
-		
+
 		CollectionItem collection = entityFactory.createCollection();
 		collection.setOwner(user);
 		collection.setName(defaultCalendarName);
@@ -136,17 +144,54 @@ public class StandardRequestHandler extends HttpServlet implements ServerConstan
 		collection.getStamp(CalendarCollectionStamp.class);
 
 		CalendarCollectionStamp colorCollectionStamp = entityFactory.createCalendarCollectionStamp(collection);
-		colorCollectionStamp.setColor(color);	
+		colorCollectionStamp.setColor(color);
 		colorCollectionStamp.setVisibility(true);
-		collection.addStamp(colorCollectionStamp);	
+		collection.addStamp(colorCollectionStamp);
+
+		//OrmliteItem item = (OrmliteItem) ((OrmliteCollectionItemWrapper) collection).getPersistedItem();
+		//System.out.println("[AGATE] count of stamps for item : " + item.getId() + " is " + item.getStamps().size());
 
 		CollectionItem rootItem = BeansSimulator.getContentService().getRootItem(user);
 		BeansSimulator.getContentService().createCollection(rootItem, collection);
-		
+
+//		Dao<OrmliteCollectionItemDetails, String> collectionItemDetailsDao = BeansSimulator.getBaseCollectionItemDetailsDao();
+//	
+//		System.out.println("==== ITEM DETAILS =====");
+//		
+//		for (OrmliteCollectionItemDetails it : collectionItemDetailsDao) {
+//			System.out.println("collectionid_id = " + it.getCollectionid().getId());
+//			System.out.println("collectionid_itemname = " + it.getCollectionid().getName());
+//			System.out.println("collectionid_itemtype = " + it.getCollectionid().getItemtype());
+//			
+//			System.out.println("itemid_id = " + it.getItemid().getId());
+//			System.out.println("itemid_itemname = " + it.getItemid().getName());
+//			System.out.println("itemid_itemtype = " + it.getItemid().getItemtype());
+//			System.out.println("**************************");
+//		}
+//		
+//		System.out.println("==== ITEMS =====");
+//		
+//		Dao<OrmliteItem, String> itemDao = BeansSimulator.getBaseItemDao();
+//		
+//		for (OrmliteItem it : itemDao) {
+//			System.out.println("itemtype = " + it.getItemtype());
+//			System.out.println("itemid = " + it.getId());
+//			System.out.println("itemname = " + it.getName());
+//			System.out.println("**************************");
+//		}
+//	
+//		System.out.println("==== ATTRIBUTES =====");
+//		
+//		Dao<OrmliteAttribute, String> attributeDao = BeansSimulator.getBaseAttributeDao();
+//		for (OrmliteAttribute a : attributeDao) {
+//			System.out.println("attributetype = " + a.getAttributetype());
+//			System.out.println("itemid = " + ((OrmliteItem)a.getItem()).getId());
+//			System.out.println("name = " + a.getName());
+//			System.out.println("**************************");
+//		}
 		return user;
 	}
-    
-    
+
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -260,8 +305,8 @@ public class StandardRequestHandler extends HttpServlet implements ServerConstan
         throws CosmoDavException, IOException {
         ifMatch(request, response, resource);
         ifNoneMatch(request, response, resource);
-        ifModifiedSince(request, resource);
-        ifUnmodifiedSince(request, resource);
+        //ifModifiedSince(request, resource);
+        //ifUnmodifiedSince(request, resource);
     }
 
 

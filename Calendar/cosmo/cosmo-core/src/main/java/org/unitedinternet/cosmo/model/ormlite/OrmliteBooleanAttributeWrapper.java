@@ -91,11 +91,9 @@ public class OrmliteBooleanAttributeWrapper extends OrmliteAttributeWrapper impl
      * @return Boolean value of IntegerAttribute
      */
     public static Boolean getValue(Item item, QName qname) {
-        BooleanAttribute ba = (BooleanAttribute) item.getAttribute(qname);
-        if(ba!=null) {
-            return ba.getValue();
-        }
-        return Boolean.FALSE;
+    	OrmliteBooleanAttributeWrapper ba = new OrmliteBooleanAttributeWrapper();
+    	ba.setPersistedAttribute((OrmliteAttribute)item.getAttribute(qname));
+        return ba.getValue();
     }
     
     /**
@@ -110,6 +108,7 @@ public class OrmliteBooleanAttributeWrapper extends OrmliteAttributeWrapper impl
         if(attr==null && value!=null) {
             attr = new OrmliteBooleanAttributeWrapper(qname,value);
             System.out.println("[AGATE] attributetype of boolean wrapper = " +  ((OrmliteBooleanAttributeWrapper)attr).getPersistedAttribute().getAttributetype());
+            System.out.println("[AGATE] attribute: " +  ((OrmliteBooleanAttributeWrapper)attr).getPersistedAttribute());
             item.addAttribute(((OrmliteBooleanAttributeWrapper)attr).getPersistedAttribute());
             return;
         }

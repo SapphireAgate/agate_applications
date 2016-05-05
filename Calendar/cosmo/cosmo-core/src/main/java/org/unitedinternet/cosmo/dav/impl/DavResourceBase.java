@@ -444,6 +444,8 @@ public abstract class DavResourceBase
             return;
         }
 
+    	System.out.println("[AGATE] Loading Properties");
+        
         properties.add(new SupportedReportSet(getReportTypes()));
         properties.add(new Acl(getAcl()));
         properties.add(new CurrentUserPrivilegeSet(getCurrentPrincipalPrivileges()));

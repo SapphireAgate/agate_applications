@@ -90,7 +90,24 @@ public abstract class ItemDaoImpl implements ItemDao {
     public Item findItemByPath(String path) {
 //        try {
             Item dbItem = itemPathTranslator.findItemByPath(path);
-            return dbItem;
+            
+            if (dbItem == null)
+            	return null;
+            
+            if (((OrmliteItem)dbItem).getItemtype() == "collection") {
+            	OrmliteCollectionItemWrapper itw = new  OrmliteCollectionItemWrapper();
+            	itw.setPersistedItem((OrmliteItem)dbItem);
+            	return itw;
+            }
+            
+            if (((OrmliteItem)dbItem).getItemtype() == "homecollection") {
+            	OrmliteHomeCollectionItemWrapper itw = new  OrmliteHomeCollectionItemWrapper();
+            	itw.setPersistedItem((OrmliteItem)dbItem);
+            	return itw;
+            }
+            
+            throw new NotImplementedException();
+            
 //        } catch (Exception e) {
 //            getSession().clear();
 //            throw e;

@@ -19,6 +19,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -147,22 +148,23 @@ public abstract class DavItemResourceBase extends DavResourceBase implements
     }
 
     public String getETag() {
-//        if (getItem() == null)
-//            return null;
-//        // an item that is about to be created does not yet have an etag
-//        if (StringUtils.isBlank(getItem().getEntityTag()))
-//            return null;
-//        return "\"" + getItem().getEntityTag() + "\"";
-    	throw new NotImplementedException();
+    	return null;
+        //if (getItem() == null)
+        //    return null;
+        // an item that is about to be created does not yet have an etag
+        //if (StringUtils.isBlank(getItem().getEntityTag()))
+        //    return null;
+        //return "\"" + getItem().getEntityTag() + "\"";
+    	//throw new NotImplementedException();
     }
 
     public long getModificationTime() {
-//        if (getItem() == null)
-//            return -1;
-//        if (getItem().getModifiedDate() == null)
-//            return new Date().getTime();
-//        return getItem().getModifiedDate().getTime();
-    	throw new NotImplementedException();
+        if (getItem() == null)
+            return -1;
+        if (getItem().getModifiedDate() == null)
+            return new Date().getTime();
+        return getItem().getModifiedDate().getTime();
+    	//throw new NotImplementedException();
     }
 
     public void setProperty(
@@ -551,40 +553,48 @@ public abstract class DavItemResourceBase extends DavResourceBase implements
      * </p>
      */
     protected Set<DavPrivilege> getCurrentPrincipalPrivileges() {
-        Set<DavPrivilege> privileges = super.getCurrentPrincipalPrivileges();
-        if (!privileges.isEmpty()) {
-            return privileges;
-        }
+    	//[AGATE] removing security related code
+    	Set<DavPrivilege> privileges = new HashSet<DavPrivilege>();
+    	privileges.add(DavPrivilege.READ);
+        privileges.add(DavPrivilege.WRITE);
+        privileges.add(DavPrivilege.READ_CURRENT_USER_PRIVILEGE_SET);
+        privileges.add(DavPrivilege.READ_FREE_BUSY);
+        return privileges;
+
+//        Set<DavPrivilege> privileges = super.getCurrentPrincipalPrivileges();
+//        if (!privileges.isEmpty()) {
+//            return privileges;
+//        }
 
         // XXX eventually we will want to find the aces for the user and
         // add each of their granted privileges
-        User user = getSecurityManager().getSecurityContext().getUser();
-        if (user != null) {
-            privileges.add(DavPrivilege.READ);
-            privileges.add(DavPrivilege.WRITE);
-            privileges.add(DavPrivilege.READ_CURRENT_USER_PRIVILEGE_SET);
-            privileges.add(DavPrivilege.READ_FREE_BUSY);
-            return privileges;
-        }
-
-        Ticket ticket = getSecurityManager().getSecurityContext().getTicket();
-        if (ticket != null) {
-            privileges.add(DavPrivilege.READ_CURRENT_USER_PRIVILEGE_SET);
-
-            if (ticket.getPrivileges().contains(Ticket.PRIVILEGE_READ)){
-                privileges.add(DavPrivilege.READ);
-            }
-            if (ticket.getPrivileges().contains(Ticket.PRIVILEGE_WRITE)){
-                privileges.add(DavPrivilege.WRITE);
-            }
-            if (ticket.getPrivileges().contains(Ticket.PRIVILEGE_FREEBUSY)){
-                privileges.add(DavPrivilege.READ_FREE_BUSY);
-            }
-
-            return privileges;
-        }
-
-        return privileges;
+//        User user = getSecurityManager().getSecurityContext().getUser();
+//        if (user != null) {
+//            privileges.add(DavPrivilege.READ);
+//            privileges.add(DavPrivilege.WRITE);
+//            privileges.add(DavPrivilege.READ_CURRENT_USER_PRIVILEGE_SET);
+//            privileges.add(DavPrivilege.READ_FREE_BUSY);
+//            return privileges;
+//        }
+//
+//        Ticket ticket = getSecurityManager().getSecurityContext().getTicket();
+//        if (ticket != null) {
+//            privileges.add(DavPrivilege.READ_CURRENT_USER_PRIVILEGE_SET);
+//
+//            if (ticket.getPrivileges().contains(Ticket.PRIVILEGE_READ)){
+//                privileges.add(DavPrivilege.READ);
+//            }
+//            if (ticket.getPrivileges().contains(Ticket.PRIVILEGE_WRITE)){
+//                privileges.add(DavPrivilege.WRITE);
+//            }
+//            if (ticket.getPrivileges().contains(Ticket.PRIVILEGE_FREEBUSY)){
+//                privileges.add(DavPrivilege.READ_FREE_BUSY);
+//            }
+//
+//            return privileges;
+//        }
+//
+//        return privileges;
     }
 
     protected void loadLiveProperties(DavPropertySet properties) {
@@ -599,7 +609,7 @@ public abstract class DavItemResourceBase extends DavResourceBase implements
         properties.add(new DisplayName(getDisplayName()));
         properties.add(new ResourceType(getResourceTypes()));
         properties.add(new IsCollection(isCollection()));
-        properties.add(new Owner(getResourceLocator(), item.getOwner()));
+        //properties.add(new Owner(getResourceLocator(), item.getOwner()));
         properties.add(new PrincipalCollectionSet(getResourceLocator()));
         //properties.add(new TicketDiscovery(getResourceLocator(), getTickets()));
         properties.add(new Uuid(item.getUid()));

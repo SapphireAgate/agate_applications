@@ -83,7 +83,7 @@ public class OrmliteAttribute extends OrmliteQName implements Attribute {
     private String tzvalue;
     
     // Foreign fields
-    @DatabaseField(columnName = "ITEMID", foreign = true, foreignAutoCreate = true)
+    @DatabaseField(columnName = "ITEMID", foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
     private OrmliteItem itemid;
 
     // Constructors

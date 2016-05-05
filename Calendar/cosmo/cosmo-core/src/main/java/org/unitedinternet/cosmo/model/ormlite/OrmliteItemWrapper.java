@@ -184,7 +184,7 @@ public class OrmliteItemWrapper implements Item {
 
 	@Override
 	public void setDisplayName(String displayName) {
-		getPersistedItem().setName(displayName);
+		getPersistedItem().setDisplayName(displayName);
 	}
 
 	@Override

@@ -50,17 +50,17 @@ public class OrmlitePreference implements Preference {//extends HibAuditableObje
     //@ManyToOne(targetEntity=OrmliteUser.class, fetch = FetchType.LAZY)
     //@JoinColumn(name = "userid", nullable = false)
     //@NotNull
-    @DatabaseField(columnName = "userid", foreign = true)
+    @DatabaseField(columnName = "USERID", foreign = true)
     private OrmliteUser user;
     
     //@Column(name = "preferencename", nullable = false, length = 255)
     //@NotNull
-    @DatabaseField(columnName = "preferencename")
+    @DatabaseField(columnName = "PREFERENCENAME")
     private String key;
     
     //@Column(name = "preferencevalue", nullable = false, length = 255)
     //@NotNull
-    @DatabaseField(columnName = "preferencevalue")
+    @DatabaseField(columnName = "PREFERENCEVALUE")
     private String value;
     
     public OrmlitePreference() {

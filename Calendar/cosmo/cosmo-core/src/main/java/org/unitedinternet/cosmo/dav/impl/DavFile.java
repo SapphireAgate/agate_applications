@@ -107,7 +107,7 @@ public class DavFile extends DavContentBase {
         long len = content.getContentLength() != null ?
             content.getContentLength().longValue() : 0;
         outputContext.setContentLength(len);
-        outputContext.setModificationTime(getModificationTime());
+        //outputContext.setModificationTime(getModificationTime());
         outputContext.setETag(getETag());
 
         if (! outputContext.hasStream()) {

@@ -205,6 +205,9 @@ public class StandardResourceFactory
     public WebDavResource createResource(DavResourceLocator locator,
                                       Item item)
         throws CosmoDavException {
+    	
+    	System.out.println("[AGATE] item instance = " + item);
+    	
         if (item == null) {
             throw new IllegalArgumentException("item cannot be null");
         }

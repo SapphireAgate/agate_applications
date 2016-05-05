@@ -53,6 +53,7 @@ import org.unitedinternet.cosmo.icalendar.ICal3ClientFilter;
 import org.unitedinternet.cosmo.icalendar.ICalendarClientFilterManager;
 //import org.unitedinternet.cosmo.model.hibernate.AuditableObjectInterceptor;
 import org.unitedinternet.cosmo.model.ormlite.EntityConverter;
+import org.unitedinternet.cosmo.model.ormlite.OrmliteAttribute;
 import org.unitedinternet.cosmo.model.ormlite.OrmliteCollectionItemDetails;
 import org.unitedinternet.cosmo.model.ormlite.OrmliteItem;
 import org.unitedinternet.cosmo.model.ormlite.OrmliteServerProperty;
@@ -83,6 +84,7 @@ public class BeansSimulator {
     public static Dao<OrmliteUser, String> baseUsersDao = null;
     public static Dao<OrmliteServerProperty, String> baseServerPropertiesDao = null;
     public static Dao<OrmliteCollectionItemDetails, String> baseCollectionItemDao = null;
+    public static Dao<OrmliteAttribute, String> baseAttributeDao = null;
 	//
     
     // Advanced cosmo DAOs
@@ -130,7 +132,6 @@ public class BeansSimulator {
     public static StandardTriageStatusQueryProcessor triageStatusQueryProcessor = null;
     public static ConnectionSource connectionSource = null;
     
-    
 	public static ServletContextConfigurer getServletContextConfigurer() {
 		if (servletContextConfigurer == null) {
 			servletContextConfigurer = new ServletContextConfigurer();
@@ -169,6 +170,17 @@ public class BeansSimulator {
 			};
 		}
 		return baseUsersDao;
+	}
+	
+	public static Dao<OrmliteAttribute, String> getBaseAttributeDao() {
+		if (baseAttributeDao == null) {
+			try {
+				baseAttributeDao = DaoManager.createDao(getConnectionSource(), OrmliteAttribute.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			};
+		}
+		return baseAttributeDao;
 	}
 
 	public static Dao<OrmliteServerProperty, String> getBaseServerPropertiesDao() {

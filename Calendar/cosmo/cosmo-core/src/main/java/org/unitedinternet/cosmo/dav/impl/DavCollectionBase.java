@@ -390,7 +390,7 @@ public class DavCollectionBase extends DavItemResourceBase implements
         }
 
         context.setContentType(IOUtil.buildContentType("text/html", "UTF-8"));
-        context.setModificationTime(getModificationTime());
+        //context.setModificationTime(getModificationTime());
         context.setETag(getETag());
 
         if (!context.hasStream()) {
@@ -474,7 +474,8 @@ public class DavCollectionBase extends DavItemResourceBase implements
             }
             writer.write("</dl>\n");
     
-            User user = getSecurityManager().getSecurityContext().getUser();
+            //User user = getSecurityManager().getSecurityContext().getUser();
+            User user = null;
             if (user != null) {
                 writer.write("<p>\n");
                 if (!isHomeCollection()) {

@@ -194,7 +194,7 @@ public abstract class DavCalendarResource extends DavContentBase
         // convert Calendar object to String, then to bytes (UTF-8)    
         byte[] calendarBytes = calendar.toString().getBytes("UTF-8");
         outputContext.setContentLength(calendarBytes.length);
-        outputContext.setModificationTime(getModificationTime());
+        //outputContext.setModificationTime(getModificationTime());
         outputContext.setETag(getETag());
         
         if (! outputContext.hasStream()) {

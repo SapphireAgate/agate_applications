@@ -239,6 +239,8 @@ public class DavCalendarCollection extends DavCollectionBase implements CaldavCo
     protected void loadLiveProperties(DavPropertySet properties) {
         super.loadLiveProperties(properties);
 
+        System.out.println("[AGATE] LoadLiveProperties in CollectionCalendar");
+        
         CalendarCollectionStamp cc = getCalendarCollectionStamp();
         if (cc == null) {
             return;

@@ -50,11 +50,11 @@ public class OrmliteCollectionItemDetails implements CollectionItemDetails {
 	@DatabaseField(columnName = "CREATEDATE")
 	private Long createDate;
 	
-	@DatabaseField(columnName = "COLLECTIONID", foreign = true, canBeNull = false, foreignAutoCreate = true)
-    private OrmliteItem collectionid;
-
-    @DatabaseField(columnName = "ITEMID", foreign = true, canBeNull = false, foreignAutoCreate = true)
+    @DatabaseField(columnName = "ITEMID", foreign = true, canBeNull = false, foreignAutoCreate = true, foreignAutoRefresh = true)
     private OrmliteItem itemid;
+	
+	@DatabaseField(columnName = "COLLECTIONID", foreign = true, canBeNull = false, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private OrmliteItem collectionid;
  
     public OrmliteCollectionItemDetails() {
     	this.createDate = System.currentTimeMillis();
@@ -91,6 +91,30 @@ public class OrmliteCollectionItemDetails implements CollectionItemDetails {
     public Date getTimestamp() {
         return new Date(this.createDate);
     }
+
+	public Long getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Long createDate) {
+		this.createDate = createDate;
+	}
+
+	public OrmliteItem getCollectionid() {
+		return collectionid;
+	}
+
+	public void setCollectionid(OrmliteItem collectionid) {
+		this.collectionid = collectionid;
+	}
+
+	public OrmliteItem getItemid() {
+		return itemid;
+	}
+
+	public void setItemid(OrmliteItem itemid) {
+		this.itemid = itemid;
+	}
 
 //    @Override
 //    public boolean equals(Object obj) {

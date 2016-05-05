@@ -13,10 +13,10 @@ public class OrmliteAttributeWrapper implements Attribute {
 	}
     
 	public OrmliteAttribute getPersistedAttribute() {
-		if (persistedAttribute == null) {
+		if (this.persistedAttribute == null) {
 			this.persistedAttribute = new OrmliteAttribute();
 		}
-		return persistedAttribute;
+		return this.persistedAttribute;
 	}
 	
 	public void setPersistedAttribute(OrmliteAttribute a) {

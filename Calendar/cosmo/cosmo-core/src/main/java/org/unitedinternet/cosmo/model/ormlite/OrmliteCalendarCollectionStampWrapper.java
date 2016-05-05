@@ -233,6 +233,7 @@ public class OrmliteCalendarCollectionStampWrapper extends OrmliteStampWrapper i
     @Override
     public void setVisibility(Boolean visibility) {
         // color stored as BooleanAttribute on Item
+    	System.out.println("[AGATE] Setting visibility to " + visibility);
         OrmliteBooleanAttributeWrapper.setValue(getPersistedStamp().getItem(), ATTR_CALENDAR_VISIBILITY, visibility);
         
     }

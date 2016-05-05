@@ -96,13 +96,9 @@ public class OrmliteStringAttributeWrapper extends OrmliteAttributeWrapper imple
      * @return String value of StringAttribute
      */
     public static String getValue(Item item, QName qname) {
-        StringAttribute ta = (StringAttribute) item.getAttribute(qname);
-        if(ta==null) {
-            return null;
-        }
-        else {
-            return ta.getValue();
-        }
+    	OrmliteStringAttributeWrapper sa = new OrmliteStringAttributeWrapper();
+    	sa.setPersistedAttribute((OrmliteAttribute)item.getAttribute(qname));
+        return sa.getValue();
     }
     
     /**
